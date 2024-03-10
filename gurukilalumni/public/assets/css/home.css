@@ -1,0 +1,31 @@
+.slider {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+}
+
+.slides img {
+  width: 100%;
+  display: block;
+  transition: transform 6s ease;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}

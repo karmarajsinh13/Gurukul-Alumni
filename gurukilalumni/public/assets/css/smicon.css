@@ -1,0 +1,42 @@
+/* public\assets\css\smicon.css */
+  .center {
+    display: table;
+    width: 80%;
+    height: 80vh;
+  }
+  
+  #social-test {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    .social {
+      padding-left: 690px;
+    }
+    li {
+      color: rgba(167, 146, 129, 0.6);
+      list-style-type: none;
+      display: inline-block;
+      width: 33px;
+      height: 33px;
+      line-height: 33px;
+      padding: 1%;
+      border: 1px solid rgba(167, 146, 129, 0.4);
+      cursor: pointer;
+      margin-left: 10px;
+      margin-bottom: 20px;
+      transition: ease .3s;
+      &:hover {
+        color: rgba(167, 146, 129, 1);
+        border: 1px solid rgba(167, 146, 129, 1);
+      }
+    }
+  }
+  
+  .social:hover > li {
+    opacity: 0.5;
+  }
+  
+  .social:hover > li:hover {
+    opacity: 1;
+  }
