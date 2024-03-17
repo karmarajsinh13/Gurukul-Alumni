@@ -5,7 +5,7 @@ export default function Events() {
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">
-        {/* Categories display in desktop and tablet starts here */}
+        
         <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--hide-phone category-adjust">
           <div className="mdl-color--grey-300 margin-bottom-24">
             <input
@@ -85,15 +85,12 @@ export default function Events() {
               style={{ margin: 0, padding: "15px 0 18px" }}
               className="ng-hide"
             >
-              {/* ngRepeat: category in displayCategories | orderObjectBy:'order' */}
+              
             </div>
-            {/* ngIf: isAdmin */}
-            {/* <li ng-if="categories" ng-repeat="category in displayCategories" class="mdl-color--grey-300 font-16 category-list" ng-click="eventsFetch(category.tagid, 1)" ng-class="{'active-category': tabType == category.tagid}">
-                              <span class="category-text mdl-typography--font-medium category-overflow">{{category.name}}</span>
-                              <span class="mdl-color-text--grey-600 category-count">({{event_counts[category.tagid]}})</span>
-                          </li> */}
-            {/* ngIf: ($root.app_data.same_com_log && isAllowed(20)) */}
-            {/* ngIf: $root.app_data.same_com_log */}
+            
+            
+            
+            
             <li
               ng-if="$root.app_data.same_com_log"
               className="mdl-color--grey-300 font-16 category-list ng-scope"
@@ -107,12 +104,12 @@ export default function Events() {
                 (1)
               </span>
             </li>
-            {/* end ngIf: $root.app_data.same_com_log */}
+            
           </ul>
-          {/* ngIf: tag */}
+          
         </div>
-        {/* Categories display in desktop and tablet ends here */}
-        {/* Categories display in phone starts here */}
+        
+        
         <div
           className="mdl-cell mdl-cell--4-col margin-bottom-12 mdl-cell--hide-desktop mdl-cell--hide-tablet"
           style={{ borderRadius: "4px" }}
@@ -207,7 +204,7 @@ export default function Events() {
                 (0)
               </span>
             </li>
-            {/* ngRepeat: category in displayCategories | orderObjectBy:'order' */}
+            
             <li
               ng-show="$root.app_data.same_com_log"
               className="mdl-list__item category-list-small"
@@ -259,13 +256,13 @@ export default function Events() {
               </span>
             </li>
           </ul>
-          {/* ngIf: tag */}
+          
         </div>
-        {/* Categories display in phone ends here */}
-        {/* Center area of page starts here */}
+        
+        
         <div className="mdl-cell mdl-cell--8-col mdl-cell--5-col-tablet">
-       
-          {/* ngIf: searched._uncleared */}
+
+          
           <div className="events-top" />
           <div
             ng-show="DisplayedEvents"
@@ -276,8 +273,8 @@ export default function Events() {
             infinite-scroll-distance={1}
             id="event_cards"
           >
-            {/* Event Card starts here */}
-            {/* ngRepeat: (key1, event) in DisplayedEvents */}
+            
+            
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -311,9 +308,9 @@ export default function Events() {
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
                       >
-                        {/* ngIf: live */}
+                        
                       </div>
-                      {/* ngIf: event.event_logo */}
+                      
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
@@ -329,20 +326,10 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
                       />
-                      {/* end ngIf: event.event_logo */}
-                      {/* ngIf: !event.event_logo */}
+                      
+                      
                     </div>
-                    {/* <div ng-if="!event.event_logo" class="flex-dir-column flexbox justify-content-center rel-pos" style="min-height:150px; max-height:250px;">
-                                              <div class="abs-pos object_fit_background" style="background: url('https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg') center center / cover no-repeat;top:0;bottom:0;right:0;left:0;"></div>
-                                              <div class="abs-pos mdl-color--grey-900" style="top:0;bottom:0;right:0;left:0;" ng-style="{'opacity': event.sdate ? '0.5' : '0.7'}"></div>
-                                              <div class="flex-dir-column flexbox mdl-typography--font-light rel-pos" style="width:100%;height:100%;">        
-                                                  <div class="center-alignment font-12 main-family margin-bottom-10 mdl-color-text--white rel-pos">
-                                                      <div class="font-16" ng-show="event.sdate">{{ event.sdate | date:'EEEE' }}</div>
-                                                      <div class="font-24 mdl-typography--font-medium" ng-show="event.sdate">{{ event.sdate | date:'MMM dd, yyyy' }}</div>
-                                                      <div class="font-16" ng-hide="event.sdate">Coming Soon...</div>
-                                                  </div>
-                                              </div>
-                                          </div> */}
+                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -371,9 +358,7 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            {/* <button id="side-menu{{key1}}" href="{{$root.COMM_APPBASE}}events/{{event.event_id}}?source=any" class="mdl-button mdl-js-button mdl-button--icon font-18 share_icon float-right">
-                                                          <i class="icon-share"></i>
-                                                      </button> */}
+                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -400,12 +385,7 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    {/* <a
-                                                                      ng-href="https://twitter.com/intent/tweet?text={{event.title}}&url={{$root.COMM_APPBASE}}events/{{event.event_id}}?source=tw"
-                                                                      onclick="shareCard(event,'twitter')"
-                                                                      class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-500 mdl-color-text--white font-16 share-social">
-                                                                      <i class="icon-x adjust-social-icons"></i>
-                                                                  </a> */}
+                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -477,12 +457,12 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                        style={{}}
+                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
                         <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                          style={{}}
+                     
                         />
                         <span
                           ng-show="event.location"
@@ -510,17 +490,17 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      {/* ngIf: !(event.metadata.hide_attendees) */}
+                      
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        {/* ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <span
                           ng-repeat="(key2, guest) in event.guests | limitTo: 3"
                           className="ng-scope"
                         >
-                          {/* ngIf: guest.is_guest!=1 */}
+                          
                           <a
                             ng-if="guest.is_guest!=1"
                             ui-sref="inapp.profile({uid: '2184834',source: 'ev_attendees'})"
@@ -537,8 +517,8 @@ export default function Events() {
                               className="ng-isolate-scope"
                               tabIndex={0}
                             >
-                              {/* ngIf: !profileSrc */}
-                              {/* ngIf: profileSrc */}
+                              
+                              
                               <img
                                 ng-class="imgConfig.parentDiv"
                                 ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -551,7 +531,7 @@ export default function Events() {
                                 style={{ float: "left" }}
                                 src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2184834.jpg?v=1664870790"
                               />
-                              {/* end ngIf: profileSrc */}
+                              
                             </as-profile-pic>
                             <div
                               className="mdl-tooltip ng-binding"
@@ -561,15 +541,15 @@ export default function Events() {
                               Hardik Bhasotiya
                             </div>
                           </a>
-                          {/* end ngIf: guest.is_guest!=1 */}
-                          {/* ngIf: guest.is_guest==1 */}
+                          
+                          
                         </span>
-                        {/* end ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <span
                           ng-repeat="(key2, guest) in event.guests | limitTo: 3"
                           className="ng-scope"
                         >
-                          {/* ngIf: guest.is_guest!=1 */}
+                          
                           <a
                             ng-if="guest.is_guest!=1"
                             ui-sref="inapp.profile({uid: '2276652',source: 'ev_attendees'})"
@@ -586,8 +566,8 @@ export default function Events() {
                               className="ng-isolate-scope"
                               tabIndex={0}
                             >
-                              {/* ngIf: !profileSrc */}
-                              {/* ngIf: profileSrc */}
+                              
+                              
                               <img
                                 ng-class="imgConfig.parentDiv"
                                 ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -600,7 +580,7 @@ export default function Events() {
                                 style={{ float: "left" }}
                                 src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2276652.jpg?v=1667299603"
                               />
-                              {/* end ngIf: profileSrc */}
+                              
                             </as-profile-pic>
                             <div
                               className="mdl-tooltip ng-binding"
@@ -610,15 +590,15 @@ export default function Events() {
                               Bhavin Sarvaiya
                             </div>
                           </a>
-                          {/* end ngIf: guest.is_guest!=1 */}
-                          {/* ngIf: guest.is_guest==1 */}
+                          
+                          
                         </span>
-                        {/* end ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <span
                           ng-repeat="(key2, guest) in event.guests | limitTo: 3"
                           className="ng-scope"
                         >
-                          {/* ngIf: guest.is_guest!=1 */}
+                          
                           <a
                             ng-if="guest.is_guest!=1"
                             ui-sref="inapp.profile({uid: '2123070',source: 'ev_attendees'})"
@@ -635,8 +615,8 @@ export default function Events() {
                               className="ng-isolate-scope"
                               tabIndex={0}
                             >
-                              {/* ngIf: !profileSrc */}
-                              {/* ngIf: profileSrc */}
+                              
+                              
                               <img
                                 ng-class="imgConfig.parentDiv"
                                 ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -649,7 +629,7 @@ export default function Events() {
                                 style={{ float: "left" }}
                                 src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2123070.jpg?v=1700936042"
                               />
-                              {/* end ngIf: profileSrc */}
+                              
                             </as-profile-pic>
                             <div
                               className="mdl-tooltip ng-binding"
@@ -659,10 +639,10 @@ export default function Events() {
                               Komal Ladumor{" "}
                             </div>
                           </a>
-                          {/* end ngIf: guest.is_guest!=1 */}
-                          {/* ngIf: guest.is_guest==1 */}
+                          
+                          
                         </span>
-                        {/* end ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees"
                           ng-show="(event.total_guests)>0"
@@ -670,8 +650,8 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/7781?source=eventlist"
                         >
-                          {/* ngIf: event.total_guests==1 */}
-                          {/* ngIf: event.total_guests!=1 */}
+                          
+                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -679,13 +659,13 @@ export default function Events() {
                           >
                             1457 attendees
                           </span>
-                          {/* end ngIf: event.total_guests!=1 */}
+                          
                         </a>
                       </div>
-                      {/* end ngIf: !(event.metadata.hide_attendees) */}
+                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      {/* ngIf: event.activate_status!=1 */}
+                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -699,24 +679,22 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      {/* end ngIf: event.activate_status!=1 */}
-                      {/* ngIf: event.activate_status==1 */}
-                      {/* ngIf: event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1)) */}
-                      {/* ngIf: event.fee && event.fee!=0 */}
+                      
+                      
+                      
+                      
+                      <Link
+                    className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
+                   to="/ViewEventDetail">
+                    View
+                  </Link>
                     </div>
                   </div>
-                  <button
-                    className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
-                    ui-sref="inapp.event_single({eventId: '7781',source:'eventlist'})"
-                    href="/events/7781?source=eventlist"
-                    data-upgraded=",MaterialButton"
-                  ><Link to="ViewEventDetail"/>
-                    View
-                  </button>
+
                 </div>
               </div>
             </div>
-            {/* end ngRepeat: (key1, event) in DisplayedEvents */}
+            
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -750,9 +728,9 @@ export default function Events() {
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
                       >
-                        {/* ngIf: live */}
+                        
                       </div>
-                      {/* ngIf: event.event_logo */}
+                      
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046621.jpg"
@@ -768,20 +746,10 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046621.jpg"
                       />
-                      {/* end ngIf: event.event_logo */}
-                      {/* ngIf: !event.event_logo */}
+                      
+                      
                     </div>
-                    {/* <div ng-if="!event.event_logo" class="flex-dir-column flexbox justify-content-center rel-pos" style="min-height:150px; max-height:250px;">
-                                              <div class="abs-pos object_fit_background" style="background: url('https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg') center center / cover no-repeat;top:0;bottom:0;right:0;left:0;"></div>
-                                              <div class="abs-pos mdl-color--grey-900" style="top:0;bottom:0;right:0;left:0;" ng-style="{'opacity': event.sdate ? '0.5' : '0.7'}"></div>
-                                              <div class="flex-dir-column flexbox mdl-typography--font-light rel-pos" style="width:100%;height:100%;">        
-                                                  <div class="center-alignment font-12 main-family margin-bottom-10 mdl-color-text--white rel-pos">
-                                                      <div class="font-16" ng-show="event.sdate">{{ event.sdate | date:'EEEE' }}</div>
-                                                      <div class="font-24 mdl-typography--font-medium" ng-show="event.sdate">{{ event.sdate | date:'MMM dd, yyyy' }}</div>
-                                                      <div class="font-16" ng-hide="event.sdate">Coming Soon...</div>
-                                                  </div>
-                                              </div>
-                                          </div> */}
+                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -809,9 +777,7 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            {/* <button id="side-menu{{key1}}" href="{{$root.COMM_APPBASE}}events/{{event.event_id}}?source=any" class="mdl-button mdl-js-button mdl-button--icon font-18 share_icon float-right">
-                                                          <i class="icon-share"></i>
-                                                      </button> */}
+                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -838,12 +804,7 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    {/* <a
-                                                                      ng-href="https://twitter.com/intent/tweet?text={{event.title}}&url={{$root.COMM_APPBASE}}events/{{event.event_id}}?source=tw"
-                                                                      onclick="shareCard(event,'twitter')"
-                                                                      class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-500 mdl-color-text--white font-16 share-social">
-                                                                      <i class="icon-x adjust-social-icons"></i>
-                                                                  </a> */}
+                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6660?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -915,12 +876,12 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                        style={{}}
+                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
                         <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                          style={{}}
+                     
                         />
                         <span
                           ng-show="event.location"
@@ -947,12 +908,12 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      {/* ngIf: !(event.metadata.hide_attendees) */}
+                      
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        {/* ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -960,8 +921,8 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6660?source=eventlist"
                         >
-                          {/* ngIf: event.total_guests==1 */}
-                          {/* ngIf: event.total_guests!=1 */}
+                          
+                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -969,13 +930,13 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          {/* end ngIf: event.total_guests!=1 */}
+                          
                         </a>
                       </div>
-                      {/* end ngIf: !(event.metadata.hide_attendees) */}
+                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      {/* ngIf: event.activate_status!=1 */}
+                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -989,10 +950,10 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      {/* end ngIf: event.activate_status!=1 */}
-                      {/* ngIf: event.activate_status==1 */}
-                      {/* ngIf: event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1)) */}
-                      {/* ngIf: event.fee && event.fee!=0 */}
+                      
+                      
+                      
+                      
                     </div>
                   </div>
                   <button
@@ -1006,7 +967,7 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            {/* end ngRepeat: (key1, event) in DisplayedEvents */}
+            
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -1040,9 +1001,9 @@ export default function Events() {
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
                       >
-                        {/* ngIf: live */}
+                        
                       </div>
-                      {/* ngIf: event.event_logo */}
+                      
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046733.jpg"
@@ -1058,20 +1019,10 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046733.jpg"
                       />
-                      {/* end ngIf: event.event_logo */}
-                      {/* ngIf: !event.event_logo */}
+                      
+                      
                     </div>
-                    {/* <div ng-if="!event.event_logo" class="flex-dir-column flexbox justify-content-center rel-pos" style="min-height:150px; max-height:250px;">
-                                              <div class="abs-pos object_fit_background" style="background: url('https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg') center center / cover no-repeat;top:0;bottom:0;right:0;left:0;"></div>
-                                              <div class="abs-pos mdl-color--grey-900" style="top:0;bottom:0;right:0;left:0;" ng-style="{'opacity': event.sdate ? '0.5' : '0.7'}"></div>
-                                              <div class="flex-dir-column flexbox mdl-typography--font-light rel-pos" style="width:100%;height:100%;">        
-                                                  <div class="center-alignment font-12 main-family margin-bottom-10 mdl-color-text--white rel-pos">
-                                                      <div class="font-16" ng-show="event.sdate">{{ event.sdate | date:'EEEE' }}</div>
-                                                      <div class="font-24 mdl-typography--font-medium" ng-show="event.sdate">{{ event.sdate | date:'MMM dd, yyyy' }}</div>
-                                                      <div class="font-16" ng-hide="event.sdate">Coming Soon...</div>
-                                                  </div>
-                                              </div>
-                                          </div> */}
+                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -1099,9 +1050,7 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            {/* <button id="side-menu{{key1}}" href="{{$root.COMM_APPBASE}}events/{{event.event_id}}?source=any" class="mdl-button mdl-js-button mdl-button--icon font-18 share_icon float-right">
-                                                          <i class="icon-share"></i>
-                                                      </button> */}
+                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -1128,12 +1077,7 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    {/* <a
-                                                                      ng-href="https://twitter.com/intent/tweet?text={{event.title}}&url={{$root.COMM_APPBASE}}events/{{event.event_id}}?source=tw"
-                                                                      onclick="shareCard(event,'twitter')"
-                                                                      class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-500 mdl-color-text--white font-16 share-social">
-                                                                      <i class="icon-x adjust-social-icons"></i>
-                                                                  </a> */}
+                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6661?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -1205,18 +1149,18 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className="ng-hide"
-                        style={{}}
+                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
                         <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                          style={{}}
+                     
                         />
                         <span
                           ng-show="event.location"
                           className="font-14 font-xs-12 ng-binding"
                         >
-                          https://www.webinar.com/join
+                          https:
                         </span>
                         <span
                           className="font-14 font-xs-12 ng-binding ng-hide"
@@ -1236,12 +1180,12 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      {/* ngIf: !(event.metadata.hide_attendees) */}
+                      
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        {/* ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -1249,8 +1193,8 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6661?source=eventlist"
                         >
-                          {/* ngIf: event.total_guests==1 */}
-                          {/* ngIf: event.total_guests!=1 */}
+                          
+                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -1258,13 +1202,13 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          {/* end ngIf: event.total_guests!=1 */}
+                          
                         </a>
                       </div>
-                      {/* end ngIf: !(event.metadata.hide_attendees) */}
+                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      {/* ngIf: event.activate_status!=1 */}
+                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -1278,10 +1222,10 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      {/* end ngIf: event.activate_status!=1 */}
-                      {/* ngIf: event.activate_status==1 */}
-                      {/* ngIf: event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1)) */}
-                      {/* ngIf: event.fee && event.fee!=0 */}
+                      
+                      
+                      
+                      
                     </div>
                   </div>
                   <button
@@ -1295,7 +1239,7 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            {/* end ngRepeat: (key1, event) in DisplayedEvents */}
+            
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -1329,9 +1273,9 @@ export default function Events() {
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
                       >
-                        {/* ngIf: live */}
+                        
                       </div>
-                      {/* ngIf: event.event_logo */}
+                      
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046534.jpg"
@@ -1347,20 +1291,10 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046534.jpg"
                       />
-                      {/* end ngIf: event.event_logo */}
-                      {/* ngIf: !event.event_logo */}
+                      
+                      
                     </div>
-                    {/* <div ng-if="!event.event_logo" class="flex-dir-column flexbox justify-content-center rel-pos" style="min-height:150px; max-height:250px;">
-                                              <div class="abs-pos object_fit_background" style="background: url('https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg') center center / cover no-repeat;top:0;bottom:0;right:0;left:0;"></div>
-                                              <div class="abs-pos mdl-color--grey-900" style="top:0;bottom:0;right:0;left:0;" ng-style="{'opacity': event.sdate ? '0.5' : '0.7'}"></div>
-                                              <div class="flex-dir-column flexbox mdl-typography--font-light rel-pos" style="width:100%;height:100%;">        
-                                                  <div class="center-alignment font-12 main-family margin-bottom-10 mdl-color-text--white rel-pos">
-                                                      <div class="font-16" ng-show="event.sdate">{{ event.sdate | date:'EEEE' }}</div>
-                                                      <div class="font-24 mdl-typography--font-medium" ng-show="event.sdate">{{ event.sdate | date:'MMM dd, yyyy' }}</div>
-                                                      <div class="font-16" ng-hide="event.sdate">Coming Soon...</div>
-                                                  </div>
-                                              </div>
-                                          </div> */}
+                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -1388,9 +1322,7 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            {/* <button id="side-menu{{key1}}" href="{{$root.COMM_APPBASE}}events/{{event.event_id}}?source=any" class="mdl-button mdl-js-button mdl-button--icon font-18 share_icon float-right">
-                                                          <i class="icon-share"></i>
-                                                      </button> */}
+                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -1417,12 +1349,7 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    {/* <a
-                                                                      ng-href="https://twitter.com/intent/tweet?text={{event.title}}&url={{$root.COMM_APPBASE}}events/{{event.event_id}}?source=tw"
-                                                                      onclick="shareCard(event,'twitter')"
-                                                                      class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-500 mdl-color-text--white font-16 share-social">
-                                                                      <i class="icon-x adjust-social-icons"></i>
-                                                                  </a> */}
+                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6659?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -1494,12 +1421,12 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                        style={{}}
+                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
                         <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                          style={{}}
+                     
                         />
                         <span
                           ng-show="event.location"
@@ -1526,12 +1453,12 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      {/* ngIf: !(event.metadata.hide_attendees) */}
+                      
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        {/* ngRepeat: (key2, guest) in event.guests | limitTo: 3 */}
+                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -1539,8 +1466,8 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6659?source=eventlist"
                         >
-                          {/* ngIf: event.total_guests==1 */}
-                          {/* ngIf: event.total_guests!=1 */}
+                          
+                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -1548,13 +1475,13 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          {/* end ngIf: event.total_guests!=1 */}
+                          
                         </a>
                       </div>
-                      {/* end ngIf: !(event.metadata.hide_attendees) */}
+                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      {/* ngIf: event.activate_status!=1 */}
+                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -1568,10 +1495,10 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      {/* end ngIf: event.activate_status!=1 */}
-                      {/* ngIf: event.activate_status==1 */}
-                      {/* ngIf: event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1)) */}
-                      {/* ngIf: event.fee && event.fee!=0 */}
+                      
+                      
+                      
+                      }
                     </div>
                   </div>
                   <button
@@ -1585,12 +1512,12 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            {/* end ngRepeat: (key1, event) in DisplayedEvents */}
-            {/* Event Card ends here */}
+            
+            
             <div
               ng-hide="!lock[currnt_criteria]"
               className="maximize-width ng-hide"
-              style={{}}
+         
             >
               <div
                 className="mdl-progress mdl-js-progress mdl-progress__indeterminate maximize-width is-upgraded"
@@ -1604,7 +1531,7 @@ export default function Events() {
             <div
               ng-show="no_more_data[currnt_criteria]"
               className="mdl-color--grey-300 mdl-color-text--grey-900 padding-16 maximize-width center-alignment ng-binding"
-              style={{}}
+         
             >
               No more events to display!
             </div>

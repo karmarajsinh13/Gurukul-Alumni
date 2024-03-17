@@ -1,6 +1,6 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
-
+import {Link} from "react-router-dom";
 export default function Header() {
   return (
     <div>
@@ -21,8 +21,8 @@ export default function Header() {
         <div class="container mx-auto flex justify-center items-center">
           <nav>
             <ul class="flex space-x-4 justify-center text-lg">
-              <li className="hover:underline">Home</li>
-              <li className="hover:underline">Events</li>
+              <Link className="hover:underline" to="/Home">Home</Link>
+              <Link className="hover:underline" to="/Events">Events</Link>
               <li className="hover:underline">News & Stories</li>
               <li className="hover:underline">Noticeboard</li>
               <li className="hover:underline">Introducing Flash Batchmates</li>

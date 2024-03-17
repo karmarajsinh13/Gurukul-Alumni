@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Event from "./Components/Events";
+import Events from "./Components/Events";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
@@ -30,8 +30,8 @@ function App() {
           element: <Footer/>,
         },
         {
-          path: "/Event",
-          element: <Event/>,
+          path: "/Events",
+          element: <Events/>,
         },
         {
           path: "/ViewEventDetail",
