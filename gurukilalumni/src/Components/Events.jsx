@@ -36,8 +36,7 @@ export default function Events() {
           >
             <li
               className="mdl-color--grey-300 font-16 category-list active-category"
-              ng-click="eventsFetch('all', 1)"
-              ng-class="{'active-category': tabType == 'all'}"
+           
             >
               <span className="category-text mdl-typography--font-medium category-overflow ng-binding">
                 All Events
@@ -1498,7 +1497,7 @@ export default function Events() {
                       
                       
                       
-                      }
+                        
                     </div>
                   </div>
                   <button

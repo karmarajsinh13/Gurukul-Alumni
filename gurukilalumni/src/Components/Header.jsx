@@ -24,6 +24,7 @@ export default function Header() {
               <Link className="hover:underline" to="/Home">Home</Link>
               <Link className="hover:underline" to="/Events">Events</Link>
               <li className="hover:underline">News & Stories</li>
+              <Link className="hover:underline" to="/Gallery">Gallery</Link>
               <li className="hover:underline">Noticeboard</li>
               <li className="hover:underline">Introducing Flash Batchmates</li>
               <li className="hover:underline">Find Alumni</li>

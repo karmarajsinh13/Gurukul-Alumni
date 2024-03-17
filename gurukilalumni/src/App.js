@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import ViewEventDetail from "./Components/ViewEventDetail";
+import Gallery from "./Components/Gallery";
 
 function App() {
   const Layout = () => {
@@ -36,6 +37,10 @@ function App() {
         {
           path: "/ViewEventDetail",
           element: <ViewEventDetail/>,
+        },
+        {
+          path: "/Gallery",
+          element: <Gallery/>,
         },
       ],
     },
