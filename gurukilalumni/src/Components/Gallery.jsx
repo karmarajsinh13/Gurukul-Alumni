@@ -1,4 +1,8 @@
 import React from "react";
+import img1 from '../img/img1.jpg';
+import img2 from '../img/img2.jpg';
+import img3 from '../img/img3.jpg';
+
 
 export default function Gallery() {
   return (
@@ -34,7 +38,7 @@ export default function Gallery() {
               </span>
             </li>
 
-            <li
+            {/* <li
               ng-show="categories"
               className="mdl-color--grey-300 font-16 category-list ng-hide"
               ng-click="showCategoriesTab=!showCategoriesTab;"
@@ -47,9 +51,9 @@ export default function Gallery() {
             <div
               ng-show="categories && showCategoriesTab"
               className="ng-hide"
-            ></div>
+            ></div> */}
 
-            <li
+            {/* <li
               className="mdl-color--grey-300 font-16 category-list  ng-scope"
               ng-class="{'active-category': currC=='createdByMe'}"
               ng-click="fetch_galleries('createdByMe',[1,2,3],1,false)"
@@ -61,7 +65,7 @@ export default function Gallery() {
               <span className="mdl-color-text--grey-600 category-count ">
                 (<span className="ng-binding">0</span>)
               </span>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -114,7 +118,7 @@ export default function Gallery() {
               </span>
             </li>
 
-            <li
+            {/* <li
               ng-if="$root.app_data.same_com_log"
               className="mdl-list__item category-list-small ng-scope"
               style={{ cursor: "pointer" }}
@@ -130,7 +134,7 @@ export default function Gallery() {
               >
                 (<span className="ng-binding">0</span>)
               </span>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -141,7 +145,7 @@ export default function Gallery() {
             infinite-scroll-disabled="load || noData"
             infinite-scroll-distance={1}
           >
-            <div
+            {/* <div
               className="mdl-cell mdl-cell--12-col maximize-width-xs ng-scope margin-lr-xs-16"
               ng-class="{'margin-lr-xs-16': !albumCreate,'margin-lr-xs-0': albumCreate}"
               ng-if="post_right"
@@ -263,14 +267,14 @@ export default function Gallery() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div
+            {/* <div
               ng-show="!load && display.length==0"
               className="mdl-color--grey-300 mdl-color-text--grey-900 padding-16 maximize-width center-alignment ng-binding ng-hide"
             >
               No gallery to display under this category!
-            </div>
+            </div> */}
 
             <div
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
@@ -365,7 +369,7 @@ export default function Gallery() {
                       className="aspect-ratio-child aspect-ratio-fit-photo border-radius-12 ng-isolate-scope"
                       lazy-load-image
                       data-src="https://img.youtube.com/vi/Ni6siBuJXdw/0.jpg"
-                      src="https://img.youtube.com/vi/Ni6siBuJXdw/0.jpg"
+                      src={img1}
                       data-loaded="true"
                     />
                   </a>
@@ -389,7 +393,7 @@ export default function Gallery() {
                             }}
                             href="/galleries/8189"
                           >
-                            Alumni Spotlight
+                            Navratri 2k23
                           </a>
                         </div>
                         <div className="font-14 font-xs-12 padding-left-10 ng-binding">
@@ -501,7 +505,7 @@ export default function Gallery() {
                       className="aspect-ratio-child aspect-ratio-fit-photo border-radius-12 ng-isolate-scope"
                       lazy-load-image
                       data-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/gallary_photos/t1663236556_DLx5UecWbC.jpg"
-                      src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/gallary_photos/t1663236556_DLx5UecWbC.jpg"
+                      src={img2}
                       data-loaded="true"
                     />
                   </a>
@@ -525,16 +529,16 @@ export default function Gallery() {
                             }}
                             href="/galleries/7431"
                           >
-                            Mega Celebration of NEET-2022 Result
+                            Flash 2022 Album
                           </a>
                         </div>
                         <div className="font-14 font-xs-12 padding-left-10 ng-binding">
-                          7{" "}
+                          1{" "}
                           <ng-pluralize
                             count="n.no_photos"
                             when="{'one': item, 'other': items}"
                           >
-                            Items
+                            Item  
                           </ng-pluralize>
                         </div>
                       </div>
@@ -637,7 +641,7 @@ export default function Gallery() {
                       className="aspect-ratio-child aspect-ratio-fit-photo border-radius-12 ng-isolate-scope"
                       lazy-load-image
                       data-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/gallary_photos/t1663235048_bTwJ7CyuQR.jpg"
-                      src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/gallary_photos/t1663235048_bTwJ7CyuQR.jpg"
+                      src={img3}
                       data-loaded="true"
                     />
                   </a>
@@ -665,7 +669,7 @@ export default function Gallery() {
                           </a>
                         </div>
                         <div className="font-14 font-xs-12 padding-left-10 ng-binding">
-                          5{" "}
+                          1{" "}
                           <ng-pluralize
                             count="n.no_photos"
                             when="{'one': item, 'other': items}"
@@ -691,9 +695,9 @@ export default function Gallery() {
                 className="mdl-progress mdl-js-progress mdl-progress__indeterminate maximize-width is-upgraded"
                 data-upgraded=",MaterialProgress"
               >
-                <div className="progressbar bar bar1" style={{ width: "0%" }} />
+                {/* <div className="progressbar bar bar1" style={{ width: "0%" }} />
                 <div className="bufferbar bar bar2" style={{ width: "100%" }} />
-                <div className="auxbar bar bar3" style={{ width: "0%" }} />
+                <div className="auxbar bar bar3" style={{ width: "0%" }} /> */}
               </div>
             </div>
           </div>

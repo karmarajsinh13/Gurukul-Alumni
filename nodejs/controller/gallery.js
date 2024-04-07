@@ -30,11 +30,13 @@ export const deletegallery = (req, res) => {
 
 export const insertgallery = (req, res) => {
   const query =
-    "INSERT INTO gallery(`image`,`title`,`description`) values(?)";
+    "INSERT INTO gallery(`image`,`title`,`description`,`entry_date`) values(?)";
+    const date = new Date();
   const values = [
         req.body.image,
         req.body.title,
         req.body.description,
+        date,
   ];
   console.log(query);
   console.log(values);
@@ -45,11 +47,12 @@ export const insertgallery = (req, res) => {
 };
 export const updategallery = (req, res) => {
   const query =
-    "UPDATE `gallery` SET `image`=?,`title`=?,`description`=?  where id=?";
+    "UPDATE `gallery` SET `image`=?,`title`=?,`description`=?,`entry_date`=?  where id=?";
   const values = [
         req.body.image,
         req.body.title,
         req.body.description,
+        new Date(),
   ];
   console.log(query);
   db.query(query, [...values, req.params.id], (err, data) => {

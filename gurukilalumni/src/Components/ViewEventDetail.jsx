@@ -1,4 +1,5 @@
 import React from "react";
+import event1 from "../img/event1.jpg";
 
 export default function ViewEventDetail() {
   return (
@@ -27,7 +28,7 @@ export default function ViewEventDetail() {
                 ng-hide="editEvtName"
                 style={{ lineHeight: "initial" }}
               >
-                Grand Alumni Gathering of Crystal Jubilee of Gyanmanjari
+                Grand Alumni Gathering of Crystal Jubilee of Gurukul
               </div>
               
               <div className="margin-top-16 flexbox align-items-center">
@@ -86,7 +87,7 @@ export default function ViewEventDetail() {
                 ng-show="eventDetails.sdate"
               >
                 <i className="icon-event_available font-18 upper-icons" />
-                Sunday, Feb 12, 2023
+                Friday, Apr 19, 2024
               </span>
 
               <span
@@ -102,20 +103,12 @@ export default function ViewEventDetail() {
                   style={{ textDecoration: "none" }}
                   href="/profile/2098623?source=ev_creator"
                 >
-                  Gyanmanjari Career Academy
+                  Shree Swaminarayan College of Computer Science 
                 </a>
                 
               </span>
               
-              <span
-                className="creator-adjust-phone"
-                ng-show="eventDetails.event_id>633 || eventDetails.event_view>50"
-              >
-                <span title="View Count" className="icon-remove_red_eye " />
-                <span title="View Count" className="ng-binding">
-                  12812
-                </span>
-              </span>
+             
             </div>
           </div>
         </div>
@@ -140,7 +133,7 @@ export default function ViewEventDetail() {
                     minHeight: "150px",
                   }}
                   ng-click="show_pic($event)"
-                  src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
+                  src={event1}
                   className="cursor-pointer"
                 />
                 
@@ -148,7 +141,7 @@ export default function ViewEventDetail() {
             </div>
 
             
-            <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
+            {/* <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
               <div
                 className="mdl-card__actions m-b-20 ng-hide"
                 align="center"
@@ -205,7 +198,7 @@ export default function ViewEventDetail() {
                         className="ng-binding ng-scope"
                       >
                         Registration is only open for members of Alumni
-                        Association of Gyanmanjari.
+                        Association of Gurukul.
                       </span>
                       
                       
@@ -236,7 +229,7 @@ export default function ViewEventDetail() {
                   Online Registration Closed
                 </button>
               </div>
-            </div>
+            </div> */}
             
             
             
@@ -260,7 +253,7 @@ export default function ViewEventDetail() {
               ng-if="eventDetails.regsetup_id>0 && (guestUserAttendee || (codes.length>0 && same_com_log))"
             >
               <div className="font-18 padding-lr-32 padding-lr-xs-16 padding-lr-md-24 padding-lr-md-24 mdl-typography--font-regular">
-                <div
+                {/* <div
                   ng-show="checkDates(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)=='Ongoing Event' && !registeredMsg"
                   className="flexbox align-items-center ng-hide"
                 >
@@ -268,7 +261,7 @@ export default function ViewEventDetail() {
                   <span className="font-16 mdl-typography--font-medium ng-binding">
                     Ongoing Event
                   </span>
-                </div>
+                </div> */}
                 
                 
                 
@@ -280,15 +273,15 @@ export default function ViewEventDetail() {
                   <div className="flexbox margin-bottom-24 align-items-center">
                     <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
                     <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
-                      You were already registered for this event
+                    ✅ You were already registered for this event
                     </span>
                   </div>
                   <div
-                    className="mdl-color-text--white mdl-color--grey-400 font-14 job-intern-capsule margin-bottom-0 inline-block ng-binding"
+                    className="mdl-color-text--white mdl-color--teal-A700 font-14 job-intern-capsule margin-bottom-0 inline-block ng-binding"
                     style={{ margin: "0px 6px 12px 0px" }}
                     ng-bind="getEventStatus(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)"
                   >
-                    Past Event
+                    Coming Soon
                   </div>
                 </div>
                 
@@ -309,8 +302,8 @@ export default function ViewEventDetail() {
                       color: "#ffab00",
                     }}
                   >
-                    <img src="./img/Ticket.svg" className="margin-right-6" />
-                    View ticket
+                    {/* <img src="./img/Ticket.svg" className="margin-right-6" /> */}
+                   <b style={{fontSize:'20px'}}>🎫</b> View ticket
                   </a>
                   <div className="mdl-menu__container is-upgraded">
                     <div className="mdl-menu__outline" />
@@ -408,8 +401,7 @@ export default function ViewEventDetail() {
                 ng-bind-html="eventDetails.location | convertToAnchor"
                 ng-if="eventDetails.location!=null"
               >
-                Gyanmanjari Group of Colleges (GMGC), Nr ISKON Eleven, Sidsar
-                Road <br></br>Bhavnagar
+                Shree Swaminarayan College of Computer Science Gurukul Campus , Sardarnagar ,<br></br>Bhavnagar
               </div>
               </div>
               </div>
@@ -451,7 +443,7 @@ export default function ViewEventDetail() {
             >
               <span className="ng-scope">The wait is over. The </span>
               <strong className="ng-scope">
-                Grand Alumni Gathering on Crystal Jubilee of Gyanmanjari
+                Grand Alumni Gathering on Crystal Jubilee of Gurukul
               </strong>
               <span className="ng-scope"> !!!</span>
               <br className="ng-scope" />
@@ -461,9 +453,9 @@ export default function ViewEventDetail() {
                 delighted to invite you to the alumni meet
               </strong>
               <span className="ng-scope"> on </span>
-              <strong className="ng-scope">12 Feb 2023 at 03:00 pm</strong>
+              <strong className="ng-scope">Apr 19 2024 at 03:00 pm</strong>
               <span className="ng-scope"> at </span>
-              <strong className="ng-scope">GMGC Campus</strong>
+              <strong className="ng-scope">SSCCS Campus</strong>
               <span className="ng-scope">
                 . Let's catch up on the old times &amp; walk down memory
                 lane.&nbsp;

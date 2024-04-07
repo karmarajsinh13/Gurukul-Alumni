@@ -6,6 +6,10 @@ import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import ViewEventDetail from "./Components/ViewEventDetail";
 import Gallery from "./Components/Gallery";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Job from "./Components/Job";
+import Profile from "./Components/Profile";
 
 function App() {
   const Layout = () => {
@@ -42,6 +46,22 @@ function App() {
           path: "/Gallery",
           element: <Gallery/>,
         },
+        {
+          path: "/About",
+          element: <About/>,
+        },
+        {
+          path: "/Contact",
+          element: <Contact/>,
+        },
+        {
+          path: "/Job",  
+          element: <Job/>
+        },
+        {
+          path: "Profile",
+          element: <Profile/>,
+        }
       ],
     },
   ]);

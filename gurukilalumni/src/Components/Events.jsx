@@ -1,11 +1,11 @@
 import React from "react";
+import event1 from "../img/event1.jpg";
 import { Link } from "react-router-dom";
 
 export default function Events() {
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">
-        
         <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--hide-phone category-adjust">
           <div className="mdl-color--grey-300 margin-bottom-24">
             <input
@@ -34,10 +34,7 @@ export default function Events() {
             style={{ listStyle: "none", margin: "0px", padding: "0px" }}
             className
           >
-            <li
-              className="mdl-color--grey-300 font-16 category-list active-category"
-           
-            >
+            <li className="mdl-color--grey-300 font-16 category-list active-category">
               <span className="category-text mdl-typography--font-medium category-overflow ng-binding">
                 All Events
               </span>
@@ -54,7 +51,7 @@ export default function Events() {
                 Past Events
               </span>
               <span className="mdl-color-text--grey-600 category-count ng-binding">
-                (4)
+                (3)
               </span>
             </li>
             <li
@@ -66,10 +63,10 @@ export default function Events() {
                 Upcoming Events
               </span>
               <span className="mdl-color-text--grey-600 category-count ng-binding">
-                (0)
+                (1)
               </span>
             </li>
-            <li
+            {/* <li
               ng-show="categories"
               className="mdl-color--grey-300 font-16 category-list ng-hide"
               ng-click="showCategoriesTab=!showCategoriesTab;"
@@ -78,18 +75,13 @@ export default function Events() {
               <span className="category-text mdl-typography--font-medium category-overflow ng-binding">
                 Categories
               </span>
-            </li>
+            </li> */}
             <div
               ng-show="categories && showCategoriesTab"
               style={{ margin: 0, padding: "15px 0 18px" }}
               className="ng-hide"
-            >
-              
-            </div>
-            
-            
-            
-            
+            ></div>
+
             <li
               ng-if="$root.app_data.same_com_log"
               className="mdl-color--grey-300 font-16 category-list ng-scope"
@@ -100,15 +92,12 @@ export default function Events() {
                 Attended by me
               </span>
               <span className="mdl-color-text--grey-600 category-count ng-binding">
-                (1)
+                (0)
               </span>
             </li>
-            
           </ul>
-          
         </div>
-        
-        
+
         <div
           className="mdl-cell mdl-cell--4-col margin-bottom-12 mdl-cell--hide-desktop mdl-cell--hide-tablet"
           style={{ borderRadius: "4px" }}
@@ -203,7 +192,7 @@ export default function Events() {
                 (0)
               </span>
             </li>
-            
+
             <li
               ng-show="$root.app_data.same_com_log"
               className="mdl-list__item category-list-small"
@@ -255,13 +244,9 @@ export default function Events() {
               </span>
             </li>
           </ul>
-          
         </div>
-        
-        
-        <div className="mdl-cell mdl-cell--8-col mdl-cell--5-col-tablet">
 
-          
+        <div className="mdl-cell mdl-cell--8-col mdl-cell--5-col-tablet">
           <div className="events-top" />
           <div
             ng-show="DisplayedEvents"
@@ -272,8 +257,6 @@ export default function Events() {
             infinite-scroll-distance={1}
             id="event_cards"
           >
-            
-            
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -306,13 +289,10 @@ export default function Events() {
                         className="abs-pos ng-isolate-scope"
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
-                      >
-                        
-                      </div>
-                      
+                      ></div>
+
                       <img
                         ng-if="event.event_logo"
-                        ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
                         className="abs-pos ng-scope"
                         style={{
                           maxWidth: "100%",
@@ -323,12 +303,9 @@ export default function Events() {
                           bottom: 0,
                           margin: "auto",
                         }}
-                        src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
+                        src={event1}
                       />
-                      
-                      
                     </div>
-                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -357,7 +334,6 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -384,7 +360,6 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -428,7 +403,7 @@ export default function Events() {
                       />
                       <span className="font-14 font-xs-12 ng-binding" />
                       <span className="font-14 font-xs-12 ng-binding">
-                        Feb 12, 2023
+                        Apr 19, 2024
                       </span>
                       <span
                         className="font-14 font-xs-12 ng-binding"
@@ -443,7 +418,7 @@ export default function Events() {
                       ng-show="event.fdate"
                     >
                       <span className="font-14 font-xs-12 ng-binding">
-                        Ends:
+                        Ends: 06:30 PM
                       </span>
                       <span className="font-14 font-xs-12 ng-binding" />
                       <span
@@ -456,31 +431,21 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
-                        <i
+                        {/* <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
                      
-                        />
+                        /> */}
                         <span
                           ng-show="event.location"
                           className="font-14 font-xs-12 ng-binding"
                         >
-                          Gyanmanjari Group of Colleges (GMGC), Nr ISKON Eleven,
-                          Sidsar Road
-                        </span>
-                        <span
-                          className="font-14 font-xs-12 ng-binding"
-                          ng-show="event.city_name"
-                        >
-                          <span ng-show="event.location" className>
-                            ,{" "}
-                          </span>
-                          Bhavnagar
+                          Shree Swaminarayan College of Computer Science Gurukul
+                          Campus , Sardarnagar , Bhavnagar
                         </span>
                       </div>
-                      <div
+                      {/* <div
                         className="flexbox flex-gap-16 ng-hide"
                         ng-show="event.location && event.mode==1"
                       >
@@ -488,9 +453,9 @@ export default function Events() {
                         <span className="font-14 font-xs-12 ng-binding">
                           Online event
                         </span>
-                      </div>
-                      
-                      <div
+                      </div> */}
+
+                      {/* <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
@@ -660,40 +625,34 @@ export default function Events() {
                           </span>
                           
                         </a>
-                      </div>
-                      
+                      </div> */}
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
-                        className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
+                        className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--teal-A700"
                         style={{
                           margin: "0px 8px 0px 0px",
                           borderRadius: "16px",
+                     
                         }}
-                        ng-if="event.activate_status!=1"
-                        ng-class="(checkDates(event.sdate,event.fdate,event.booking_on,event.timezone,event.stime,event.ftime)=='Past Event')?'mdl-color--grey-400':'mdl-color--pink-200'"
-                        ng-bind="getEventStatus(event.sdate,event.fdate,event.booking_on,event.timezone,event.stime,event.ftime)"
+                        ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                       >
-                        Past Event
+                        Coming Soon
                       </div>
-                      
-                      
-                      
-                      
+
                       <Link
-                    className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
-                   to="/ViewEventDetail">
-                    View
-                  </Link>
+                        className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
+                        to="/ViewEventDetail"
+                      >
+                        View
+                      </Link>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
-            
+
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -726,10 +685,8 @@ export default function Events() {
                         className="abs-pos ng-isolate-scope"
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
-                      >
-                        
-                      </div>
-                      
+                      ></div>
+
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046621.jpg"
@@ -745,10 +702,7 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046621.jpg"
                       />
-                      
-                      
                     </div>
-                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -776,7 +730,6 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -803,7 +756,6 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6660?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -847,7 +799,7 @@ export default function Events() {
                       />
                       <span className="font-14 font-xs-12 ng-binding" />
                       <span className="font-14 font-xs-12 ng-binding">
-                        Oct 03, 2022
+                        Mar 03, 2024
                       </span>
                       <span
                         className="font-14 font-xs-12 ng-binding"
@@ -862,7 +814,7 @@ export default function Events() {
                       ng-show="event.fdate"
                     >
                       <span className="font-14 font-xs-12 ng-binding">
-                        Ends:
+                        Ends: 06:00 PM
                       </span>
                       <span className="font-14 font-xs-12 ng-binding" />
                       <span
@@ -875,18 +827,14 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
-                        <i
-                          className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                     
-                        />
+                        <i className="icon-place new-icon font-16 mdl-color-text--grey-900" />
                         <span
                           ng-show="event.location"
                           className="font-14 font-xs-12 ng-binding"
                         >
-                          Gyanmanjari Career Academy
+                          SSCCS, Sardarnagar , Bhavnagar
                         </span>
                         <span
                           className="font-14 font-xs-12 ng-binding"
@@ -898,21 +846,11 @@ export default function Events() {
                           Bhavnagar
                         </span>
                       </div>
-                      <div
-                        className="flexbox flex-gap-16 ng-hide"
-                        ng-show="event.location && event.mode==1"
-                      >
-                        <img src="./img/stream.svg" />
-                        <span className="font-14 font-xs-12 ng-binding">
-                          Online event
-                        </span>
-                      </div>
-                      
+
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -920,8 +858,6 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6660?source=eventlist"
                         >
-                          
-                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -929,13 +865,10 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          
                         </a>
                       </div>
-                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -949,10 +882,6 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      
-                      
-                      
-                      
                     </div>
                   </div>
                   <button
@@ -966,7 +895,7 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            
+
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -999,10 +928,8 @@ export default function Events() {
                         className="abs-pos ng-isolate-scope"
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
-                      >
-                        
-                      </div>
-                      
+                      ></div>
+
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046733.jpg"
@@ -1018,10 +945,7 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046733.jpg"
                       />
-                      
-                      
                     </div>
-                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -1049,7 +973,6 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -1076,7 +999,6 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6661?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -1148,13 +1070,9 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className="ng-hide"
-                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
-                        <i
-                          className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                     
-                        />
+                        <i className="icon-place new-icon font-16 mdl-color-text--grey-900" />
                         <span
                           ng-show="event.location"
                           className="font-14 font-xs-12 ng-binding"
@@ -1179,12 +1097,11 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      
+
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -1192,8 +1109,6 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6661?source=eventlist"
                         >
-                          
-                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -1201,13 +1116,10 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          
                         </a>
                       </div>
-                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -1221,10 +1133,6 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      
-                      
-                      
-                      
                     </div>
                   </div>
                   <button
@@ -1238,7 +1146,7 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            
+
             <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
@@ -1271,10 +1179,8 @@ export default function Events() {
                         className="abs-pos ng-isolate-scope"
                         style={{ top: "16px", right: "16px", zIndex: 99 }}
                         event-live-chip="event"
-                      >
-                        
-                      </div>
-                      
+                      ></div>
+
                       <img
                         ng-if="event.event_logo"
                         ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046534.jpg"
@@ -1290,10 +1196,7 @@ export default function Events() {
                         }}
                         src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362521662046534.jpg"
                       />
-                      
-                      
                     </div>
-                    
                   </div>
                 </div>
                 <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
@@ -1321,7 +1224,6 @@ export default function Events() {
                         </td>
                         <td style={{ verticalAlign: "top" }}>
                           <span className="rel-pos">
-                            
                             <div
                               className="hide_menu_bg share-list-div"
                               ng-show="$root.app_data.config.meta[51].allowed"
@@ -1348,7 +1250,6 @@ export default function Events() {
                                       <i className="icon-facebook adjust-social-icons" />
                                     </a>
                                     <br />
-                                    
                                     <a
                                       ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/6659?source=ld"
                                       onclick="shareCard(event,'linkedIn')"
@@ -1420,13 +1321,9 @@ export default function Events() {
                     <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
                       <div
                         className
-                   
                         ng-show="(event.location || event.city_name) && event.mode!=1"
                       >
-                        <i
-                          className="icon-place new-icon font-16 mdl-color-text--grey-900"
-                     
-                        />
+                        <i className="icon-place new-icon font-16 mdl-color-text--grey-900" />
                         <span
                           ng-show="event.location"
                           className="font-14 font-xs-12 ng-binding"
@@ -1452,12 +1349,11 @@ export default function Events() {
                           Online event
                         </span>
                       </div>
-                      
+
                       <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
-                        
                         <a
                           className="mdl-color-text--grey-600 mdl-typography--font-regular font-14 link-detail more-attendees ng-hide"
                           ng-show="(event.total_guests)>0"
@@ -1465,8 +1361,6 @@ export default function Events() {
                           style={{ cursor: "pointer" }}
                           href="/events/attendees/6659?source=eventlist"
                         >
-                          
-                          
                           <span
                             ng-if="event.total_guests!=1"
                             style={{ textTransform: "lowercase" }}
@@ -1474,13 +1368,10 @@ export default function Events() {
                           >
                             0 attendees
                           </span>
-                          
                         </a>
                       </div>
-                      
                     </div>
                     <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      
                       <div
                         ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
                         className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
@@ -1494,10 +1385,6 @@ export default function Events() {
                       >
                         Past Event
                       </div>
-                      
-                      
-                      
-                        
                     </div>
                   </div>
                   <button
@@ -1511,12 +1398,10 @@ export default function Events() {
                 </div>
               </div>
             </div>
-            
-            
+
             <div
               ng-hide="!lock[currnt_criteria]"
               className="maximize-width ng-hide"
-         
             >
               <div
                 className="mdl-progress mdl-js-progress mdl-progress__indeterminate maximize-width is-upgraded"
@@ -1530,7 +1415,6 @@ export default function Events() {
             <div
               ng-show="no_more_data[currnt_criteria]"
               className="mdl-color--grey-300 mdl-color-text--grey-900 padding-16 maximize-width center-alignment ng-binding"
-         
             >
               No more events to display!
             </div>

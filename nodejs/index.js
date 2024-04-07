@@ -1,12 +1,12 @@
 import  express  from "express";
 import cors from "cors";
 import router1 from "./models/r_contact_us.js";
-import router2 from "./models/r_event.js";
-import router3 from "./models/r_gallery.js";
-import router4 from "./models/r_user.js";
-import router5 from "./models/r_event_participate.js";
+import router4 from "./models/r_event.js";
+import router5 from "./models/r_gallery.js";
+import router7 from "./models/r_user.js";
+import router3 from "./models/r_event_participate.js";
 import router6 from "./models/r_job.js";
-import router7 from "./models/r_admin.js";
+import router2 from "./models/r_admin.js";
 
 const app = express();
 app.use(cors());

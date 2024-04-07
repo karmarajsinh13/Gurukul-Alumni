@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 
-export const getusers = (req, res) => {
+export const getUsers = (req, res) => {
   const query1 = "SELECT * FROM user";
   db.query(query1, (err, data) => {
     if (err) {
@@ -11,7 +11,7 @@ export const getusers = (req, res) => {
   });
 };
 
-export const getuser = (req, res) => {
+export const getUser = (req, res) => {
   const query = "select * from user where user_id=?";
 
   db.query(query, [req.params.user_id], (err, data) => {
@@ -20,17 +20,18 @@ export const getuser = (req, res) => {
   });
 };
 
-export const deleteuser = (req, res) => {
-  const query = "DELETE FROM user where user_id= ?";
+export const deleteUser = (req, res) => {
+  const query = "DELETE FROM user where user_id=?";
   db.query(query, [req.params.user_id], (err, data) => {
     if (err) return res.json(err);
     return res.json("user has been deleted");
   });
 };
 
-export const insertuser = (req, res) => {
+export const insertUser = (req, res) => {
   const query =
-    "INSERT INTO user(`firstname`,`lastname`,`phone`,`username`,`email`,`password`,`confirm_password`,`graduted_year`,`dob`,`photo`,`address`,`gender`) values(?)";
+    "INSERT INTO user(`firstname`,`lastname`,`phone`,`username`,`email`,`password`,`photo`,`city`,`state`,`address`,`entry_date`,`status`) values(?)";
+    const date = new Date();
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -38,12 +39,12 @@ export const insertuser = (req, res) => {
     req.body.username,
     req.body.email,
     req.body.password,
-    req.body.confirm_password,
-    req.body.graduted_year,
-    req.body.dob,
-    req.body.photo,
+    req.file?.filename,
+    req.body.city,
+    req.body.state,
     req.body.address,
-    req.body.gender,     
+    date,   
+    req.body.status || 1,
   ];
   console.log(query);
   console.log(values);
@@ -52,22 +53,23 @@ export const insertuser = (req, res) => {
     return res.json("New user has been added");
   });
 };
-export const updateuser = (req, res) => {
+export const updateUser = (req, res) => {
   const query =
-    "UPDATE `user` SET `firstname`=?,`lastname`=?,`phone`=?,`username`=?,`email`=?,`password`=?,`confirm_password`=?,`graduted_year`=?,`dob`=?,`photo`=?,`address`=?,`gender`=?  where user_id=?";
+    "UPDATE `user` SET `firstname`=?,`lastname`=?,`phone`=?,`username`=?,`email`=?,`password`=?,`photo`=?,`city`=?,`state`=?,`address`=?,`entry_date`=?,`status`=?  where user_id=?";
   const values = [
-      req.body.firstname,
+    req.body.firstname,
     req.body.lastname,
     req.body.phone,
     req.body.username,
     req.body.email,
     req.body.password,
-    req.body.confirm_password,
-    req.body.graduted_year,
-    req.body.dob,
-    req.body.photo,
+    req.file?.filename || req.body.photo,
+    req.body.city,
+    req.body.state,
     req.body.address,
-    req.body.gender,   
+    new Date(),
+    req.body.status || 1,
+
   ];
   console.log(query);
   db.query(query, [...values, req.params.user_id], (err, data) => {
