@@ -1,4 +1,11 @@
-import { Route, BrowserRouter, Routes, Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter,
+  Routes,
+  Outlet,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import React, { useState } from "react";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -14,7 +21,11 @@ import Dealer from "./components/Dealer";
 import Add_dealer from "./components/Add_dealer";
 import PropertyforDealer from "./components/PropertyforDealer";
 import Add_property_dealer from "./components/Add_property_dealer";
-
+import Gallery from "./components/Gallery";
+import Add_gallery from "./components/Add_gallery";
+import All_gallery from "./components/All_gallery";
+import Add_event from "./components/Add_event";
+import Event from "./components/Event";
 
 function App() {
   const Layout = () => {
@@ -46,6 +57,26 @@ function App() {
         {
           path: "/Add_users/:id",
           element: <Add_users></Add_users>,
+        },
+        {
+          path: "/Gallery",
+          element: <Gallery></Gallery>,
+        },
+        {
+          path: "/Add_gallery",
+          element: <Add_gallery></Add_gallery>,
+        },
+        {
+          path: "/Add_gallery/:id",
+          element: <Add_gallery></Add_gallery>,
+        },
+        {
+          path: "/All_gallery",
+          element: <Add_gallery></Add_gallery>,
+        },
+        {
+          path: "/All_gallery",
+          element: <All_gallery></All_gallery>
         },
         {
           path: "/Profile",
@@ -87,7 +118,19 @@ function App() {
           path: "/Add_property_dealer/:id",
           element: <Add_property_dealer></Add_property_dealer>,
         },
-     
+        {
+          path: "/Event",
+          element: <Event></Event>,
+        },
+        {
+          path: "/Add_event",
+          element: <Add_event></Add_event>,
+        },
+        {
+          path: "/Add_event/:id",
+          element: <Add_event></Add_event>,
+        },
+        
       ],
     },
   ]);

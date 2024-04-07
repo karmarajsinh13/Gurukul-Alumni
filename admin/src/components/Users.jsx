@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 export default function Users() {
   const [user, setUser] = useState([]);
- 
+
   useEffect(() => {
     getUser();
   }, []);
@@ -15,31 +15,12 @@ export default function Users() {
     setUser(res.data);
     console.log(res.data);
   };
-
-  // const deleteUser = async (user_id) => {
-  //   let ans = window.confirm("Are you sure??");
-  //   if (ans) {
-  //     const res = await axios.delete(
-  //       "http://localhost:3000/gurukulalumni/user/" + user_id
-  //     );
-  //     alert(res.data);
-  //     getUser();
-  
-  //   }
-  // };
-  // // let i = 1;
-  // useEffect(() => {
-  //   getUser();
-  // }, []);
-  // const getUser = async () => {
-  //   const res = await axios.get("http://localhost:3000/kk/user");
-  //   setUser(res.data);
-  //   console.log(res.data);
-  // };
   const deleteUser = async (user_id) => {
     let ans = window.confirm("are you sure?");
     if (ans) {
-      const res = await axios.delete("http://localhost:3000/gurukulalumni/user/" + user_id);
+      const res = await axios.delete(
+        "http://localhost:3000/gurukulalumni/user/" + user_id
+      );
       console.log(res.data);
       alert(res.data);
       getUser();
@@ -69,6 +50,9 @@ export default function Users() {
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Image
+                      </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Name
                       </th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -84,7 +68,7 @@ export default function Users() {
                     </tr>
                   </thead>
                   <tbody>
-                  {user.map((user) => (
+                    {user.map((user) => (
                       <tr>
                         <td>
                           <div class="d-flex px-2 py-1">
@@ -95,21 +79,35 @@ export default function Users() {
                                 alt="user1"
                               />
                             </div>
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">{user.firstname}</h6>
-                              <p class="text-xs text-secondary mb-0">
-                                {user.email}
-                              </p>
-                            </div>
+                            <div class="d-flex flex-column justify-content-center"></div>
                           </div>
                         </td>
+
+                        <h6 class="mb-0 text-sm">
+                          {user.firstname}
+                          <p class="text-xs text-secondary mb-0">
+                            {user.email}
+                          </p>
+                        </h6>
+                        {/* <td class="align-middle text-left">
+                          <span class="text-secondary text-xs font-weight-bold">
+                            {user.firstname}
+                          </span><br></br>
+                          <span class="text-secondary text-xs font-weight-bold">
+                            {user.email}
+                          </span>
+                        </td>
+                        <td class="align-middle text-left">
+                          
+                        </td>
+                      */}
+
                         <td>
                           <p class="text-s font-weight-bold mb-0">
                             {user.phone}
                           </p>
                         </td>
 
-                       
                         {user.status === "1" ? (
                           <td class="align-middle text-center text-sm">
                             <span class="badge badge-sm bg-gradient-success">
@@ -123,7 +121,7 @@ export default function Users() {
                             </span>
                           </td>
                         )}
-                       
+
                         <td class="align-middle text-center">
                           <span class="text-secondary text-xs font-weight-bold">
                             {user.city}

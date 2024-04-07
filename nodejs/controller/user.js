@@ -20,7 +20,7 @@ export const getUser = (req, res) => {
   });
 };
 
-export const deleteUser = (req, res) => {
+export const deleteuser = (req, res) => {
   const query = "DELETE FROM user where user_id=?";
   db.query(query, [req.params.user_id], (err, data) => {
     if (err) return res.json(err);

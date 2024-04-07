@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  deleteUser,
+  deleteuser,
   getUser,
   getUsers,
   insertUser,
@@ -26,5 +26,5 @@ router7.get("/", getUsers);
 router7.get("/:id", getUser);
 router7.put("/:id",upload.single("photo"),  updateUser);
 router7.post("/",upload.single("photo"),  insertUser);
-router7.delete("/:id", deleteUser);
+router7.delete("/:id", deleteuser);
 export default router7;

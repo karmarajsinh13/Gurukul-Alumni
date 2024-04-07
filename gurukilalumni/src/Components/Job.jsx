@@ -1,5 +1,6 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
+import { Link } from "react-router-dom";
 
 export default function Job() {
   return (
@@ -764,7 +765,8 @@ export default function Job() {
                           ng-if="job.job_type==0"
                           className="ng-binding ng-scope"
                         >
-                          View Job Post
+                           <Link to="/ViewJob">View Job Post</Link>
+                          
                         </span>
                       </a>
                     </div>

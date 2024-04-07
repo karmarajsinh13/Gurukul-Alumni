@@ -10,14 +10,16 @@ import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Job from "./Components/Job";
 import Profile from "./Components/Profile";
+import ViewJob from "./Components/ViewJob";
+import ViewGallery from "./Components/ViewGallery";
 
 function App() {
   const Layout = () => {
     return (
       <>
-        <Header/>
-        <Outlet/>
-        <Footer/>
+        <Header />
+        <Outlet />
+        <Footer />
       </>
     );
   };
@@ -32,36 +34,44 @@ function App() {
         },
         {
           path: "/Footer",
-          element: <Footer/>,
+          element: <Footer />,
         },
         {
           path: "/Events",
-          element: <Events/>,
+          element: <Events />,
         },
         {
           path: "/ViewEventDetail",
-          element: <ViewEventDetail/>,
+          element: <ViewEventDetail />,
         },
         {
           path: "/Gallery",
-          element: <Gallery/>,
+          element: <Gallery />,
         },
         {
           path: "/About",
-          element: <About/>,
+          element: <About />,
         },
         {
           path: "/Contact",
-          element: <Contact/>,
+          element: <Contact />,
         },
         {
-          path: "/Job",  
-          element: <Job/>
+          path: "/Job",
+          element: <Job />,
         },
         {
           path: "Profile",
-          element: <Profile/>,
-        }
+          element: <Profile />,
+        },
+        {
+          path: "/ViewJob",
+          element: <ViewJob />,
+        },
+        {
+          path: "/ViewGallery",
+          element: <ViewGallery/>,
+        },
       ],
     },
   ]);

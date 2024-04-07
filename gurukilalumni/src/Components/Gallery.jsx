@@ -1,8 +1,8 @@
 import React from "react";
-import img1 from '../img/img1.jpg';
-import img2 from '../img/img2.jpg';
-import img3 from '../img/img3.jpg';
-
+import img1 from "../img/img1.jpg";
+import img2 from "../img/img2.jpg";
+import img3 from "../img/img3.jpg";
+import { Link } from "react-router-dom";
 
 export default function Gallery() {
   return (
@@ -280,99 +280,21 @@ export default function Gallery() {
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
               ng-repeat="(key,n) in display"
               ng-hide="$root.as_ed.bu.uids.indexOf(2098623)>-1"
-         
             >
               <div className="margin-lr-8 margin-lr-md-0">
                 <div
                   style={{ marginBottom: "8px" }}
                   className="aspect-ratio-1-1-parent"
-                  ng-click="albumviews(n.id)"
+                  
                 >
-                  <div
-                    ui-sref="inapp.gallerysupport({id:8189 })"
-                    className="show-gallery-on-hover cursor-pointer border-radius-12"
-                    href="/galleries/8189"
-                  >
-                    <div
-                      style={{ zIndex: 2 }}
-                      ng-click="$event.stopPropagation()"
-                      className="inline-block float-right margin-right-16 margin-top-16"
-                      ng-show="$root.app_data.config.meta[51].allowed"
-                    >
-                      {/* <button
-                        ng-click="shareModal(n)"
-                        ng-if="!$root.isMobile"
-                        className="mdl-button flexbox-inline justify-content-center align-items-center mdl-color--grey-100 mdl-color-text--black mdl-js-button mdl-button--icon font-18 float-right ng-scope"
-                        data-upgraded=",MaterialButton"
-                      >
-                        <i className="icon-share font-20" />
-                      </button> */}
+                  
 
-                      <div
-                        className="hide_menu_bg abs-pos album-share-list"
-                        style={{ top: "-50px", right: "-13px" }}
-                      >
-                        <div className="mdl-menu__container is-upgraded">
-                          <div className="mdl-menu__outline mdl-menu--bottom-right" />
-                          <ul
-                            className="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-                            htmlFor="album-share0"
-                            data-upgraded=",MaterialMenu"
-                          >
-                            <li
-                              className="mdl-menu__item share-list"
-                              style={{ height: "90px" }}
-                              tabIndex={-1}
-                            >
-                              <a
-                                ng-href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=fb"
-                                onclick="shareCard(event,'fb')"
-                                className="mdl-button mdl-js-button mdl-button--fab facebook-bg-color mdl-color-text--white font-16 share-social"
-                                href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=fb"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-facebook adjust-social-icons" />
-                              </a>
-                              <br />
-                              <a
-                                ng-href="https://twitter.com/intent/tweet?text=&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=tw"
-                                onclick="shareCard(event,'twitter')"
-                                className="mdl-button mdl-js-button mdl-button--fab twitter-color mdl-color-text--white font-16 share-social"
-                                href="https://twitter.com/intent/tweet?text=&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=tw"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-x adjust-social-icons" />
-                              </a>
-                              &nbsp;&nbsp;
-                              <a
-                                ng-if="!isMobile"
-                                ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=ld"
-                                onclick="shareCard(event,'linkedIn')"
-                                className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-700 mdl-color-text--white font-16 share-social ng-scope"
-                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/8189?source=ld"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-linkedin adjust-social-icons" />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    ui-sref="inapp.gallerysupport({id:8189 })"
-                    href="/galleries/8189"
-                  >
+                  <Link to="/ViewGallery">
                     <img
                       className="aspect-ratio-child aspect-ratio-fit-photo border-radius-12 ng-isolate-scope"
-                      lazy-load-image
-                      data-src="https://img.youtube.com/vi/Ni6siBuJXdw/0.jpg"
                       src={img1}
-                      data-loaded="true"
                     />
-                  </a>
+                  </Link>
                 </div>
                 <div className="maximize-width border-box padding-tb-8 padding-lr-0 padding-tb-xs-0">
                   <div className="flexbox">
@@ -415,8 +337,7 @@ export default function Gallery() {
 
             <div
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
-              ng-repeat="(key,n) in display"
-              ng-hide="$root.as_ed.bu.uids.indexOf(2098623)>-1"
+           
             >
               <div className="margin-lr-8 margin-lr-md-0">
                 <div
@@ -424,78 +345,7 @@ export default function Gallery() {
                   className="aspect-ratio-1-1-parent"
                   ng-click="albumviews(n.id)"
                 >
-                  <div
-                    ui-sref="inapp.gallerysupport({id:7431 })"
-                    className="show-gallery-on-hover cursor-pointer border-radius-12"
-                    href="/galleries/7431"
-                  >
-                    <div
-                      style={{ zIndex: 2 }}
-                      ng-click="$event.stopPropagation()"
-                      className="inline-block float-right margin-right-16 margin-top-16"
-                      ng-show="$root.app_data.config.meta[51].allowed"
-                    >
-                      <button
-                        ng-click="shareModal(n)"
-                        ng-if="!$root.isMobile"
-                        className="mdl-button flexbox-inline justify-content-center align-items-center mdl-color--grey-100 mdl-color-text--black mdl-js-button mdl-button--icon font-18 float-right ng-scope"
-                        data-upgraded=",MaterialButton"
-                      >
-                        <i className="icon-share font-20" />
-                      </button>
-
-                      <div
-                        className="hide_menu_bg abs-pos album-share-list"
-                        style={{ top: "-50px", right: "-13px" }}
-                      >
-                        <div className="mdl-menu__container is-upgraded">
-                          <div className="mdl-menu__outline mdl-menu--bottom-right" />
-                          <ul
-                            className="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-                            htmlFor="album-share1"
-                            data-upgraded=",MaterialMenu"
-                          >
-                            <li
-                              className="mdl-menu__item share-list"
-                              style={{ height: "90px" }}
-                              tabIndex={-1}
-                            >
-                              <a
-                                ng-href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=fb"
-                                onclick="shareCard(event,'fb')"
-                                className="mdl-button mdl-js-button mdl-button--fab facebook-bg-color mdl-color-text--white font-16 share-social"
-                                href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=fb"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-facebook adjust-social-icons" />
-                              </a>
-                              <br />
-                              <a
-                                ng-href="https://twitter.com/intent/tweet?text=&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=tw"
-                                onclick="shareCard(event,'twitter')"
-                                className="mdl-button mdl-js-button mdl-button--fab twitter-color mdl-color-text--white font-16 share-social"
-                                href="https://twitter.com/intent/tweet?text=&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=tw"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-x adjust-social-icons" />
-                              </a>
-                              &nbsp;&nbsp;
-                              <a
-                                ng-if="!isMobile"
-                                ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=ld"
-                                onclick="shareCard(event,'linkedIn')"
-                                className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-700 mdl-color-text--white font-16 share-social ng-scope"
-                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/galleries/7431?source=ld"
-                                data-upgraded=",MaterialButton"
-                              >
-                                <i className="icon-linkedin adjust-social-icons" />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                
 
                   <a
                     ui-sref="inapp.gallerysupport({id:7431 })"
@@ -538,7 +388,7 @@ export default function Gallery() {
                             count="n.no_photos"
                             when="{'one': item, 'other': items}"
                           >
-                            Item  
+                            Item
                           </ng-pluralize>
                         </div>
                       </div>
@@ -685,11 +535,7 @@ export default function Gallery() {
               </div>
             </div>
 
-            <div
-              className="mdl-cell mdl-cell--12-col ng-hide"
-              ng-show="load"
-         
-            >
+            <div className="mdl-cell mdl-cell--12-col ng-hide" ng-show="load">
               <div
                 id="p2"
                 className="mdl-progress mdl-js-progress mdl-progress__indeterminate maximize-width is-upgraded"

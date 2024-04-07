@@ -42,9 +42,6 @@ export default function Add_users() {
     setAddress(res.data.address);
     setCity(res.data.city);
     setState(res.data.state);
-    // setgraduated_year(res.data.graduated_year);
-    // setdob(res.data.dob);
-    // setgender(res.data.gender);
     setemail(res.data.email);
     setphone(res.data.phone);
   };
@@ -61,9 +58,6 @@ export default function Add_users() {
     formdata.append("address", address);
     formdata.append("city", city);
     formdata.append("state", state);
-    // formdata.append("graduated_year", graduated_year);
-    // formdata.append("dob", dob);
-    // formdata.append("gender", gender);
     formdata.append("email", email);
     formdata.append("phone", phone);
     let res = "";
@@ -112,8 +106,8 @@ export default function Add_users() {
                         <input
                           className="form-control"
                           type="text"
-                          value={firstname}
-                          onChange={(e) => setFname(e.target.value)}
+                          defaultValue={firstname}
+                          onChange={(e)=>setFname(e.target.value)}
                          
                         />
                       </div>
@@ -130,7 +124,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={lastname}
-                          onChange={(e) => setLname(e.target.value)}
+                          onChange={(e)=>setLname(e.target.value)}
                          
                         />
                       </div>
@@ -147,7 +141,7 @@ export default function Add_users() {
                           className="form-control"
                           type="phone"
                           defaultValue={phone}
-                          onChange={(e) => setphone(e.target.value)}
+                          onChange={(e)=>setphone(e.target.value)}
                          
                         />
                       </div>
@@ -164,7 +158,7 @@ export default function Add_users() {
                           className="form-control"
                           type="email"
                           defaultValue={email}
-                          onChange={(e) => setemail(e.target.value)}
+                          onChange={(e)=>setemail(e.target.value)}
                          
                         />
                       </div>
@@ -181,7 +175,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={username}
-                          onChange={(e) => setUsername(e.target.value)}
+                          onChange={(e)=>setUsername(e.target.value)}
                         
                         />
                       </div>
@@ -225,7 +219,7 @@ export default function Add_users() {
                         </label>
                         <input className="form-control" type="file" 
                         defaultValue={photo}
-                        onChange={(e) => setImg(e.target.files[0])} />
+                        onChange={(e)=>setImg(e.target.files[0])} />
                       </div>
                     </div>
                     {/* <div className="col-md-6">
@@ -253,7 +247,8 @@ export default function Add_users() {
                           Password
                         </label>
                         <input className="form-control" type="password" 
-                        onChange={(e) => setPassword(e.target.value)} />
+                        defaultValue={password}
+                        onChange={(e)=>setPassword(e.target.value)} />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -269,7 +264,7 @@ export default function Add_users() {
                           type="text"
                           defaultValue={city}
                         
-                          onChange={(e) => setCity(e.target.value)}
+                          onChange={(e)=>setCity(e.target.value)}
 
                         />
                       </div>
@@ -287,7 +282,7 @@ export default function Add_users() {
                           type="text"
                           defaultValue={state}
                         
-                          onChange={(e) => setState(e.target.value)}
+                          onChange={(e)=>setState(e.target.value)}
                         />
                       </div>
                     </div>
@@ -306,9 +301,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={address}
-                          onfocus="focused(this)"
-                          onfocusout="defocused(this)"
-                          onChange={(e) => setAddress(e.target.value)}
+                          onChange={(e)=>setAddress(e.target.value)}
                         />
                       </div>
                     </div>
@@ -321,7 +314,8 @@ export default function Add_users() {
                           Status
                         </label>
                         <select name="status" class="form-control"
-                        onChange={(e) => setStatus(e.target.value)}>
+                        defaultValue={status}
+                        onChange={(e)=>setStatus(e.target.value)}>
                           <option>Choose</option>
                           <option value="0">Inactive</option>
                           <option value="1">Active</option>
