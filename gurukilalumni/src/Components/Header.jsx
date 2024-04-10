@@ -1,7 +1,62 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
 import { Link } from "react-router-dom";
+import karma from "../img/karma.jpeg";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  RiFacebookLine,
+  RiInstagramLine,
+  RiTwitterLine,
+  RiYoutubeLine,
+} from "react-icons/ri";
 export default function Header() {
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [user, setUser] = useState([]);
+  const [firstname, setName] = useState("");
+  const [photo, setphoto] = useState("");
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user_id) {
+      getUser();
+    }
+  }, []);
+
+  // const fatchUserName = async () => {
+  //   try {
+  //     const res = await axios.get("/students/" + user_id);
+  //     setName(res.data.student_name);
+  //   } catch (error) {}
+  // };
+  const getUser = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/user/" + user_id
+    );
+    setUser(res.data);
+    setName(res.data.firstname);
+    setphoto(res.data.photo);
+    console.log(res.data);
+  };
+
+  // const User_profile = () => {
+  //   navigate("/User_profile");
+  // };
+  // const User_order = () => {
+  //   navigate("/Myorders");
+  // };
+  // const login = () => {
+  //   navigate("/Login");
+  // };
+  const btnSignOut = () => {
+    sessionStorage.clear();
+    setId("");
+    window.location.reload()
+    //  navigate("/")
+    //navigate("/Login")
+  };
+
   return (
     <div>
       <header class="bg-white text-white flex items-center">
@@ -27,16 +82,13 @@ export default function Header() {
                 bind-html-compile="templateData.tData.middle.value"
               >
                 <div className="padding-bottom-8 ng-scope">
-                  <a
-                    href="https://www.facebook.com/Gyanmajari-Vidyapith-109904388452507"
-                    target="_blank"
-                    className="mdl-button mdl-js-button mdl-button--fab facebook-bg-color mdl-color-text--white font-16 share-social new-icon"
-                    rel="noreferrer noopener"
-                    data-upgraded=",MaterialButton"
-                  >
-                    <i className="icon-facebook social-buttons-icons" />
+                  <a href="https://www.instagram.com/karmarajsinh_13/">
+                    {/* <i className="icon-instagram social-buttons-icons font-28" /> */}
+                    <RiYoutubeLine className="mdl-button mdl-js-button mdl-button--fab mdl-color--red-A700 mdl-color-text--white font-16 share-social new-icon ng-scope">
+                      /
+                    </RiYoutubeLine>
                   </a>
-                  <a
+                  {/* <a
                     href="https://www.linkedin.com/company/gyanmanjari-vidyapith/"
                     target="_blank"
                     className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-700 mdl-color-text--white font-16 share-social new-icon"
@@ -44,8 +96,14 @@ export default function Header() {
                     data-upgraded=",MaterialButton"
                   >
                     <i className="icon-linkedin social-buttons-icons" />
+                  </a> */}
+                  <a href="https://www.instagram.com/karmarajsinh_13/">
+                    {/* <i className="icon-instagram social-buttons-icons font-28" /> */}
+                    <RiTwitterLine className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-A700 mdl-color-text--white font-16 share-social new-icon ng-scope">
+                      /
+                    </RiTwitterLine>
                   </a>
-                  <a
+                  {/* <a
                     href="https://www.youtube.com/channel/UCPYdAnPygpfnQcbP6Yx24wg"
                     target="_blank"
                     className="mdl-button mdl-js-button mdl-button--fab mdl-color--red-500 mdl-color-text--white font-16 share-social new-icon ng-scope"
@@ -53,68 +111,97 @@ export default function Header() {
                     data-upgraded=",MaterialButton"
                   >
                     <i className="icon-User_Profile_Play social-buttons-icons font-14" />
+                  </a> */}
+                  <a href="https://www.instagram.com/karmarajsinh_13/">
+                    {/* <i className="icon-instagram social-buttons-icons font-28" /> */}
+                    <RiFacebookLine className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-A700 mdl-color-text--white font-16 share-social new-icon ng-scope">
+                      /
+                    </RiFacebookLine>
                   </a>
-                  <a
-                    href="https://www.instagram.com/gca2018bvn/"
-                    target="_blank"
-                    className="mdl-button mdl-js-button mdl-button--fab mdl-color--pink-A700 mdl-color-text--white font-16 share-social new-icon ng-scope"
-                    rel="noreferrer noopener"
-                    data-upgraded=",MaterialButton"
-                  >
-                    <i className="icon-instagram social-buttons-icons font-14" />
+                  <a href="https://www.instagram.com/karmarajsinh_13/">
+                    {/* <i className="icon-instagram social-buttons-icons font-28" /> */}
+                    <RiInstagramLine className="mdl-button mdl-js-button mdl-button--fab mdl-color--pink-A700 mdl-color-text--white font-16 share-social new-icon ng-scope">
+                      /
+                    </RiInstagramLine>
                   </a>
                 </div>
               </div>
             </div>
-
-            <div
-              className="flexbox flex-dir-column align-self-center mdl-color-text--grey-700"
-              ng-class="{'maximize-width': $parent.$parent.$parent.mobile_screen}"
-            >
+          <div class="dropdown" data-bs-toggle="dropdown">
+          <li>
+            {user_id ? (
               <div
-                className="flexbox align-items-center justify-content-space-between mdl-color-text--grey-700 font-18 margin-bottom-8"
-                ng-attr-style="{{ templateData.tConfiguration.primaryParentStyles }}"
+                className="flexbox flex-dir-column align-self-center mdl-color-text--grey-700"
+                ng-class="{'maximize-width': $parent.$parent.$parent.mobile_screen}"
               >
-                <span className="inline-block align-self-center flexbox align-items-center">
-
-                  <div
-                    id="user_profile_desktop_header"
-                    href="/profile?source=header"
-                  >
-                    <Link to="/Profile"
-                      name="Karmarajsinh Gohil"
-                      className="ng-isolate-scope"
-                    ></Link>
+                <div
+                  className="flexbox align-items-center justify-content-space-between mdl-color-text--grey-700 font-18 margin-bottom-8"
+                  ng-attr-style="{{ templateData.tConfiguration.primaryParentStyles }}"
+                >
+                  <span className="inline-block align-self-center flexbox align-items-center">
+                    <div
+                      id="user_profile_desktop_header"
+                      href="/profile?source=header"
+                    >
+                      <Link
+                        to="/Profile"
+                        name="Karmarajsinh Gohil"
+                        className="ng-isolate-scope"
+                      ></Link>
                       <img
-                        ng-class="imgConfig.parentDiv"
-                        ng-attr-style="{{imgConfig.parentDivStyle}}"
-                        ng-if="profileSrc"
                         alt="KG"
-                        err-src="https://alumni.gyanmanjarividyapith.edu.in/api/institutes/profile_pic_default?cid=1080"
-                        ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2208215.jpg?v=1676117115"
-                        ng-attr-loading="{{loading || undefined}}"
                         className="ng-scope comment-avatar"
                         style={{ marginRight: "4px" }}
-                        src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2208215.jpg?v=1676117115"
-                        loading="lazy"
+                        src={karma}
                       />
-                   
-
-                  </div>
-                </span>
-                    <span
-                      className="inline-block font-16 ellipsis-text ng-binding"
-                      style={{ maxWidth: "120px" }}
-                    >
-                      Karmarajsinh Gohil
-                    </span>
+                    </div>
+                  </span>
+                  <span
+                    className="inline-block font-16 ellipsis-text ng-binding"
+                    style={{ maxWidth: "120px" }}
+                  >
+                    Karmarajsinh Gohil
+                  </span>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                      <h6>{firstname}</h6>
+                      {/* <span>Web Designer</span> */}
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+  
+                    <li>
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span onClick={btnSignOut}>&nbsp;Sign Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flexbox flex-dir-column mdl-cell--hide-phone align-self-center mdl-color-text--grey-700">
+                <div className="mdl-color-text--grey-700 font-18 margin-bottom-8">
+                  <Link to="/Login" className>
+                    <a className="mdl-button mdl-button--raised mdl-color--primary mdl-color-text--white mdl-js-button mdl-js-rippleeffect mdl-typography--text-uppercase">
+                      Login
+                    </a>
+                  </Link>
+                </div>
+                
+              </div>
+            )}
+          </li>
           </div>
+          </div>
+          
         </div>
       </header>
-      
-      
+
       <header class="bg-blue-500 text-white p-4">
         <div class="container mx-auto flex justify-center items-center">
           <nav>
@@ -125,7 +212,7 @@ export default function Header() {
                   textUnderlinePosition: "under",
                 }}
                 className="ng-binding"
-                to="/Home"
+                to="/"
               >
                 G U R U K U L
               </Link>

@@ -26,171 +26,59 @@ import Add_gallery from "./components/Add_gallery";
 import All_gallery from "./components/All_gallery";
 import Add_event from "./components/Add_event";
 import Event from "./components/Event";
-
-function App() {
-  const Layout = () => {
-    return (
-      <>
-        <Header></Header>
-        <Sidebar></Sidebar>
-        <Outlet></Outlet>
-      </>
-    );
-  };
-  const router1 = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout></Layout>,
-      children: [
-        {
-          path: "/Home",
-          element: <Home></Home>,
-        },
-        {
-          path: "/Users",
-          element: <Users></Users>,
-        },
-        {
-          path: "/Add_users",
-          element: <Add_users></Add_users>,
-        },
-        {
-          path: "/Add_users/:id",
-          element: <Add_users></Add_users>,
-        },
-        {
-          path: "/Gallery",
-          element: <Gallery></Gallery>,
-        },
-        {
-          path: "/Add_gallery",
-          element: <Add_gallery></Add_gallery>,
-        },
-        {
-          path: "/Add_gallery/:id",
-          element: <Add_gallery></Add_gallery>,
-        },
-        {
-          path: "/All_gallery",
-          element: <Add_gallery></Add_gallery>,
-        },
-        {
-          path: "/All_gallery",
-          element: <All_gallery></All_gallery>
-        },
-        {
-          path: "/Profile",
-          element: <Profile></Profile>,
-        },
-        {
-          path: "/Property",
-          element: <Property></Property>,
-        },
-        {
-          path: "/Add_property",
-          element: <Add_property></Add_property>,
-        },
-        {
-          path: "/Add_property/:id",
-          element: <Add_property></Add_property>,
-        },
-        {
-          path: "/Dealer",
-          element: <Dealer></Dealer>,
-        },
-        {
-          path: "/Add_dealer",
-          element: <Add_dealer></Add_dealer>,
-        },
-        {
-          path: "/Add_dealer/:id",
-          element: <Add_dealer></Add_dealer>,
-        },
-        {
-          path: "/PropertyforDealer",
-          element: <PropertyforDealer></PropertyforDealer>,
-        },
-        {
-          path: "/Add_property_dealer",
-          element: <Add_property_dealer></Add_property_dealer>,
-        },
-        {
-          path: "/Add_property_dealer/:id",
-          element: <Add_property_dealer></Add_property_dealer>,
-        },
-        {
-          path: "/Event",
-          element: <Event></Event>,
-        },
-        {
-          path: "/Add_event",
-          element: <Add_event></Add_event>,
-        },
-        {
-          path: "/Add_event/:id",
-          element: <Add_event></Add_event>,
-        },
-        
-      ],
-    },
-  ]);
+const Layout = () => {
   return (
     <>
-      <RouterProvider router={router1}></RouterProvider>
+      <Header></Header>
+      <Outlet></Outlet>
     </>
   );
-  // const [auth, setAuth] = useState(sessionStorage.getItem("user"));
-  // const [role_id, setRole] = useState(sessionStorage.getItem("role"));
+};
+function App() {
+  const [auth, setAuth] = useState(sessionStorage.getItem("admin"));
 
-  // return (
-  //   <>
-  //     <BrowserRouter>
-  //       {auth && role_id == 1 ? (
-  //         <>
-  //           <Layout />
-  //           <Routes>
-  //             <Route path="/" element={<Home />} />
-  //             <Route path="/Home" element={<Home />} />
-  //             <Route path="/Users" element={<Users />} />
-  //             <Route path="/Add_users" element={<Add_users />} />
-  //             <Route path="/Add_users/:id" element={<Add_users />} />
-  //             <Route path="/Profile" element={<Profile />} />
-  //             <Route path="/Property" element={<Property />} />
-  //             <Route path="/Add_property" element={<Add_property />} />
-  //             <Route path="/Add_property/:id" element={<Add_property />} />
-  //             <Route path="/Dealer" element={<Dealer />} />
-  //             <Route path="/Add_dealer" element={<Add_dealer />} />
-  //             <Route path="/Add_dealer/:id" element={<Add_dealer />} />
-  //           </Routes>
-  //           <Footer />
-  //         </>
-  //       ) : auth && role_id == 2 ? (
-  //         <>
-  //           <Layout />
-  //           <Routes>
-  //             <Route path="/" element={<Home />} />
-  //             <Route path="/Home" element={<Home />} />
-  //             <Route
-  //               path="/PropertyforDealer"
-  //               element={<PropertyforDealer />}
-  //             />
-  //             <Route path="/Add_propertyd" element={<Add_property_dealer />} />
-  //             <Route
-  //               path="/Add_propertyd/:id"
-  //               element={<Add_property_dealer />}
-  //             />
-  //           </Routes>
-  //           <Footer />
-  //         </>
-  //       ) : (
-  //         <>
-  //           <Routes>
-  //             <Route path="/" element={<Login />} />
-  //           </Routes>
-  //         </>
-  //       )}
-  //     </BrowserRouter>
-  //   </>
-  // );
+  // useEffect(()=>{
+  //   setAuth(sessionStorage.getItem("user"))
+  // },[auth])
+
+  return (
+    <>
+      <BrowserRouter>
+        {auth ? (
+          <>
+            <Layout />
+            <Sidebar></Sidebar>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Profile" element={<Profile />} />
+              
+              <Route path="/Users" element={<Users />} />
+              <Route path="/Add_users" element={<Add_users />} />
+              <Route path="/Add_users/:id" element={<Add_users />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/Add_gallery" element={<Add_gallery />} />
+              <Route path="/Add_gallery/id" element={<Add_gallery />} />
+              <Route path="/All_gallery" element={<All_gallery />} />
+              <Route path="/Add_event" element={<Add_event />} />
+              <Route path="/Add_event/id" element={<Add_event />} />
+              <Route path="/Event" element={<Event />} />
+
+            </Routes>
+            <Footer></Footer>
+          </>
+        ) : (
+          <>
+            <Header></Header>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              {/* <Route path="/DisplayStudents" exact element={<DisplayStudents />} /> */}
+            </Routes>
+           
+          </>
+        )}
+      </BrowserRouter>
+    </>
+  );
 }
+
 export default App;

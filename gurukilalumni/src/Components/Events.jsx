@@ -1,8 +1,10 @@
 import React from "react";
 import event1 from "../img/event1.jpg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Events() {
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">
@@ -640,13 +642,17 @@ export default function Events() {
                       >
                         Coming Soon
                       </div>
-
+                      {user_id ? (
                       <Link
                         className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
                         to="/ViewEventDetail"
                       >
                         View
                       </Link>
+                        ) : (
+                          <Link to="/Login" className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding">View</Link>
+                        )}
+                   
                     </div>
                   </div>
                 </div>

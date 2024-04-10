@@ -60,7 +60,7 @@ export default function Event() {
                       </td>
 
                       <h6 class="mb-0 text-sm">
-                        KArma
+                        Karma
                         <p class="text-xs text-secondary mb-0">
                         Abc@gmail.com
                         </p>

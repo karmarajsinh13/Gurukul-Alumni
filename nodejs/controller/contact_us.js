@@ -19,6 +19,14 @@ export const getContact = (req, res) => {
     return res.json(data[0]);
   });
 };
+// export const getContact = (req, res) => {
+//   const query = "select a.name , b.email , b.description from contact_us b , user a where b.user_id = a.user_id and b.contact_id=?";
+
+//   db.query(query, [req.params.id], (err, data) => {
+//     if (err) return res.json(err);
+//     return res.json(data[0]);
+//   });
+// };
 
 export const deleteContact = (req, res) => {
   const query = "DELETE FROM contact_us where contact_id= ?";
@@ -30,11 +38,13 @@ export const deleteContact = (req, res) => {
 
 export const insertContact = (req, res) => {
   const query =
-    "INSERT INTO contact_us(`name`,`email`,`description`) values(?)";
+    "INSERT INTO contact_us(`user_id`,`email`,`description`,`entry_date`) values(?)";
+    const date = new Date();
   const values = [
-    req.body.name,
+    req.body.user_id,
     req.body.email,
     req.body.description,
+    date,
   ];
   console.log(query);
   console.log(values);
@@ -45,11 +55,12 @@ export const insertContact = (req, res) => {
 };
 export const updateContact = (req, res) => {
   const query =
-    "UPDATE `contact_us` SET `name`=?, `email`=?, `description`=? where contact_id=?";
+    "UPDATE `contact_us` SET `user_id`=?, `email`=?, `description`=? ,`entry_date`=? where contact_id=?";
   const values = [
-    req.body.name,
+    req.body.user_id,
     req.body.email,
     req.body.description,
+    new Date(),
   ];
   console.log(query);
   db.query(query, [...values, req.params.id], (err, data) => {

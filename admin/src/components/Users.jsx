@@ -13,6 +13,7 @@ export default function Users() {
   const getUser = async () => {
     const res = await axios.get("http://localhost:3000/gurukulalumni/user");
     setUser(res.data);
+    
     console.log(res.data);
   };
   const deleteUser = async (user_id) => {
@@ -108,7 +109,7 @@ export default function Users() {
                           </p>
                         </td>
 
-                        {user.status === "1" ? (
+                        {user.status == "1" ? (
                           <td class="align-middle text-center text-sm">
                             <span class="badge badge-sm bg-gradient-success">
                               Active

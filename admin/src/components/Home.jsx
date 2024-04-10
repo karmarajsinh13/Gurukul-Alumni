@@ -1,12 +1,77 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+
 
 export default function Home() {
+  const[user,setUser]=useState([]);
+  useEffect(() => {
+    getTotelUsers();
+  }, []);
+
+  const getTotelUsers = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/user" );
+    setUser(res.data);
+    getTotelUsers();
+    console.log(res.data);
+  };
   return (
     <div style={{ marginLeft: "270px", marginTop: "50px" }}>
+      
       <main class="main-content position-relative border-radius-lg ">
+      {/* <nav className="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+    <div className="container-fluid">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+   
      
+        <ul className="navbar-nav align-items-center  ml-auto ml-md-0 ">
+          <li className="nav-item dropdown">
+            <a className="nav-link pr-0"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div className="media align-items-center ">
+                <span className=" avatar avatar-sm rounded-circle d-block mr-2 bg-gradient-dark ">
+                  <img  src="https://tse3.mm.bing.net/th?id=OIP.2At97O-LiwWs4MoBmIjEcwHaHc&pid=Api&P=0&h=180" />
+
+                </span>
+                <div className="media-body  ml-2  d-none d-lg-block">
+                  <span className="mb-0 text-sm  font-weight-bold">John Snow</span>
+                </div>
+              </div>
+            </a>
+            <div className="dropdown-menu  dropdown-menu-right ">
+              <div className="dropdown-header noti-title">
+                <h6 className="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="#!" className="dropdown-item">
+                <i className="ni ni-single-02" />
+                <span>My profile</span>
+              </a>
+              <a href="#!" className="dropdown-item">
+                <i className="ni ni-settings-gear-65" />
+                <span>Settings</span>
+              </a>
+              <a href="#!" className="dropdown-item">
+                <i className="ni ni-calendar-grid-58" />
+                <span>Activity</span>
+              </a>
+              <a href="#!" className="dropdown-item">
+                <i className="ni ni-support-16" />
+                <span>Support</span>
+              </a>
+              <div className="dropdown-divider" />
+              <a href="#!" className="dropdown-item">
+                <i className="ni ni-user-run" />
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>    */}
+   
         <div class="container-fluid py-4">
           <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -16,21 +81,21 @@ export default function Home() {
                     <div class="col-8">
                       <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                          Today's Money
+                          Total Alumnis
                         </p>
-                        <h5 class="font-weight-bolder">$53,000</h5>
+                        <h5 class="font-weight-bolder">{getTotelUsers}</h5>
                         <p class="mb-0">
                           <span class="text-success text-sm font-weight-bolder">
-                            +55%
+                            {/* +55% */}
                           </span>
-                          since yesterday
+                          {/* since yesterday */}
                         </p>
                       </div>
                     </div>
                     <div class="col-4 text-end">
                       <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
                         <i
-                          class="ni ni-money-coins text-lg opacity-10"
+                          class="ni ni-world text-lg opacity-10"
                           aria-hidden="true"
                         ></i>
                       </div>
@@ -495,5 +560,7 @@ export default function Home() {
         </div>
       </main>
     </div>
+
+
   );
 }

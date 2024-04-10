@@ -1,10 +1,11 @@
 import express from "express";
 import {
-  deleteuser,
+  deleteUser,
   getUser,
   getUsers,
   insertUser,
   updateUser,
+  TotalUsers,
 } from "../controller/user.js";
 import multer from "multer";
 
@@ -26,5 +27,8 @@ router7.get("/", getUsers);
 router7.get("/:id", getUser);
 router7.put("/:id",upload.single("photo"),  updateUser);
 router7.post("/",upload.single("photo"),  insertUser);
-router7.delete("/:id", deleteuser);
+router7.delete("/:id", deleteUser);
+
+router7.get("/", TotalUsers);
+
 export default router7;

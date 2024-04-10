@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 
+
 export const getgallerys = (req, res) => {
   const query1 = "SELECT * FROM gallery";
   db.query(query1, (err, data) => {

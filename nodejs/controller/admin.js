@@ -30,7 +30,7 @@ export const deleteAdmin = (req, res) => {
 
 export const insertAdmin = (req, res) => {
   const query =
-    "INSERT INTO admin(`firstname`,`lastname`,`email`,`username`,`password`,`confirm_password`,`address`,`number`,`photo`,`gender`) values(?)";
+    "INSERT INTO admin(`firstname`,`lastname`,`email`,`username`,`password`,`confirm_password`,`address`,`number`,`photo`,`gender`,`dob`) values(?)";
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -40,8 +40,9 @@ export const insertAdmin = (req, res) => {
     req.body.confirm_password,
     req.body.address,
     req.body.number,
-    req.body.photo,
+    req.file?.filename,
     req.body.gender,
+    req.body.dob
   ];
   console.log(query);
   console.log(values);
@@ -52,7 +53,7 @@ export const insertAdmin = (req, res) => {
 };
 export const updateAdmin = (req, res) => {
   const query =
-    "UPDATE `admin` SET `firstname`=?,`lastname`=?,`email`=?,`username`=?,`password`=?,`confirm_password`=?,`address`=?,`number`=?,`photo`=?,`gender`=? where admin_id=?";
+    "UPDATE `admin` SET `firstname`=?,`lastname`=?,`email`=?,`username`=?,`password`=?,`confirm_password`=?,`address`=?,`number`=?,`photo`=?,`gender`=?,`dob`=? where admin_id=?";
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -62,8 +63,9 @@ export const updateAdmin = (req, res) => {
     req.body.confirm_password,
     req.body.address,
     req.body.number,
-    req.body.photo,
+    req.file?.filename || req.body.photo,
     req.body.gender,
+    req.body.dob,
   ];
   console.log(query);
   db.query(query, [...values, req.params.id], (err, data) => {

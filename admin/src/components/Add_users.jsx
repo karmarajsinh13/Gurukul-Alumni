@@ -139,7 +139,7 @@ export default function Add_users() {
                         </label>
                         <input
                           className="form-control"
-                          type="phone"
+                          type="text"
                           defaultValue={phone}
                           onChange={(e)=>setphone(e.target.value)}
                          
@@ -156,7 +156,7 @@ export default function Add_users() {
                         </label>
                         <input
                           className="form-control"
-                          type="email"
+                          type="text"
                           defaultValue={email}
                           onChange={(e)=>setemail(e.target.value)}
                          

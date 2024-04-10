@@ -1,8 +1,10 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Job() {
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
   return (
     <div>
       <div className="page-strip-change page-strip-change-themed">
@@ -765,7 +767,12 @@ export default function Job() {
                           ng-if="job.job_type==0"
                           className="ng-binding ng-scope"
                         >
+                           {user_id ? (
                            <Link to="/ViewJob">View Job Post</Link>
+                          
+                        ) : (
+                          <Link to="/Login">View Job Post</Link>
+                        )}
                           
                         </span>
                       </a>

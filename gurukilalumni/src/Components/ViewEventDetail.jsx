@@ -1,7 +1,16 @@
 import React from "react";
 import event1 from "../img/event1.jpg";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import "./regi.css";
 
 export default function ViewEventDetail() {
+  const [showForm, setShowForm] = useState(false);
+
+  const showRegistrationForm = () => {
+    setShowForm(true);
+  };
+
   return (
     <main
       className="mdl-color--grey-100 mdl-color--grey-100-themed main-family ng-scope"
@@ -18,9 +27,7 @@ export default function ViewEventDetail() {
                 <div
                   event-live-chip="eventDetails"
                   className="ng-isolate-scope"
-                >
-                  
-                </div>
+                ></div>
               </div>
               <div
                 className="inline-block mdl-color-text--white font-24 font-xs-16 font-md-18 ng-binding"
@@ -30,13 +37,8 @@ export default function ViewEventDetail() {
               >
                 Grand Alumni Gathering of Crystal Jubilee of Gurukul
               </div>
-              
-              <div className="margin-top-16 flexbox align-items-center">
-                
-                
-                
-                
-              </div>
+
+              <div className="margin-top-16 flexbox align-items-center"></div>
             </div>
           </div>
           <div
@@ -44,7 +46,6 @@ export default function ViewEventDetail() {
             className="mdl-cell mdl-cell--2-col mdl-cell--1-col-phone mdl-color-text--white mdl-cell--hide-phone rel-pos right-alignment ng-hide"
             style={{ top: "3px", right: "-4px" }}
           >
-
             <span className="nb-menu-setting">
               <div className="mdl-menu__container is-upgraded">
                 <div className="mdl-menu__outline mdl-menu--bottom-right" />
@@ -63,7 +64,7 @@ export default function ViewEventDetail() {
                   >
                     Delete Event
                   </li>
-                  
+
                   <li
                     className="mdl-menu__item nb-list-setting ng-binding ng-scope"
                     ng-if="eventDetails.activate_status==0"
@@ -72,9 +73,6 @@ export default function ViewEventDetail() {
                   >
                     Save in draft
                   </li>
-                  
-                  
-                  
                 </ul>
               </div>
             </span>
@@ -103,12 +101,9 @@ export default function ViewEventDetail() {
                   style={{ textDecoration: "none" }}
                   href="/profile/2098623?source=ev_creator"
                 >
-                  Shree Swaminarayan College of Computer Science 
+                  Shree Swaminarayan College of Computer Science
                 </a>
-                
               </span>
-              
-             
             </div>
           </div>
         </div>
@@ -136,12 +131,174 @@ export default function ViewEventDetail() {
                   src={event1}
                   className="cursor-pointer"
                 />
-                
               </div>
             </div>
 
-            
-            {/* <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
+            <div
+              className="mdl-card__actions mdl-card--border font-14 main-family mdl-color-text--grey-900 mdl-typography--font-light"
+              style={{ padding: "24px", lineHeight: "24.5px" }}
+            >
+              {/* ngIf: eventDetails.fee && eventDetails.fee!=0 */}
+              <div style={{ marginBottom: "12px" }}>
+                <div ng-show="editTimings" className="ng-hide">
+                  {showForm && (
+                    <form
+                      name="timingsform"
+                      noValidate
+                      className="ng-pristine ng-valid"
+                    >
+                      <div className="mdl-grid mdl-grid--no-spacing">
+                        <div>
+                          <div>
+                            <div className="ng-scope ng-isolate-scope">
+                              <div
+                                className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
+                                data-upgraded=",MaterialTextfield"
+                              >
+                                <input
+                                  className="mdl-textfield__input rel-pos"
+                                  type="text"
+                                  placeholder="Your Name"
+                                />
+                                <span
+                                  ng-show="eventDetails.sdate"
+                                  ng-click="eventDetails.sdate=null"
+                                  className="link-detail comment-share"
+                                >
+                                  <i className="icon-clear" />
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet padding-left-gt-xs-4">
+                          <div
+                            className="rel-pos is-dirty"
+                            ng-class="{'is-dirty': eventDetails.stime, 'is-invalid': false}"
+                            ng-init="stimeField={'name':'stime','type':'time','label': 'Start Time','styles':{'div':''}}"
+                          >
+                            <customfield
+                              field="stimeField"
+                              response="eventDetails.stime"
+                              className="ng-isolate-scope"
+                            >
+                              <div
+                                className="rel-pos"
+                                style={{ fontSize: "14px !important" }}
+                              ></div>
+                            </customfield>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="ng-scope ng-isolate-scope">
+                            <div
+                              className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
+                              data-upgraded=",MaterialTextfield"
+                            >
+                              <input
+                                className="mdl-textfield__input rel-pos"
+                                type="text"
+                                placeholder="Your Name"
+                              />
+                              <span
+                                ng-show="eventDetails.sdate"
+                                ng-click="eventDetails.sdate=null"
+                                className="link-detail comment-share"
+                              >
+                                <i className="icon-clear" />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="ng-scope ng-isolate-scope">
+                          <div
+                            className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
+                            data-upgraded=",MaterialTextfield"
+                          >
+                            <input
+                              className="mdl-textfield__input rel-pos"
+                              type="text"
+                              placeholder="Your E-mail"
+                            />
+                            <span
+                              ng-show="eventDetails.sdate"
+                              ng-click="eventDetails.sdate=null"
+                              className="link-detail comment-share"
+                            >
+                              <i className="icon-clear" />
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="ng-scope ng-isolate-scope">
+                            <div
+                              className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
+                              data-upgraded=",MaterialTextfield"
+                            >
+                              <input
+                                className="mdl-textfield__input rel-pos"
+                                type="text"
+                                placeholder="the number of guests you are bringing along with you"
+                              />
+                              <span
+                                ng-show="eventDetails.sdate"
+                                ng-click="eventDetails.sdate=null"
+                                className="link-detail comment-share"
+                              >
+                                <i className="icon-clear" />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="right-alignment margin-tb-20">
+                        <button
+                          className="mdl-button mdl-js-button mdl-js-rippleeffect mdl-button--accent mdl-typography--font-regular ng-binding"
+                          style={{ marginRight: "7px", zIndex: 0 }}
+                          ng-click="cancelTimings()"
+                          data-upgraded=",MaterialButton"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="mdl-button font-14 mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular ladda-button ladda-button-primary"
+                          style={{
+                            paddingTop: "0px",
+                            float: "right",
+                            zIndex: 0,
+                            textTransform: "none",
+                          }}
+                          ng-click="saveTimings(timingsform)"
+                          ladda-button="savingTimings"
+                          data-style="zoom-out"
+                          data-upgraded=",MaterialButton"
+                        >
+                          <span className="ladda-label ng-binding">Save </span>
+                          <span className="ladda-spinner" />
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* <div>
+      <button onClick={toggleForm}>Register</button>
+
+      {showForm && (
+        <div id="registrationForm">
+          <form id="registrationForm">
+            <label htmlFor="name">Name:</label><br />
+            <input type="text" id="name" name="name" /><br />
+            <label htmlFor="number">Number:</label><br />
+            <input type="text" id="number" name="number" /><br /><br />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      )}
+    </div> */}
+            <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
               <div
                 className="mdl-card__actions m-b-20 ng-hide"
                 align="center"
@@ -151,26 +308,21 @@ export default function ViewEventDetail() {
                   ng-show="eventDetails.booking_on==1 && (info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && same_com_log))"
                   className="ng-hide"
                 >
-                  
-                  <a
-                    ng-show="!guestUserAttendee && !info.userRegRestricted && !( checkDates(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)!='Past Event' && codes.length)"
+                  <button
                     className="mdl-button mdl-js-button  mdl-color-text--white mdl-typography--font-regular mdl-color--primary mdl-js-rippleeffect ng-binding"
-                    ui-sref="inapp.event_ticket({eventId: '7781',source: 'eventView'})"
-                    ng-bind="'20' | asLingo"
-                    href="/events/tickets/7781?source=eventView"
-                    data-upgraded=",MaterialButton"
+                    id="register-btn"
+                    onClick={showRegistrationForm}
+                    style={{ display: showForm ? "none" : "block" }}
                   >
                     Register
-                  </a>
-                  
-                  
-                  <div
+                  </button>
+
+                  {/* <div
                     align="center"
                     style={{ marginTop: "15px" }}
                     ng-show="$root.featureEnabled('events.RSVP.*') && $root.app_data.same_com_log && !info.userRegRestricted"
                     className="ng-hide"
                   >
-                    
                     <a
                       style={{ cursor: "pointer" }}
                       ng-click="markNotAttending($event)"
@@ -178,21 +330,19 @@ export default function ViewEventDetail() {
                     >
                       If you are not attending, click here
                     </a>
-                  </div>
+                  </div> */}
                 </div>
-                <div
+                {/* <div
                   className="center-alignment mdl-color-text--grey-600 ng-hide"
                   style={{ marginTop: "15px" }}
                   ng-show="info.userRegRestricted || (eventDetails.booking_on==1 && info.showUserRestricted && info.userRegInt==3 && !same_com_log)"
                 >
                   <i className="icon-info font-20" />
                   <div className="margin-top-6 font-14">
-                    
                     <span
                       ng-if="!info.userRegRestrictedRole && !info.userRegRestrictedUser && !info.userRegRole"
                       className="ng-scope"
                     >
-                      
                       <span
                         ng-if="!info.showVerifiedMem"
                         className="ng-binding ng-scope"
@@ -200,21 +350,12 @@ export default function ViewEventDetail() {
                         Registration is only open for members of Alumni
                         Association of Gurukul.
                       </span>
-                      
-                      
                     </span>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                   </div>
-                </div>
+                </div> */}
               </div>
-              
-              <div
+
+              {/* <div
                 className="mdl-card__actions m-b-20"
                 align="center"
                 ng-show="eventDetails.booking_on==0 && (!eventDetails.metadata || !eventDetails.metadata.remove_reg_btn)"
@@ -228,25 +369,16 @@ export default function ViewEventDetail() {
                 >
                   Online Registration Closed
                 </button>
-              </div>
-            </div> */}
-            
-            
-            
+              </div> */}
+            </div>
           </div>
-          
-          
         </div>
         <div className="mdl-cell mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--4-col-phone main-family margin-top-gt-xs-10">
-          
-          
-          
           <div
             id="tpl-content"
             ng-include="'event-tickets-card.tpl'"
             className="ng-scope"
           >
-            
             <div
               className="padding-tb-32 padding-tb-md-24 padding-tb-xs-20 mdl-color--white mdl-shadow--2dp ng-scope"
               ng-class="{'margin-bottom-24':!same_com_log}"
@@ -262,10 +394,7 @@ export default function ViewEventDetail() {
                     Ongoing Event
                   </span>
                 </div> */}
-                
-                
-                
-                
+
                 <div
                   ng-if="checkDates(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)=='Past Event'"
                   className="ng-scope"
@@ -273,7 +402,7 @@ export default function ViewEventDetail() {
                   <div className="flexbox margin-bottom-24 align-items-center">
                     <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
                     <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
-                    ✅ You were already registered for this event
+                      ✅ You were already registered for this event
                     </span>
                   </div>
                   <div
@@ -284,12 +413,8 @@ export default function ViewEventDetail() {
                     Coming Soon
                   </div>
                 </div>
-                
-                
-                
-                
+
                 <div className="margin-top-24 margin-top-xs-14 flexbox flex-wrap-wrap align-items-center">
-                  
                   <a
                     id="alltickets"
                     className="font-14 margin-top-xs-10 padding-lr-0 font-xs-12  mdl-typography--font-regular margin-right-xs-30 margin-right-24 margin-lr-xs-0  ng-binding"
@@ -303,7 +428,7 @@ export default function ViewEventDetail() {
                     }}
                   >
                     {/* <img src="./img/Ticket.svg" className="margin-right-6" /> */}
-                   <b style={{fontSize:'20px'}}>🎫</b> View ticket
+                    <b style={{ fontSize: "20px" }}>🎫</b> View ticket
                   </a>
                   <div className="mdl-menu__container is-upgraded">
                     <div className="mdl-menu__outline" />
@@ -313,7 +438,6 @@ export default function ViewEventDetail() {
                       style={{ width: "max-content", textAlign: "left" }}
                       data-upgraded=",MaterialMenu"
                     >
-                      
                       <li
                         className="mdl-menu__item ng-scope"
                         ng-repeat="code in codes"
@@ -326,11 +450,9 @@ export default function ViewEventDetail() {
                           ticket of Jan 25, 2023 03:20 PM
                         </a>
                       </li>
-                      
                     </ul>
                   </div>
-                  
-                  
+
                   <div className="mdl-menu__container is-upgraded">
                     <div className="mdl-menu__outline" />
                     <ul
@@ -349,7 +471,7 @@ export default function ViewEventDetail() {
                           Google Calendar
                         </a>
                       </li>
-                      
+
                       <li className="mdl-menu__item" tabIndex={-1}>
                         <a
                           className="mdl-color-text--blue-900 link-detail font-14 ng-binding"
@@ -364,17 +486,9 @@ export default function ViewEventDetail() {
                   </div>
                 </div>
               </div>
-              
-              
-              
-              
-              
-              
             </div>
-            
           </div>
-          
-          
+
           <div
             ng-if="(!eventDetails.regsetup_id && eventDetails.mode==1) || eventDetails.mode!=1 || myEvent || $root.app_data.isAdmin"
             className="margin-top-30 ng-scope"
@@ -388,34 +502,29 @@ export default function ViewEventDetail() {
               >
                 ADDRESS
               </div>
-              
             </div>
             <div
               ng-hide="editAddress"
               style={{ padding: "0px 22px" }}
               className
             >
-              
               <div
                 className="font-16 mdl-color-text--grey-600 ng-binding ng-scope"
                 ng-bind-html="eventDetails.location | convertToAnchor"
                 ng-if="eventDetails.location!=null"
               >
-                Shree Swaminarayan College of Computer Science Gurukul Campus , Sardarnagar ,<br></br>Bhavnagar
+                Shree Swaminarayan College of Computer Science Gurukul Campus ,
+                Sardarnagar ,<br></br>Bhavnagar
               </div>
-              </div>
-              </div>
-          
-          
+            </div>
+          </div>
+
           <hr
             ng-show="(!eventDetails.regsetup_id && eventDetails.mode==1) || eventDetails.mode!=1 || myEvent || $root.app_data.isAdmin"
             ng-if="originalDesc!=null && originalDesc != '' && (eventDetails.location || eventDetails.cityName || editAddress)"
             className="ng-scope"
           />
-          
-          
-          
-          
+
           <div
             className="center-section-margin ng-scope"
             style={{ padding: "27px 0px 0px" }}
@@ -429,7 +538,6 @@ export default function ViewEventDetail() {
               >
                 DESCRIPTION
               </div>
-              
             </div>
             <div
               className="font-16 mdl-color-text--grey-600 content_image_width_responsive"
@@ -474,27 +582,17 @@ export default function ViewEventDetail() {
               &nbsp;
             </div>
           </div>
-          
 
-          
-          
-          
-          
-          
-          
           <hr
             ng-if="eventDetails.total_guests>0 && $root.app_data.same_com_log"
             className="ng-scope"
           />
-          
-          
-          <div
+
+          {/* <div
             ng-if="eventDetails.total_guests>0 && $root.app_data.same_com_log && !(eventDetails.metadata.hide_attendees && !$root.app_data.isAdmin)"
             className="center-section-margin ng-scope"
             style={{ padding: "27px 0px 0px" }}
           >
-            
-            
             <div className="m-b-20 font-18 mdl-typography--font-light">
               <i className="icon-User_Profile_UserNetwork mdl-color-text--primary" />
               <div
@@ -503,12 +601,7 @@ export default function ViewEventDetail() {
               >
                 ATTENDEES (1457)
               </div>
-              
-              
-              
-              
-              
-              
+
               <a
                 className="mdl-color-text--accent link-detail mdl-typography--font-regular float-right font-16 ng-binding"
                 ui-sref="inapp.event_attendees({eventId: '7781',source: 'eventView',source_baggage: 'source_baggage_for_attendees'})"
@@ -518,16 +611,13 @@ export default function ViewEventDetail() {
                 See All
               </a>
             </div>
-            
+
             <div className="mdl-grid" style={{ padding: "0px 22px" }}>
-              
               <div
                 className="mdl-cell mdl-cell--6-col ng-scope"
                 ng-repeat="guest in guests.data"
               >
-                
                 <div ng-if="guest.is_guest!=1" className="ng-scope">
-                  
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     className="new-icon ng-scope"
@@ -544,8 +634,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -558,13 +646,10 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2208215.jpg?v=1676117115"
                         />
-                        
                       </as-profile-pic>
                     </a>
                   </div>
-                  
-                  
-                  
+
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     style={{ float: "left" }}
@@ -584,20 +669,14 @@ export default function ViewEventDetail() {
                       Alumni, Class of 2021
                     </div>
                   </div>
-                  
-                  
                 </div>
-                
-                
               </div>
-              
+
               <div
                 className="mdl-cell mdl-cell--6-col ng-scope"
                 ng-repeat="guest in guests.data"
               >
-                
                 <div ng-if="guest.is_guest!=1" className="ng-scope">
-                  
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     className="new-icon ng-scope"
@@ -614,8 +693,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -628,13 +705,10 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2193572.jpg?v=1691252083"
                         />
-                        
                       </as-profile-pic>
                     </a>
                   </div>
-                  
-                  
-                  
+
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     style={{ float: "left" }}
@@ -654,20 +728,14 @@ export default function ViewEventDetail() {
                       Alumni, Class of 2019
                     </div>
                   </div>
-                  
-                  
                 </div>
-                
-                
               </div>
-              
+
               <div
                 className="mdl-cell mdl-cell--6-col ng-scope"
                 ng-repeat="guest in guests.data"
               >
-                
                 <div ng-if="guest.is_guest!=1" className="ng-scope">
-                  
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     className="new-icon ng-scope"
@@ -684,8 +752,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -698,13 +764,10 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2193525.jpg?v=1665043906"
                         />
-                        
                       </as-profile-pic>
                     </a>
                   </div>
-                  
-                  
-                  
+
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     style={{ float: "left" }}
@@ -724,20 +787,14 @@ export default function ViewEventDetail() {
                       Alumni, Class of 2021
                     </div>
                   </div>
-                  
-                  
                 </div>
-                
-                
               </div>
-              
+
               <div
                 className="mdl-cell mdl-cell--6-col ng-scope"
                 ng-repeat="guest in guests.data"
               >
-                
                 <div ng-if="guest.is_guest!=1" className="ng-scope">
-                  
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     className="new-icon ng-scope"
@@ -754,8 +811,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -768,13 +823,10 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2484679.jpg?v=1674722520"
                         />
-                        
                       </as-profile-pic>
                     </a>
                   </div>
-                  
-                  
-                  
+
                   <div
                     ng-if="(guest.first_name || guest.last_name)"
                     style={{ float: "left" }}
@@ -794,21 +846,11 @@ export default function ViewEventDetail() {
                       Faculty
                     </div>
                   </div>
-                  
-                  
                 </div>
-                
-                
               </div>
-              
             </div>
-          </div>
-          
-          
-          
-          
-          
-          
+          </div> */}
+{/* 
           <div
             className="center-section-margin asScrollSpy"
             style={{ padding: "27px 0px 0px" }}
@@ -827,7 +869,7 @@ export default function ViewEventDetail() {
                 EVENT POSTS
               </div>
             </div>
-            
+
             <div className="m-b-20">
               <div
                 ng-hide="showPost"
@@ -849,9 +891,7 @@ export default function ViewEventDetail() {
                 style={{ overflow: "visible" }}
                 data-upgraded=",MaterialTabs"
               >
-                
                 <div className="mdl-tabs__tab-bar">
-                  
                   <a
                     ng-if="eventDiscussion"
                     href="#posttab"
@@ -859,8 +899,7 @@ export default function ViewEventDetail() {
                   >
                     Post
                   </a>
-                  
-                  
+
                   <a
                     ng-if="eventPoll"
                     href="#polltab"
@@ -868,9 +907,8 @@ export default function ViewEventDetail() {
                   >
                     Poll
                   </a>
-                  
                 </div>
-                
+
                 <div
                   ng-show="eventDiscussion"
                   className="mdl-tabs__panel is-active"
@@ -893,8 +931,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -907,7 +943,6 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2208215.jpg?v=1676117115"
                         />
-                        
                       </as-profile-pic>
                     </span>
                     <div
@@ -937,7 +972,6 @@ export default function ViewEventDetail() {
                       style={{ margin: "-12px 0px 0px 60px" }}
                       className="ng-hide"
                     >
-                      
                       <as-chips
                         profile-image="true"
                         query={10}
@@ -948,16 +982,11 @@ export default function ViewEventDetail() {
                         className="ng-isolate-scope"
                       >
                         <div style={{ display: "block" }}>
-                          
-                          
                           <div
                             ng-if="!pref || !pref.afterChips"
                             ng-include="'./chips-div.tpl'"
                             className="ng-scope"
-                          >
-                            
-                          </div>
-                          
+                          ></div>
                         </div>
                         <pa-autocomplete
                           query={10}
@@ -1000,7 +1029,7 @@ export default function ViewEventDetail() {
                               className="mdl-textfield__label ng-binding"
                               htmlFor="auto"
                             >
-                              Add people {" "}
+                              Add people{" "}
                             </label>
                             <span className="mdl-textfield__error ng-binding" />
                             <div
@@ -1034,21 +1063,16 @@ export default function ViewEventDetail() {
                                   maxHeight: "200px",
                                   overflowY: "auto",
                                 }}
-                              >
-                                
-                              </ul>
+                              ></ul>
                             </div>
                           </div>
                         </pa-autocomplete>
-                        
                       </as-chips>
                     </div>
                     <div
                       style={{ marginLeft: "60px" }}
                       className="margin-left-xs-12"
                     >
-                      
-                      
                       <div
                         className="image-upload-div ng-hide"
                         ng-show="disableShare"
@@ -1105,7 +1129,7 @@ export default function ViewEventDetail() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="margin-bottom-10">
                         <span className="font-12 mdl-color-text--red ng-binding" />
                       </div>
@@ -1114,10 +1138,7 @@ export default function ViewEventDetail() {
                       style={{ marginLeft: "60px" }}
                       ng-show="files_to_upload.length || filesUploading.length"
                       className="ng-hide"
-                    >
-                      
-                      
-                    </div>
+                    ></div>
                     <div
                       style={{ margin: "0px 0px 20px 62px" }}
                       className="margin-left-xs-12 flexbox flex-wrap-wrap-768"
@@ -1202,8 +1223,7 @@ export default function ViewEventDetail() {
                     </div>
                   </div>
                 </div>
-                
-                
+
                 <div
                   ng-show="eventPoll"
                   className="mdl-tabs__panel"
@@ -1226,8 +1246,6 @@ export default function ViewEventDetail() {
                         txt-config="{'parentDiv':'font-16'}"
                         className="ng-isolate-scope"
                       >
-                        
-                        
                         <img
                           ng-class="imgConfig.parentDiv"
                           ng-attr-style="{{imgConfig.parentDivStyle}}"
@@ -1240,7 +1258,6 @@ export default function ViewEventDetail() {
                           style={{ float: "left" }}
                           src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/profiles/50x50/2208215.jpg?v=1676117115"
                         />
-                        
                       </as-profile-pic>
                     </span>
                     <div
@@ -1272,7 +1289,6 @@ export default function ViewEventDetail() {
                       }}
                       className="margin-left-xs-12"
                     >
-                      
                       <div
                         className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ng-scope is-upgraded"
                         style={{ width: "calc(50% - 8px)" }}
@@ -1293,7 +1309,7 @@ export default function ViewEventDetail() {
                           Option 1
                         </label>
                       </div>
-               
+
                       <div
                         className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ng-scope float-right is-upgraded"
                         style={{ width: "calc(50% - 8px)" }}
@@ -1314,7 +1330,6 @@ export default function ViewEventDetail() {
                           Option 2
                         </label>
                       </div>
-                      
                     </div>
                     <div
                       style={{ marginLeft: "60px" }}
@@ -1342,19 +1357,17 @@ export default function ViewEventDetail() {
                     </div>
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
-       
+
           <div
             ng-if="post_data.success != 1"
             align="center"
             className="padding-16 mdl-color--grey-300 ng-binding ng-scope"
           >
             No posts to display!
-          </div>
-          
+          </div> */}
         </div>
       </div>
       <div

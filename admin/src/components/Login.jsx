@@ -1,117 +1,139 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
-  const [contact, setphone] = useState("");
+  const [admin_id, setId] = useState(sessionStorage.getItem("admin"));
+  useEffect(() => {
+    if (admin_id) {
+      getAdmin();
+    }
+  }, []);
+
+  const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
-  const [role_id, setRole] = useState(0);
-
+  const navigate = useNavigate();
   const submitHandle = async (e) => {
     e.preventDefault();
-    //alert(role_id);
     try {
-      const res = await axios.get("http://localhost:1122/kk/login", {
-        params: {
-          contact: contact,
-          password: password,
-          role_id: role_id,
-        },
-      });
+      const res = await axios.get(
+        "http://localhost:3000/gurukulalumni/adminlogin",
+        {
+          params: {
+            username: username,
+            password: password,
+          },
+        }
+      );
 
       if (res.data > 0) {
         setError("");
-        sessionStorage.setItem("user", res.data);
-        sessionStorage.setItem("role", role_id);
+        navigate("/");
+        sessionStorage.setItem("admin", res.data);
 
-        // window.location.reload();
+        window.location.reload();
       } else {
-        setError("Invalid UserId or Password");
+        console.log(res.data);
+        setError("Invalid Username/Password...");
       }
     } catch (error) {}
   };
+  const getAdmin = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/admin/" + admin_id
+    );
 
+    console.log(res.data);
+  };
   return (
-    <main class="main-content  mt-0">
-      <section>
-        <div class="page-header min-vh-75">
-          <div class="container">
-            <div class="row">
+    <>
+      <div
+        class="position-absolute w-100  min-height-300 top-0"
+        style={{
+          backgroundImage: "url('../assets/img/curved-images/banner1.jpg')",
+          backgroundPositionY: "50%",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          zIndex: "-1",
+        }}
+      >
+        <span class="mask bg-primary opacity-6"></span>
+      </div>
+      <main class="main-content  mt-0">
+        <section>
+          <div class="col-md-12">
+            <div class="container">
               <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-                <div class="card card-plain mt-8">
-                  <div class="card-header pb-0 text-left bg-transparent">
-                    <h3 class="font-weight-bolder text-info text-gradient">
-                      Welcome back ADMIN
-                    </h3>
-                    <p class="mb-0">Enter your email and password to sign in</p>
-                  </div>
-                  <div class="card-body">
-                    <form role="form">
-                      <div class="col-12">
-                        <label>Choose a Role:</label>
+                <div class="card card-plain mt-11">
+                  <div class="card">
+                    <div class="card-header pb-0 text-left bg-transparent">
+                      <h3 class="font-weight-bolder text-info text-gradient">
+                        Welcome back ADMIN
+                      </h3>
+                      <p class="mb-0">
+                        Enter your email and password to sign in
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <form role="form">
+                        <label>Username</label>
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Username"
+                            aria-label="Contact"
+                            aria-describedby="contact-addon"
+                            onChange={(e) => setusername(e.target.value)}
+                          />
+                        </div>
+                        <label>Password</label>
+                        <div class="mb-3">
+                          <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                            aria-label="Password"
+                            aria-describedby="password-addon"
+                            onChange={(e) => setpassword(e.target.value)}
+                          />
+                        </div>
 
-                        <select
-                          name="role"
-                          id="role"
-                          class="form-control"
-                          onChange={(e) => setRole(e.target.value)}
-                        >
-                          <option value="0">Select Role</option>
-                          <option value="1">Admin</option>
-                          <option value="2">Dealer </option>
-                        </select>
-                      </div>
-                      <label>Contact</label>
-                      <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Contact"
-                          aria-label="Contact"
-                          aria-describedby="contact-addon"
-                          onChange={(e) => setphone(e.target.value)}
-                        />
-                      </div>
-                      <label>Password</label>
-                      <div class="mb-3">
-                        <input
-                          type="email"
-                          class="form-control"
-                          placeholder="Password"
-                          aria-label="Password"
-                          aria-describedby="password-addon"
-                          onChange={(e) => setpassword(e.target.value)}
-                        />
-                      </div>
-
-                      <div class="text-center">
-                        <button
-                          type="button"
-                          class="btn bg-gradient-info w-100 mt-4 mb-0"
-                          onClick={submitHandle}
-                        >
-                          Sign in
-                        </button>
-                      </div>
-                    </form>
+                        <div class="text-center">
+                          <button
+                            type="button"
+                            class="btn bg-gradient-info w-100 mt-4 mb-0"
+                            onClick={submitHandle}
+                          >
+                            Sign in
+                          </button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                  <div
-                    class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                    style={{
-                      backgroundImage:
-                        "url('../assets/img/curved-images/curved6.jpg')",
-                    }}
-                  ></div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+        <footer class="footer pt-7  ">
+          <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-xl-3 col-lg-5 col-md-6 d-flex flex-column mx-auto">
+                <div class="copyright text-center text-sm text-muted text-lg-start">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  © 2024
+                  <script>document.write(new Date().getFullYear())</script>,
+                  made by
+                  <span class="font-weight-bold"> K A R M A Production</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }

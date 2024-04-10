@@ -747,6 +747,7 @@ progress {
   margin-left: calc(-.5 * var(--bs-gutter-x));
 }
 
+
 .row>* {
   flex-shrink: 0;
   width: 100%;

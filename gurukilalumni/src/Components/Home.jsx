@@ -5,34 +5,6 @@ import vrundesh from '../img/vrundesh.jpg';
 // "https://afilemanager.s3.dualstack.ap-southeast-1.amazonaws.com/prod/cid_0/mentorship-3.png"
 
 export default function Home() {
-  let slideIndex = 0;
-
-  function showSlides() {
-    const slides = document.querySelectorAll(".slides img");
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.transform = `translateX(${-100 * slideIndex}%)`;
-    }
-  }
-
-  function nextSlide() {
-    if (slideIndex < 4) {
-      slideIndex++;
-    } else {
-      slideIndex = 0;
-    }
-    showSlides();
-  }
-
-  function prevSlide() {
-    if (slideIndex > 0) {
-      slideIndex--;
-    } else {
-      slideIndex = 4;
-    }
-    showSlides();
-  }
-
-  setInterval(nextSlide, 4000);
   return (
     <div>
       {/* <div class="slider">

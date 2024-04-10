@@ -1,7 +1,8 @@
+
 import { db } from "../db.js";
 
 export const getEvents = (req, res) => {
-  const query1 = "SELECT * FROM event";
+  const query1 = "SELECT * FROM events";
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -12,7 +13,7 @@ export const getEvents = (req, res) => {
 };
 
 export const getEvent = (req, res) => {
-  const query = "select * from event where event_id=?";
+  const query = "select * from events where event_id=?";
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
@@ -21,7 +22,7 @@ export const getEvent = (req, res) => {
 };
 
 export const deleteEvent = (req, res) => {
-  const query = "DELETE FROM event where event_id= ?";
+  const query = "DELETE FROM events where event_id= ?";
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
     return res.json("Event has been deleted");
@@ -30,41 +31,40 @@ export const deleteEvent = (req, res) => {
 
 export const insertEvent = (req, res) => {
   const query =
-    "INSERT INTO event(`event_name`,`date`,`location`,`image`,`description`,`start_time`,`end_time`,`entry_by`,`entry_date`,`update_date`,`status`) values(?)";
+    "INSERT INTO events(`ename`,`date`,`locationn`,`image`,`description`,`start_time`,`end_time`,`entry_date`,`status`) values(?)";
+  const date = new Date();
   const values = [
-    req.body.event_name,
+    req.body.ename,
     req.body.date,
-    req.body.location,
-    req.body.image,
+    req.body.locationn,
+    req.file?.filename,
     req.body.description,
     req.body.start_time,
     req.body.end_time,
-    req.body.entry_by,
-    req.body.entry_date,
-    req.body.update_date,
-    req.body.status,
+    date,
+   req.body.status
   ];
+
   console.log(query);
   console.log(values);
   db.query(query, [values], (err, data) => {
     if (err) return res.json(err);
+    
     return res.json("New Event has been added");
   });
 };
 export const updateEvent = (req, res) => {
   const query =
-    "UPDATE `event` SET `event_name`=?,`date`=?,`location`=?,`image`=?,`description`=?,`start_time`=?,`end_time`=?,`entry_by`=?,`entry_date`=?,`update_date`=?,`status`=? where event_id=?";
+    "UPDATE `events` SET `ename`=?,`date`=?,`locationn`=?,`image`=?,`description`=?,`start_time`=?,`end_time`=?,`entry_date`=?,`status`=? where event_id=?";
   const values = [
-    req.body.event_name,
+    req.body.ename,
     req.body.date,
-    req.body.location,
-    req.body.image,
+    req.body.locationn,
+    req.file?.filename || req.body.image,
     req.body.description,
     req.body.start_time,
     req.body.end_time,
-    req.body.entry_by,
-    req.body.entry_date,
-    req.body.update_date,
+    new Date(),
     req.body.status,
   ];
   console.log(query);

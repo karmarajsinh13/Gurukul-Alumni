@@ -1,5 +1,12 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  createBrowserRouter,
+  Route,
+  BrowserRouter,
+  Routes,
+  RouterProvider,
+  Outlet,
+} from "react-router-dom";
 import Events from "./Components/Events";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -12,70 +19,62 @@ import Job from "./Components/Job";
 import Profile from "./Components/Profile";
 import ViewJob from "./Components/ViewJob";
 import ViewGallery from "./Components/ViewGallery";
+import Login from "./Components/Login";
 
+const Layout = () => {
+  return (
+    <>
+      <Header></Header>
+      <Outlet></Outlet>
+    </>
+  );
+};
 function App() {
-  const Layout = () => {
-    return (
-      <>
-        <Header />
-        <Outlet />
-        <Footer />
-      </>
-    );
-  };
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "/Home",
-          element: <Home />,
-        },
-        {
-          path: "/Footer",
-          element: <Footer />,
-        },
-        {
-          path: "/Events",
-          element: <Events />,
-        },
-        {
-          path: "/ViewEventDetail",
-          element: <ViewEventDetail />,
-        },
-        {
-          path: "/Gallery",
-          element: <Gallery />,
-        },
-        {
-          path: "/About",
-          element: <About />,
-        },
-        {
-          path: "/Contact",
-          element: <Contact />,
-        },
-        {
-          path: "/Job",
-          element: <Job />,
-        },
-        {
-          path: "Profile",
-          element: <Profile />,
-        },
-        {
-          path: "/ViewJob",
-          element: <ViewJob />,
-        },
-        {
-          path: "/ViewGallery",
-          element: <ViewGallery/>,
-        },
-      ],
-    },
-  ]);
-  return <>{<RouterProvider router={router} />}</>;
+  const [auth, setAuth] = useState(sessionStorage.getItem("user"));
+
+  // useEffect(()=>{
+  //   setAuth(sessionStorage.getItem("user"))
+  // },[auth])
+
+  return (
+    <>
+      <BrowserRouter>
+        {auth ? (
+          <>
+            <Layout />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Events" element={<Events />} />
+              <Route path="/ViewEventDetail" element={<ViewEventDetail />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/About" element={<About />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/Job" element={<Job />} />
+              <Route path="/Profile" element={<Profile />} />
+              <Route path="/ViewJob" element={<ViewJob />} />
+              <Route path="/ViewGallery" element={<ViewGallery />} />
+            </Routes>
+            <Footer></Footer>
+          </>
+        ) : (
+          <>
+            <Header></Header>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Events" element={<Events />} />
+              <Route path="/Gallery" element={<Gallery />} />
+              <Route path="/About" element={<About />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/Job" element={<Job />} />
+              {/* <Route path="/DisplayStudents" exact element={<DisplayStudents />} /> */}
+            </Routes>
+            <Footer></Footer>
+          </>
+        )}
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;

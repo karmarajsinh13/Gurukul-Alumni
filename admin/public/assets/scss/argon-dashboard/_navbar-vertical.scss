@@ -57,6 +57,7 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
+  
   // Expanded navbar specific styles
   &.navbar-expand {
     @each $breakpoint, $dimension in $grid-breakpoints {
