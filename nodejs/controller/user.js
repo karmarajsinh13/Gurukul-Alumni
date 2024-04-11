@@ -2,7 +2,7 @@
 import { db } from "../db.js";
 
 export const getUsers = (req, res) => {
-  const query1 = "SELECT * FROM user";
+  const query1 = `SELECT *,DATE_FORMAT(dob, "%d %M %y") AS dob FROM user`;
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -24,7 +24,7 @@ export const TotalUsers = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-  const query = "select * from user where user_id=?";
+  const query = `select *,DATE_FORMAT(dob, "%d %M %y") AS dob from user where user_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
@@ -42,21 +42,24 @@ export const deleteUser = (req, res) => {
 
 export const insertUser = (req, res) => {
   const query =
-    "INSERT INTO user(firstname,lastname,phone,username,email,password,photo,city,state,address,entry_date,status) values(?)";
+    "INSERT INTO user(firstname,lastname,phone,username,email,password,passing_year,gender,dob,photo,city,state,address,entry_date,status) values(?)";
   const date = new Date();
   const values = [
-    req.body.filename,
+    req.body.firstname,
     req.body.lastname,
     req.body.phone,
     req.body.username,
     req.body.email,
     req.body.password,
+    req.body.passing_year,
+    req.body.gender,
+    req.body.dob,
     req.file?.filename,
     req.body.city,
     req.body.state,
     req.body.address,
     date,
-    req.body.status
+    req.body.status,
   ];
 
   console.log(query);
@@ -69,7 +72,7 @@ export const insertUser = (req, res) => {
 };
 export const updateUser = (req, res) => {
   const query =
-    "UPDATE `user` SET `firstname`=?,`lastname`=?,`phone`=?,`username`=?,`email`=?,`password`=?,`photo`=?,`city`=?,`state`=?,`address`=?,`entry_date`=?,`status`=? where user_id=?";
+    "UPDATE `user` SET `firstname`=?,`lastname`=?,`phone`=?,`username`=?,`email`=?,`password`=?,`passing_year`=?,`gender`=?,`dob`=?,`photo`=?,`city`=?,`state`=?,`address`=?,`entry_date`=?,`status`=? where user_id=?";
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -77,6 +80,9 @@ export const updateUser = (req, res) => {
     req.body.username,
     req.body.email,
     req.body.password,
+    req.body.passing_year,
+    req.body.gender,
+    req.body.dob,
     req.file?.filename || req.body.photo,
     req.body.city,
     req.body.state,

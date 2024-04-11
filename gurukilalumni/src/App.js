@@ -20,6 +20,8 @@ import Profile from "./Components/Profile";
 import ViewJob from "./Components/ViewJob";
 import ViewGallery from "./Components/ViewGallery";
 import Login from "./Components/Login";
+import Editprofile from "./Components/Editprofile";
+import Editprofileacc from "./Components/Editprofileacc";
 
 const Layout = () => {
   return (
@@ -51,6 +53,8 @@ function App() {
               <Route path="/Contact" element={<Contact />} />
               <Route path="/Job" element={<Job />} />
               <Route path="/Profile" element={<Profile />} />
+              <Route path="/EditProfile" element={<Editprofile />} />
+              <Route path="/Editprofileacc" element={<Editprofileacc />} />
               <Route path="/ViewJob" element={<ViewJob />} />
               <Route path="/ViewGallery" element={<ViewGallery />} />
             </Routes>

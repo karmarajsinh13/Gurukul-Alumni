@@ -137,22 +137,23 @@ export default function Header() {
                 <div
                   className="flexbox align-items-center justify-content-space-between mdl-color-text--grey-700 font-18 margin-bottom-8"
                   ng-attr-style="{{ templateData.tConfiguration.primaryParentStyles }}"
-                >
+                >  <Link
+                to="/Profile"
+                name="Karmarajsinh Gohil"
+                className="ng-isolate-scope"
+              >
                   <span className="inline-block align-self-center flexbox align-items-center">
                     <div
                       id="user_profile_desktop_header"
                       href="/profile?source=header"
                     >
-                      <Link
-                        to="/Profile"
-                        name="Karmarajsinh Gohil"
-                        className="ng-isolate-scope"
-                      ></Link>
+                    
                       <img
                         alt="KG"
                         className="ng-scope comment-avatar"
                         style={{ marginRight: "4px" }}
-                        src={karma}
+                        src={`http://localhost:3000/uploads/${photo}`}
+
                       />
                     </div>
                   </span>
@@ -160,11 +161,12 @@ export default function Header() {
                     className="inline-block font-16 ellipsis-text ng-binding"
                     style={{ maxWidth: "120px" }}
                   >
-                    Karmarajsinh Gohil
-                  </span>
+                    {/* Karmarajsinh Gohil */}
+                    <h6>{firstname}</h6>
+                  </span></Link>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                      <h6>{firstname}</h6>
+                      {/* <h6>{firstname}</h6> */}
                       {/* <span>Web Designer</span> */}
                     </li>
                     <li>

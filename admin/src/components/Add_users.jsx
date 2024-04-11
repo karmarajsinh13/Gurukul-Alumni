@@ -12,11 +12,12 @@ export default function Add_users() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [graduated_year, setgraduated_year] = useState("");
   const [dob, setdob] = useState("");
   const [gender, setgender] = useState("");
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
+  const [passing_year, setpassing_year] = useState("");
+
   const location = useLocation();
   const navigate = useNavigate();
   const user_id = location.pathname.split("/")[2]
@@ -44,6 +45,9 @@ export default function Add_users() {
     setState(res.data.state);
     setemail(res.data.email);
     setphone(res.data.phone);
+    setpassing_year(res.data.passing_year);
+    setdob(res.data.dob);
+    setgender(res.data.gender);
   };
   const submitbtn = async (e) => {
     e.preventDefault();
@@ -60,6 +64,9 @@ export default function Add_users() {
     formdata.append("state", state);
     formdata.append("email", email);
     formdata.append("phone", phone);
+    formdata.append("passing_year", passing_year);
+    formdata.append("dob", dob);
+    formdata.append("gender", gender);
     let res = "";
     console.log(formdata);
     if (user_id) {
@@ -68,10 +75,13 @@ export default function Add_users() {
         formdata
       );
     } else {
-      res = await axios.post("http://localhost:3000/gurukulalumni/user", formdata);
+      res = await axios.post(
+        "http://localhost:3000/gurukulalumni/user",
+        formdata
+      );
     }
     alert(res.data);
-    console.log(res.data)
+    console.log(res.data);
     navigate("/Users");
   };
   return (
@@ -107,8 +117,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={firstname}
-                          onChange={(e)=>setFname(e.target.value)}
-                         
+                          onChange={(e) => setFname(e.target.value)}
                         />
                       </div>
                     </div>
@@ -124,8 +133,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={lastname}
-                          onChange={(e)=>setLname(e.target.value)}
-                         
+                          onChange={(e) => setLname(e.target.value)}
                         />
                       </div>
                     </div>
@@ -141,8 +149,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={phone}
-                          onChange={(e)=>setphone(e.target.value)}
-                         
+                          onChange={(e) => setphone(e.target.value)}
                         />
                       </div>
                     </div>
@@ -158,8 +165,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={email}
-                          onChange={(e)=>setemail(e.target.value)}
-                         
+                          onChange={(e) => setemail(e.target.value)}
                         />
                       </div>
                     </div>
@@ -175,8 +181,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={username}
-                          onChange={(e)=>setUsername(e.target.value)}
-                        
+                          onChange={(e) => setUsername(e.target.value)}
                         />
                       </div>
                     </div>
@@ -217,12 +222,59 @@ export default function Add_users() {
                         >
                           Profile Pic
                         </label>
-                        <input className="form-control" type="file" 
-                        defaultValue={photo}
-                        onChange={(e)=>setImg(e.target.files[0])} />
+                        <input
+                          className="form-control"
+                          type="file"
+                          defaultValue={photo}
+                          onChange={(e) => setImg(e.target.files[0])}
+                        />
                       </div>
                     </div>
-                    {/* <div className="col-md-6">
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label
+                          htmlFor="example-text-input"
+                          className="form-control-label"
+                        >
+                          Date Of Birth
+                        </label>
+                        <input
+                          className="form-control"
+                          type="date"
+                          defaultValue={dob}
+                          onChange={(e) => setdob(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label
+                          htmlFor="example-text-input"
+                          className="form-control-label"
+                        >
+                          Passing Year
+                        </label>
+                        <select
+                          name="status"
+                          class="form-control"
+                          defaultValue={passing_year}
+                          onChange={(e) => setpassing_year(e.target.value)}
+                        >
+                          <option>Year</option>
+                          <option value="2015">2015</option>
+                          <option value="2016">2016</option>
+                          <option value="2017">2017</option>
+                          <option value="2018">2018</option>
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          <option value="2021">2021</option>
+                          <option value="2022">2022</option>
+                          <option value="2023">2023</option>
+                          <option value="2024">2024</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
@@ -230,14 +282,18 @@ export default function Add_users() {
                         >
                           Gender
                         </label>
-                        <select name="status" class="form-control" 
-                        onChange={(e) => setgender(e.target.value)}>
+                        <select
+                          name="status"
+                          class="form-control"
+                          defaultValue={gender}
+                          onChange={(e) => setgender(e.target.value)}
+                        >
                           <option>Choose</option>
-                          <option value="0">Male</option>
-                          <option value="1">FeMale</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">FeMale</option>
                         </select>
                       </div>
-                    </div> */}
+                    </div>
                     <div className="col-md-4">
                       <div className="form-group">
                         <label
@@ -246,9 +302,12 @@ export default function Add_users() {
                         >
                           Password
                         </label>
-                        <input className="form-control" type="password" 
-                        defaultValue={password}
-                        onChange={(e)=>setPassword(e.target.value)} />
+                        <input
+                          className="form-control"
+                          type="password"
+                          defaultValue={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -263,9 +322,7 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={city}
-                        
-                          onChange={(e)=>setCity(e.target.value)}
-
+                          onChange={(e) => setCity(e.target.value)}
                         />
                       </div>
                     </div>
@@ -281,13 +338,10 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={state}
-                        
-                          onChange={(e)=>setState(e.target.value)}
+                          onChange={(e) => setState(e.target.value)}
                         />
                       </div>
                     </div>
-
-                   
 
                     <div className="col-md-12">
                       <div className="form-group">
@@ -301,11 +355,11 @@ export default function Add_users() {
                           className="form-control"
                           type="text"
                           defaultValue={address}
-                          onChange={(e)=>setAddress(e.target.value)}
+                          onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
                     </div>
-                     <div class="col-md-4">
+                    <div class="col-md-4">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
@@ -313,9 +367,12 @@ export default function Add_users() {
                         >
                           Status
                         </label>
-                        <select name="status" class="form-control"
-                        defaultValue={status}
-                        onChange={(e)=>setStatus(e.target.value)}>
+                        <select
+                          name="status"
+                          class="form-control"
+                          defaultValue={status}
+                          onChange={(e) => setStatus(e.target.value)}
+                        >
                           <option>Choose</option>
                           <option value="0">Inactive</option>
                           <option value="1">Active</option>
