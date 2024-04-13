@@ -2,7 +2,7 @@
 import { db } from "../db.js";
 
 export const getEvents = (req, res) => {
-  const query1 = "SELECT * FROM events";
+  const query1 = `SELECT *,DATE_FORMAT(date, "%d %M %y") AS date FROM events`;
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -13,7 +13,7 @@ export const getEvents = (req, res) => {
 };
 
 export const getEvent = (req, res) => {
-  const query = "select * from events where event_id=?";
+  const query = `select *,DATE_FORMAT(date, "%d %M %y") AS date from events where event_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);

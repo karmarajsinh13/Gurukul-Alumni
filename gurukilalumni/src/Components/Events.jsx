@@ -1,10 +1,34 @@
 import React from "react";
 import event1 from "../img/event1.jpg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Events() {
   const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [event, setEvent] = useState([]);
+
+  useEffect(() => {
+    getEvent();
+  }, []);
+
+  const getEvent = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/event");
+    setEvent(res.data);
+
+    console.log(res.data);
+  };
+  const deleteEvent = async (event_id) => {
+    let ans = window.confirm("are you sure?");
+    if (ans) {
+      const res = await axios.delete(
+        "http://localhost:3000/gurukulalumni/event/" + event_id
+      );
+      console.log(res.data);
+      alert(res.data);
+      getEvent();
+    }
+  };
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">
@@ -259,195 +283,194 @@ export default function Events() {
             infinite-scroll-distance={1}
             id="event_cards"
           >
-            <div
-              className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
-              ng-repeat="(key1, event) in DisplayedEvents"
-              style={{ padding: "8px" }}
-            >
-              <div className="mdl-grid padding-xs-0" style={{ margin: "0px" }}>
-                <div className="flex-grow-3 flexbox mdl-cell mdl-cell--5-col mdl-cell--3-col-tablet">
-                  <div
-                    ui-sref="inapp.event_single({eventId: '7781'})"
-                    className="center-alignment align-self-center aspect-ratio-16-10-parent border-box flex-grow-3 rel-pos"
-                    style={{ contain: "content" }}
-                    href="/events/7781"
-                  >
+            {event.map((event) => (
+              <div
+                className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
+                ng-repeat="(key1, event) in DisplayedEvents"
+                style={{ padding: "8px" }}
+              >
+                <div
+                  className="mdl-grid padding-xs-0"
+                  style={{ margin: "0px" }}
+                >
+                  <div className="flex-grow-3 flexbox mdl-cell mdl-cell--5-col mdl-cell--3-col-tablet">
                     <div
-                      className="aspect-ratio-child border-radius-2 blur-background-3"
-                      ng-attr-style="background-image: url('{{event.event_logo}}');background-repeat: no-repeat;background-position: center;background-size: cover;"
-                      style={{
-                        backgroundImage:
-                          'url("https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg")',
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                      }}
-                    ></div>
-                    <div
-                      className="border-radius-2 abs-pos cursor-pointer"
-                      style={{ top: 0, width: "100%", height: "100%" }}
+                      ui-sref="inapp.event_single({eventId: '7781'})"
+                      className="center-alignment align-self-center aspect-ratio-16-10-parent border-box flex-grow-3 rel-pos"
+                      style={{ contain: "content" }}
+                      href="/events/7781"
                     >
                       <div
-                        className="abs-pos ng-isolate-scope"
-                        style={{ top: "16px", right: "16px", zIndex: 99 }}
-                        event-live-chip="event"
-                      ></div>
-
-                      <img
-                        ng-if="event.event_logo"
-                        className="abs-pos ng-scope"
+                        className="aspect-ratio-child border-radius-2 blur-background-3"
+                        ng-attr-style="background-image: url('{{event.event_logo}}');background-repeat: no-repeat;background-position: center;background-size: cover;"
                         style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          margin: "auto",
+                          backgroundImage:
+                            'url("https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg")',
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
                         }}
-                        src={event1}
-                      />
+                      ></div>
+                      <div
+                        className="border-radius-2 abs-pos cursor-pointer"
+                        style={{ top: 0, width: "100%", height: "100%" }}
+                      >
+                        <div
+                          className="abs-pos ng-isolate-scope"
+                          style={{ top: "16px", right: "16px", zIndex: 99 }}
+                          event-live-chip="event"
+                        ></div>
+
+                        <img
+                          ng-if="event.event_logo"
+                          className="abs-pos ng-scope"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            margin: "auto",
+                          }}
+                          src={`http://localhost:3000/uploads/${event.image}`}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
-                  <table className="mdl-typography--font-medium font-18 maximize-width m-b-20">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            ui-sref="inapp.event_single({eventId: '7781'})"
-                            className="link-detail mdl-color-text--grey-900 font-18 font-md-16 font-xs-14 "
-                            href="/events/7781"
-                          >
-                            <span
-                              style={{
-                                display: "-webkit-box",
-                                WebkitLineClamp: 1,
-                                WebkitBoxOrient: "vertical",
-                                overflow: "hidden",
-                              }}
-                              className="ng-binding"
-                            >
-                              Grand Alumni Gathering of Crystal Jubilee of
-                              Gyanmanjari
-                            </span>
-                          </div>
-                        </td>
-                        <td style={{ verticalAlign: "top" }}>
-                          <span className="rel-pos">
+                  <div className="flex-dir-column flex-grow-3 flexbox mdl-cell mdl-cell--5-col-tablet mdl-cell--7-col">
+                    <table className="mdl-typography--font-medium font-18 maximize-width m-b-20">
+                      <tbody>
+                        <tr>
+                          <td>
                             <div
-                              className="hide_menu_bg share-list-div"
-                              ng-show="$root.app_data.config.meta[51].allowed"
+                              ui-sref="inapp.event_single({eventId: '7781'})"
+                              className="link-detail mdl-color-text--grey-900 font-18 font-md-16 font-xs-14 "
+                              href="/events/7781"
                             >
-                              <div className="mdl-menu__container is-upgraded">
-                                <div className="mdl-menu__outline mdl-menu--bottom-right" />
-                                <ul
-                                  className="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-                                  htmlFor="side-menu0"
-                                  data-upgraded=",MaterialMenu"
-                                >
-                                  <li
-                                    className="mdl-menu__item share-list"
-                                    style={{ height: "90px" }}
-                                    tabIndex={-1}
-                                  >
-                                    <a
-                                      ng-href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=fb"
-                                      onclick="shareCard(event,'fb')"
-                                      className="mdl-button mdl-js-button mdl-button--fab facebook-bg-color mdl-color-text--white font-16 share-social"
-                                      href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=fb"
-                                      data-upgraded=",MaterialButton"
-                                    >
-                                      <i className="icon-facebook adjust-social-icons" />
-                                    </a>
-                                    <br />
-                                    <a
-                                      ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
-                                      onclick="shareCard(event,'linkedIn')"
-                                      className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-700 mdl-color-text--white font-16 share-social"
-                                      href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
-                                      data-upgraded=",MaterialButton"
-                                    >
-                                      <i className="icon-linkedin adjust-social-icons" />
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    <a
-                                      ng-href="https://www.addtoany.com/add_to/whatsapp?linkurl=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=wp"
-                                      onclick="shareCard(event,'whatsApp')"
-                                      className="mdl-button mdl-js-button mdl-button--fab whatsapp-color mdl-color-text--white font-16 share-social"
-                                      href="https://www.addtoany.com/add_to/whatsapp?linkurl=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=wp"
-                                      data-upgraded=",MaterialButton"
-                                    >
-                                      <i
-                                        className="icon-whatsapp2 adjust-social-icons"
-                                        style={{ fontSize: "20px", top: "4px" }}
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
+                              <span
+                                style={{
+                                  display: "-webkit-box",
+                                  WebkitLineClamp: 1,
+                                  WebkitBoxOrient: "vertical",
+                                  overflow: "hidden",
+                                }}
+                                className="ng-binding"
+                              >
+                                {event.ename}
+                              </span>
                             </div>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="left-alignment flex-grow-3 flexbox flex-dir-column">
-                    <div
-                      className="mdl-color-text--grey-600 rel-pos"
-                      style={{ margin: "0px 0px 7px 32px" }}
-                      ng-show="event.sdate"
-                    >
-                      <i
-                        className="icon-access_time new-icon font-16 mdl-color-text--grey-900"
-                        style={{ position: "absolute", left: "-32px" }}
-                      />
-                      <span className="font-14 font-xs-12 ng-binding" />
-                      <span className="font-14 font-xs-12 ng-binding">
-                        Apr 19, 2024
-                      </span>
-                      <span
-                        className="font-14 font-xs-12 ng-binding"
-                        ng-show="event.stime"
-                      >
-                        - 3:30 PM{" "}
-                      </span>
-                    </div>
-                    <div
-                      className="mdl-color-text--grey-600 ng-hide"
-                      style={{ margin: "0px 0px 7px 32px" }}
-                      ng-show="event.fdate"
-                    >
-                      <span className="font-14 font-xs-12 ng-binding">
-                        Ends: 06:30 PM
-                      </span>
-                      <span className="font-14 font-xs-12 ng-binding" />
-                      <span
-                        className="font-14 font-xs-12 ng-binding ng-hide"
-                        ng-show="event.ftime"
-                      >
-                        -{" "}
-                      </span>
-                    </div>
-                    <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
+                          </td>
+                          <td style={{ verticalAlign: "top" }}>
+                            <span className="rel-pos">
+                              <div
+                                className="hide_menu_bg share-list-div"
+                                ng-show="$root.app_data.config.meta[51].allowed"
+                              >
+                                <div className="mdl-menu__container is-upgraded">
+                                  <div className="mdl-menu__outline mdl-menu--bottom-right" />
+                                  <ul
+                                    className="mdl-menu mdl-js-menu mdl-menu--bottom-right"
+                                    htmlFor="side-menu0"
+                                    data-upgraded=",MaterialMenu"
+                                  >
+                                    <li
+                                      className="mdl-menu__item share-list"
+                                      style={{ height: "90px" }}
+                                      tabIndex={-1}
+                                    >
+                                      <a
+                                        ng-href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=fb"
+                                        onclick="shareCard(event,'fb')"
+                                        className="mdl-button mdl-js-button mdl-button--fab facebook-bg-color mdl-color-text--white font-16 share-social"
+                                        href="https://www.facebook.com/sharer/sharer.php?u=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=fb"
+                                        data-upgraded=",MaterialButton"
+                                      >
+                                        <i className="icon-facebook adjust-social-icons" />
+                                      </a>
+                                      <br />
+                                      <a
+                                        ng-href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
+                                        onclick="shareCard(event,'linkedIn')"
+                                        className="mdl-button mdl-js-button mdl-button--fab mdl-color--blue-700 mdl-color-text--white font-16 share-social"
+                                        href="https://www.linkedin.com/shareArticle?mini=true&url=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=ld"
+                                        data-upgraded=",MaterialButton"
+                                      >
+                                        <i className="icon-linkedin adjust-social-icons" />
+                                      </a>
+                                      &nbsp;&nbsp;
+                                      <a
+                                        ng-href="https://www.addtoany.com/add_to/whatsapp?linkurl=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=wp"
+                                        onclick="shareCard(event,'whatsApp')"
+                                        className="mdl-button mdl-js-button mdl-button--fab whatsapp-color mdl-color-text--white font-16 share-social"
+                                        href="https://www.addtoany.com/add_to/whatsapp?linkurl=https://alumni.gyanmanjarividyapith.edu.in/events/7781?source=wp"
+                                        data-upgraded=",MaterialButton"
+                                      >
+                                        <i
+                                          className="icon-whatsapp2 adjust-social-icons"
+                                          style={{
+                                            fontSize: "20px",
+                                            top: "4px",
+                                          }}
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="left-alignment flex-grow-3 flexbox flex-dir-column">
                       <div
-                        className
-                        ng-show="(event.location || event.city_name) && event.mode!=1"
+                        className="mdl-color-text--grey-600 rel-pos"
+                        style={{ margin: "0px 0px 7px 32px" }}
+                        ng-show="event.sdate"
                       >
-                        {/* <i
+                        <i
+                          className="icon-access_time new-icon font-16 mdl-color-text--grey-900"
+                          style={{ position: "absolute", left: "-32px" }}
+                        />
+                        <span className="font-14 font-xs-12 ng-binding" />
+                        <span className="font-14 font-xs-12 ng-binding">
+                         {event.date}
+                        </span>
+                        <span
+                          className="font-14 font-xs-12 ng-binding"
+                          ng-show="event.stime"
+                        >&nbsp;
+                          Starts:- {event.start_time}
+                        </span>
+                      </div>
+                      <div
+                        className="mdl-color-text--grey-600 ng-hide"
+                        style={{ margin: "0px 0px 7px 32px" }}
+                        ng-show="event.fdate"
+                      >
+                        <span className="font-14 font-xs-12 ng-binding">
+                          Ends:- {event.end_time}
+                        </span>
+         
+                      </div>
+                      <div className="mdl-color-text--grey-600 font-16 flexbox flex-dir-row flex-wrap-wrap flex-gap-16 align-items-center">
+                        <div
+                          className
+                          ng-show="(event.location || event.city_name) && event.mode!=1"
+                        >
+                          {/* <i
                           className="icon-place new-icon font-16 mdl-color-text--grey-900"
                      
                         /> */}
-                        <span
-                          ng-show="event.location"
-                          className="font-14 font-xs-12 ng-binding"
-                        >
-                          Shree Swaminarayan College of Computer Science Gurukul
-                          Campus , Sardarnagar , Bhavnagar
-                        </span>
-                      </div>
-                      {/* <div
+                          <span
+                            ng-show="event.location"
+                            className="font-14 font-xs-12 ng-binding"
+                          >
+                           {event.locationn}
+                          </span>
+                        </div>
+                        {/* <div
                         className="flexbox flex-gap-16 ng-hide"
                         ng-show="event.location && event.mode==1"
                       >
@@ -457,7 +480,7 @@ export default function Events() {
                         </span>
                       </div> */}
 
-                      {/* <div
+                        {/* <div
                         className="flexbox ng-scope"
                         ng-if="!(event.metadata.hide_attendees)"
                       >
@@ -628,38 +651,56 @@ export default function Events() {
                           
                         </a>
                       </div> */}
-                    </div>
-                    <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
-                      <div
-                        ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
-                        className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--teal-A700"
-                        style={{
-                          margin: "0px 8px 0px 0px",
-                          borderRadius: "16px",
-                     
-                        }}
-                        ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
-                      >
-                        Coming Soon
                       </div>
-                      {user_id ? (
-                      <Link
-                        className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
-                        to="/ViewEventDetail"
-                      >
-                        View
-                      </Link>
+                      <div className="padding-top-12 align-items-flex-end flex-gap-8 flex-grow-3 flexbox">
+                      {event.status == "1" ? (
+                        <div
+                          ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                          className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--teal-A700"
+                          style={{
+                            margin: "0px 8px 0px 0px",
+                            borderRadius: "16px",
+                          }}
+                          ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                        >
+                          Coming Soon
+                        </div>
+                          ) : (
+                            <div
+                            ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                            className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
+                            style={{
+                              margin: "0px 8px 0px 0px",
+                              borderRadius: "16px",
+                            }}
+                            ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                          >
+                            Past Event
+                          </div>
+                           )}
+                        {user_id ? (
+                          <Link
+                            className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
+                            to={`/ViewEventDetail/` + event.event_id}
+                          >
+                            View
+                          </Link>
                         ) : (
-                          <Link to="/Login" className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding">View</Link>
+                          <Link
+                            to="/Login"
+                            className="event-card-view-btn float-right float-none-xs maximize-width-xs margin-top-xs-12 margin-top-md-12 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular maximize-width-xs min-width-button font-16 font-xs-14 ng-binding"
+                          >
+                            View
+                          </Link>
                         )}
-                   
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
 
-            <div
+            {/* <div
               className="mdl-cell--12-col mdl-card homepage-shadow-6 maximize-width event-card-adjust ng-scope"
               ng-repeat="(key1, event) in DisplayedEvents"
               style={{ padding: "8px" }}
@@ -1403,9 +1444,9 @@ export default function Events() {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div
+            {/* <div
               ng-hide="!lock[currnt_criteria]"
               className="maximize-width ng-hide"
             >
@@ -1417,15 +1458,15 @@ export default function Events() {
                 <div className="bufferbar bar bar2" style={{ width: "100%" }} />
                 <div className="auxbar bar bar3" style={{ width: "0%" }} />
               </div>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               ng-show="no_more_data[currnt_criteria]"
               className="mdl-color--grey-300 mdl-color-text--grey-900 padding-16 maximize-width center-alignment ng-binding"
             >
               No more events to display!
-            </div>
+            </div> */}
           </div>
-          <div
+          {/* <div
             ng-hide="DisplayedEvents"
             className="mdl-card homepage-shadow-6 maximize-width m-b-20 no-event-display ng-hide"
           >
@@ -1453,7 +1494,7 @@ export default function Events() {
                 posted, we will notify you about the same.{" "}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

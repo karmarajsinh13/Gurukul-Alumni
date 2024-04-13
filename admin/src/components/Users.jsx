@@ -76,7 +76,7 @@ export default function Users() {
                             <div>
                               <img
                                 src={`http://localhost:3000/uploads/${user.photo}`}
-                                class="avatar avatayyr-sm me-3"
+                                class="avatar avatar-sm me-3"
                                 alt="user1"
                               />
                             </div>

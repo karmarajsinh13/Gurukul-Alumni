@@ -20,7 +20,7 @@ export const getContact = (req, res) => {
   });
 };
 // export const getContact = (req, res) => {
-//   const query = "select a.name , b.email , b.description from contact_us b , user a where b.user_id = a.user_id and b.contact_id=?";
+//   const query = "select a.user_name , b.user_email , b.description from contact_us b , user a where b.user_phone = a.user_phone and b.contact_id=?";
 
 //   db.query(query, [req.params.id], (err, data) => {
 //     if (err) return res.json(err);
@@ -38,11 +38,12 @@ export const deleteContact = (req, res) => {
 
 export const insertContact = (req, res) => {
   const query =
-    "INSERT INTO contact_us(`user_id`,`email`,`description`,`entry_date`) values(?)";
+    "INSERT INTO contact_us(`user_name`,`user_phone`,`user_email`,`description`,`entry_date`) values(?)";
     const date = new Date();
   const values = [
-    req.body.user_id,
-    req.body.email,
+    req.body.user_name,
+    req.body.user_phone,
+    req.body.user_email,
     req.body.description,
     date,
   ];
@@ -55,10 +56,11 @@ export const insertContact = (req, res) => {
 };
 export const updateContact = (req, res) => {
   const query =
-    "UPDATE `contact_us` SET `user_id`=?, `email`=?, `description`=? ,`entry_date`=? where contact_id=?";
+    "UPDATE `contact_us` SET `user_name`=? ,`user_phone`=?, `user_email`=?, `description`=? ,`entry_date`=? where contact_id=?";
   const values = [
-    req.body.user_id,
-    req.body.email,
+    req.body.user_name,
+    req.body.user_phone,
+    req.body.user_email,
     req.body.description,
     new Date(),
   ];

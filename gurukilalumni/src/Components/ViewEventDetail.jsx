@@ -1,105 +1,156 @@
 import React from "react";
 import event1 from "../img/event1.jpg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./regi.css";
 
 export default function ViewEventDetail() {
   const [showForm, setShowForm] = useState(false);
+  const [ep, setEp] = useState([]);
+  const [user, setUser] = useState([]);
+  const [firstname, setFname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [event, setEvent] = useState([]);
+  const [event_participate, setEvent_participate] = useState([]);
+  const [ep_name, setEpname] = useState("");
+  const [ep_email, setEpemail] = useState("");
+  const [number, setEpnumber] = useState("");
+  const [invite, setInvite] = useState("");
+  const [ename, setName] = useState("");
+
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const location = useLocation();
+  const navigate = useNavigate();
+  const event_id = location.pathname.split("/")[2]
+    ? location.pathname.split("/")[2]
+    : "";
+  const ep_id = location.pathname.split("/")[2]
+    ? location.pathname.split("/")[2]
+    : "";
+
+  useEffect(() => {
+    if ((event_id, user_id, ep_id)) {
+      fatchUserName();
+      getEp();
+      getEvent();
+      getEvent_participate();
+    }
+  }, []);
+
+  const getEvent = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/event/" + event_id
+    );
+    setEvent(res.data);
+
+    console.log(res.data);
+  };
+  const refreshPage = () => {
+    window.location.reload();
+  };
+  const fatchUserName = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/gurukulalumni/user/" + user_id
+      );
+      setFname(res.data.firstname);
+      setEmail(res.data.email);
+      setPhone(res.data.phone);
+    } catch (error) {}
+  };
+  const getEvent_participate = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/gurukulalumni/event_participate/" + ep_id
+      );
+      setEvent_participate(res.data);
+      
+    } catch (error) {}
+  };
 
   const showRegistrationForm = () => {
     setShowForm(true);
   };
+  const getEp = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/event_participate/" + ep_id
+    );
+    console.log(res.data);
+    setEp(res.data);
+
+    setEpname(res.data.ep_name);
+    setEpemail(res.data.ep_email);
+    setEpnumber(res.data.number);
+    setInvite(res.data.invite);
+  };
+  const btnRegister = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      user_id,
+      event_id,
+      ep_name: firstname,
+      number: phone,
+      ep_email: email,
+      invite,
+    };
+    let res = "";
+    try {
+      alert("Are you sure to register?");
+      res = await axios.post(
+        "http://localhost:3000/gurukulalumni/event_participate",
+        data
+      );
+    } catch (error) {}
+
+    navigate("/Events");
+    alert(res.data);
+  };
 
   return (
-    <main
-      className="mdl-color--grey-100 mdl-color--grey-100-themed main-family ng-scope"
-      ng-show="!draft_event && (!(eventDetails['metadata'] && (eventDetails['metadata']['event_single_template'] || eventDetails['metadata']['event_single_pageid'] || eventDetails['metadata']['event_description_page_url']) && source!='admin'))"
-    >
-      <div
-        className="no-padding--as-header-themed mdl-color--grey-900 mdl-color--grey-900-themed"
-        ng-class="($root.app_data.same_com_log)?'mdl-color--grey-900 mdl-color--grey-900-themed':'mdl-color--primary-dark mdl-color--primary-dark-themed'"
-      >
+    <main className="mdl-color--grey-100 mdl-color--grey-100-themed main-family ng-scope">
+      <div className="no-padding--as-header-themed mdl-color--grey-900 mdl-color--grey-900-themed">
         <div className="mdl-grid center-wrap adjust-event-name">
           <div className="mdl-cell mdl-cell--4-offset-desktop mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
             <div style={{ paddingLeft: "8px" }}>
               <div className="margin-bottom-8">
-                <div
-                  event-live-chip="eventDetails"
-                  className="ng-isolate-scope"
-                ></div>
+                <div className="ng-isolate-scope"></div>
               </div>
               <div
                 className="inline-block mdl-color-text--white font-24 font-xs-16 font-md-18 ng-binding"
-                ng-bind="eventDetails.title"
-                ng-hide="editEvtName"
                 style={{ lineHeight: "initial" }}
               >
-                Grand Alumni Gathering of Crystal Jubilee of Gurukul
+                {event.ename}
               </div>
 
               <div className="margin-top-16 flexbox align-items-center"></div>
             </div>
           </div>
           <div
-            ng-show="$root.app_data.isAdmin"
             className="mdl-cell mdl-cell--2-col mdl-cell--1-col-phone mdl-color-text--white mdl-cell--hide-phone rel-pos right-alignment ng-hide"
             style={{ top: "3px", right: "-4px" }}
           >
             <span className="nb-menu-setting">
               <div className="mdl-menu__container is-upgraded">
                 <div className="mdl-menu__outline mdl-menu--bottom-right" />
-                <ul
-                  className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-rippleeffect"
-                  htmlFor="nb-card-event-setting"
-                  style={{ padding: "0px", minWidth: "125px" }}
-                  data-upgraded=",MaterialMenu"
-                >
-                  <li
-                    className="mdl-menu__item nb-list-setting ng-binding ng-isolate-scope"
-                    as-event-delete
-                    eid={7781}
-                    call-back="assignPage()"
-                    tabIndex={-1}
-                  >
-                    Delete Event
-                  </li>
-
-                  <li
-                    className="mdl-menu__item nb-list-setting ng-binding ng-scope"
-                    ng-if="eventDetails.activate_status==0"
-                    ng-click="changeActivateStatus(1)"
-                    tabIndex={-1}
-                  >
-                    Save in draft
-                  </li>
-                </ul>
               </div>
             </span>
           </div>
           <div className="mdl-cell mdl-cell--4-offset-desktop mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-color-text--white font-16">
             <div style={{ paddingLeft: "8px" }}>
-              <span
-                className="new-icon ng-binding"
-                title="Event Date"
-                ng-show="eventDetails.sdate"
-              >
+              <span className="new-icon ng-binding" title="Event Date">
                 <i className="icon-event_available font-18 upper-icons" />
-                Friday, Apr 19, 2024
+                Friday, {event.date}
               </span>
 
-              <span
-                className="creator-adjust-phone ng-scope"
-                ng-if="$root.isloggedin"
-              >
+              <span className="creator-adjust-phone ng-scope">
                 <i className="icon-person font-18 upper-icons" />
                 <a
                   title="Creator"
-                  ui-sref="inapp.profile({uid: '2098623',source: 'ev_creator'})"
-                  ng-bind="eventDetails.cfName+' '+eventDetails.clName"
                   className="mdl-color-text--white mdl-typography--font-regular new-icon ng-binding"
                   style={{ textDecoration: "none" }}
-                  href="/profile/2098623?source=ev_creator"
                 >
                   Shree Swaminarayan College of Computer Science
                 </a>
@@ -110,214 +161,211 @@ export default function ViewEventDetail() {
       </div>
       <div className="mdl-grid center-wrap main-family">
         <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--4-col-phone invite-card event-left-adjust">
-          <div className="mdl-card mdl-shadow--2dp maximize-width center-section-margin overflow-visible margin-bottom-14">
-            <div
-              className="mdl-card__media mdl-color--primary center-alignment overflow-hidden"
-              style={{ position: "relative" }}
-            >
-              <div className="rel-pos">
-                <img
-                  ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
-                  err-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg"
-                  ng-class="{'cursor-pointer': eventDetails.event_logo}"
-                  ng-style="(image_uploading)?{'opacity':'0.4'}:''"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    maxHeight: "400px",
-                    minHeight: "150px",
-                  }}
-                  ng-click="show_pic($event)"
-                  src={event1}
-                  className="cursor-pointer"
-                />
+          {event.status == "1" ? (
+            <div className="mdl-card mdl-shadow--2dp maximize-width center-section-margin overflow-visible margin-bottom-14">
+              <div
+                className="mdl-card__media mdl-color--primary center-alignment overflow-hidden"
+                style={{ position: "relative" }}
+              >
+                <div className="rel-pos">
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      maxHeight: "400px",
+                      minHeight: "150px",
+                    }}
+                    src={`http://localhost:3000/uploads/${event.image}`}
+                    className="cursor-pointer"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div
-              className="mdl-card__actions mdl-card--border font-14 main-family mdl-color-text--grey-900 mdl-typography--font-light"
-              style={{ padding: "24px", lineHeight: "24.5px" }}
-            >
-              {/* ngIf: eventDetails.fee && eventDetails.fee!=0 */}
-              <div style={{ marginBottom: "12px" }}>
-                <div ng-show="editTimings" className="ng-hide">
-                  {showForm && (
-                    <form
-                      name="timingsform"
-                      noValidate
-                      className="ng-pristine ng-valid"
-                    >
-                      <div className="mdl-grid mdl-grid--no-spacing">
-                        <div>
+              <div
+                className="mdl-card__actions mdl-card--border font-14 main-family mdl-color-text--grey-900 mdl-typography--font-light"
+                style={{ padding: "24px", lineHeight: "24.5px" }}
+              >
+                <div style={{ marginBottom: "12px" }}>
+                  <div ng-show="editTimings" className="ng-hide">
+                    {showForm && (
+                      <form className="ng-pristine ng-valid">
+                        <div className="mdl-grid mdl-grid--no-spacing">
+                          <div>
+                            <div>
+                              <div className="ng-scope ng-isolate-scope">
+                                <div className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded">
+                                  <input
+                                    className="mdl-textfield__input rel-pos"
+                                    type="text"
+                                    placeholder="Your Name"
+                                    defaultValue={firstname}
+                                    onChange={(e) => {
+                                      setEpname(e.target.value);
+                                    }}
+                                  />
+                                  <span className="link-detail comment-share">
+                                    <i className="icon-clear" />
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet padding-left-gt-xs-4">
+                            <div className="rel-pos is-dirty">
+                              <customfield className="ng-isolate-scope">
+                                <div
+                                  className="rel-pos"
+                                  style={{ fontSize: "14px !important" }}
+                                ></div>
+                              </customfield>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="ng-scope ng-isolate-scope">
+                              <div className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded">
+                                <input
+                                  className="mdl-textfield__input rel-pos"
+                                  type="text"
+                                  placeholder="Your Number"
+                                  defaultValue={phone}
+                                  onChange={(e) => setEpnumber(e.target.value)}
+                                />
+                                <span className="link-detail comment-share">
+                                  <i className="icon-clear" />
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="ng-scope ng-isolate-scope">
+                            <div className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded">
+                              <input
+                                type="hidden"
+                                defaultValue={user_id}
+                              ></input>
+                              <input
+                                type="hidden"
+                                defaultValue={event_id}
+                              ></input>
+                              <input
+                                className="mdl-textfield__input rel-pos"
+                                type="text"
+                                placeholder="Your E-mail"
+                                defaultValue={email}
+                                onChange={(e) => setEpemail(e.target.value)}
+                              />
+                              <span
+                                ng-show="eventDetails.sdate"
+                                ng-click="eventDetails.sdate=null"
+                                className="link-detail comment-share"
+                              >
+                                <i className="icon-clear" />
+                              </span>
+                            </div>
+                          </div>
                           <div>
                             <div className="ng-scope ng-isolate-scope">
                               <div
                                 className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
                                 data-upgraded=",MaterialTextfield"
                               >
-                                <input
-                                  className="mdl-textfield__input rel-pos"
-                                  type="text"
-                                  placeholder="Your Name"
-                                />
-                                <span
-                                  ng-show="eventDetails.sdate"
-                                  ng-click="eventDetails.sdate=null"
-                                  className="link-detail comment-share"
-                                >
-                                  <i className="icon-clear" />
-                                </span>
+                                <div className="select-dropdown-div settings__label">
+                                  <div className="upper-label ng-binding">
+                                    Number of Guests
+                                  </div>
+                                  <select
+                                    className="select-dropdown ng-pristine ng-untouched ng-valid ng-not-empty"
+                                    style={{ height: "27px" }}
+                                    onChange={(e) => setInvite(e.target.value)}
+                                  >
+                                    <option value="0">Choose</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                  </select>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet padding-left-gt-xs-4">
-                          <div
-                            className="rel-pos is-dirty"
-                            ng-class="{'is-dirty': eventDetails.stime, 'is-invalid': false}"
-                            ng-init="stimeField={'name':'stime','type':'time','label': 'Start Time','styles':{'div':''}}"
+                        <div className="right-alignment margin-tb-20">
+                          <button
+                            className="mdl-button mdl-js-button mdl-js-rippleeffect mdl-button--accent mdl-typography--font-regular ng-binding"
+                            style={{ marginRight: "7px", zIndex: 0 }}
                           >
-                            <customfield
-                              field="stimeField"
-                              response="eventDetails.stime"
-                              className="ng-isolate-scope"
-                            >
-                              <div
-                                className="rel-pos"
-                                style={{ fontSize: "14px !important" }}
-                              ></div>
-                            </customfield>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="ng-scope ng-isolate-scope">
-                            <div
-                              className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
-                              data-upgraded=",MaterialTextfield"
-                            >
-                              <input
-                                className="mdl-textfield__input rel-pos"
-                                type="text"
-                                placeholder="Your Name"
-                              />
-                              <span
-                                ng-show="eventDetails.sdate"
-                                ng-click="eventDetails.sdate=null"
-                                className="link-detail comment-share"
-                              >
-                                <i className="icon-clear" />
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="ng-scope ng-isolate-scope">
-                          <div
-                            className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
-                            data-upgraded=",MaterialTextfield"
+                            Cancel
+                          </button>
+                          <button
+                            className="mdl-button font-14 mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular ladda-button ladda-button-primary"
+                            style={{
+                              paddingTop: "0px",
+                              float: "right",
+                              zIndex: 0,
+                              textTransform: "none",
+                            }}
+                            onClick={btnRegister}
                           >
-                            <input
-                              className="mdl-textfield__input rel-pos"
-                              type="text"
-                              placeholder="Your E-mail"
-                            />
-                            <span
-                              ng-show="eventDetails.sdate"
-                              ng-click="eventDetails.sdate=null"
-                              className="link-detail comment-share"
-                            >
-                              <i className="icon-clear" />
-                            </span>
-                          </div>
+                            <span className="ladda-label ng-binding">Save</span>
+                            <span className="ladda-spinner" />
+                          </button>
                         </div>
-                        <div>
-                          <div className="ng-scope ng-isolate-scope">
-                            <div
-                              className="mdl-textfield mdl-js-textfield rel-pos has-placeholder is-dirty is-upgraded"
-                              data-upgraded=",MaterialTextfield"
-                            >
-                              <input
-                                className="mdl-textfield__input rel-pos"
-                                type="text"
-                                placeholder="the number of guests you are bringing along with you"
-                              />
-                              <span
-                                ng-show="eventDetails.sdate"
-                                ng-click="eventDetails.sdate=null"
-                                className="link-detail comment-share"
-                              >
-                                <i className="icon-clear" />
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="right-alignment margin-tb-20">
-                        <button
-                          className="mdl-button mdl-js-button mdl-js-rippleeffect mdl-button--accent mdl-typography--font-regular ng-binding"
-                          style={{ marginRight: "7px", zIndex: 0 }}
-                          ng-click="cancelTimings()"
-                          data-upgraded=",MaterialButton"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          className="mdl-button font-14 mdl-js-button mdl-button--raised mdl-button--colored mdl-js-rippleeffect mdl-typography--font-regular ladda-button ladda-button-primary"
-                          style={{
-                            paddingTop: "0px",
-                            float: "right",
-                            zIndex: 0,
-                            textTransform: "none",
-                          }}
-                          ng-click="saveTimings(timingsform)"
-                          ladda-button="savingTimings"
-                          data-style="zoom-out"
-                          data-upgraded=",MaterialButton"
-                        >
-                          <span className="ladda-label ng-binding">Save </span>
-                          <span className="ladda-spinner" />
-                        </button>
-                      </div>
-                    </form>
-                  )}
+                      </form>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* <div>
-      <button onClick={toggleForm}>Register</button>
-
-      {showForm && (
-        <div id="registrationForm">
-          <form id="registrationForm">
-            <label htmlFor="name">Name:</label><br />
-            <input type="text" id="name" name="name" /><br />
-            <label htmlFor="number">Number:</label><br />
-            <input type="text" id="number" name="number" /><br /><br />
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-      )}
-    </div> */}
-            <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
-              <div
-                className="mdl-card__actions m-b-20 ng-hide"
-                align="center"
-                ng-show="eventDetails.booking_on==1 && ( info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && (same_com_log) || ( info.showUserRestricted && !same_com_log)) )"
-              >
+              <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
                 <div
-                  ng-show="eventDetails.booking_on==1 && (info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && same_com_log))"
-                  className="ng-hide"
+                  className="mdl-card__actions m-b-20 ng-hide"
+                  align="center"
+                  ng-show="eventDetails.booking_on==1 && ( info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && (same_com_log) || ( info.showUserRestricted && !same_com_log)) )"
                 >
-                  <button
-                    className="mdl-button mdl-js-button  mdl-color-text--white mdl-typography--font-regular mdl-color--primary mdl-js-rippleeffect ng-binding"
-                    id="register-btn"
-                    onClick={showRegistrationForm}
-                    style={{ display: showForm ? "none" : "block" }}
+                  <div
+                    ng-show="eventDetails.booking_on==1 && (info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && same_com_log))"
+                    className="ng-hide"
                   >
-                    Register
-                  </button>
+                    {/* {event_participate.event_id === event_id  &&
+                    event_participate.user_id === user_id ? (
+                      <div className="flexbox margin-bottom-24 align-items-center">
+                        <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
+                        <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
+                          ✅ You were already registered for this event
+                        </span>
+                      </div>
+                    ) : (
+                      <button
+                        className="mdl-button mdl-js-button  mdl-color-text--white mdl-typography--font-regular mdl-color--primary mdl-js-rippleeffect ng-binding"
+                        id="register-btn"
+                        onClick={showRegistrationForm}
+                        
+                        style={{ display: showForm ? "none" : "block" }}
+                      >
+                        Register
+                      </button>
+                      
+                    )} */}
+                    {event_participate.event_id == event_id &&
+                    event_participate.user_id == user_id && 
+                    event_participate.ep_name == firstname ? (
+                      <div className="flexbox margin-bottom-24 align-items-center">
+                        <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
+                        <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
+                          ✅ You were already registered for this event
+                        </span>
+                      </div>
+                    ) : (
+                      <button
+                        className="mdl-button mdl-js-button mdl-color-text--white mdl-typography--font-regular mdl-color--primary mdl-js-rippleeffect ng-binding"
+                        id="register-btn"
+                        onClick={showRegistrationForm}
+                        style={{ display: showForm ? "none" : "block" }}
+                      >
+                        Register
+                      </button>
+                    )}
 
-                  {/* <div
+                    {/* <div
                     align="center"
                     style={{ marginTop: "15px" }}
                     ng-show="$root.featureEnabled('events.RSVP.*') && $root.app_data.same_com_log && !info.userRegRestricted"
@@ -331,8 +379,8 @@ export default function ViewEventDetail() {
                       If you are not attending, click here
                     </a>
                   </div> */}
-                </div>
-                {/* <div
+                  </div>
+                  {/* <div
                   className="center-alignment mdl-color-text--grey-600 ng-hide"
                   style={{ marginTop: "15px" }}
                   ng-show="info.userRegRestricted || (eventDetails.booking_on==1 && info.showUserRestricted && info.userRegInt==3 && !same_com_log)"
@@ -353,25 +401,64 @@ export default function ViewEventDetail() {
                     </span>
                   </div>
                 </div> */}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mdl-card mdl-shadow--2dp maximize-width center-section-margin overflow-visible margin-bottom-14">
+              <div
+                className="mdl-card__media mdl-color--primary center-alignment overflow-hidden"
+                style={{ position: "relative" }}
+              >
+                <div className="rel-pos">
+                  <img
+                    ng-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/20362721674789288.jpg"
+                    err-src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/staticpagesdata/5/lEZp7gYICs1558519753.jpg"
+                    ng-class="{'cursor-pointer': eventDetails.event_logo}"
+                    ng-style="(image_uploading)?{'opacity':'0.4'}:''"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      maxHeight: "400px",
+                      minHeight: "150px",
+                    }}
+                    ng-click="show_pic($event)"
+                    src={event1}
+                    className="cursor-pointer"
+                  />
+                </div>
               </div>
 
-              {/* <div
-                className="mdl-card__actions m-b-20"
-                align="center"
-                ng-show="eventDetails.booking_on==0 && (!eventDetails.metadata || !eventDetails.metadata.remove_reg_btn)"
-              >
-                <button
-                  disabled
-                  className="mdl-button mdl-js-button mdl-color--grey-400 mdl-color-text--white mdl-typography--font-regular ng-binding"
-                  ui-sref="inapp.event_ticket({eventId: '7781'})"
-                  href="/events/tickets/7781"
-                  data-upgraded=",MaterialButton"
+              <div ng-if="eventDetails.regsetup_id>0" className="ng-scope">
+                <div
+                  className="mdl-card__actions m-b-20 ng-hide"
+                  align="center"
+                  ng-show="eventDetails.booking_on==1 && ( info.userRegInt==1 || info.userRegInt==2 || (info.userRegInt==3 && (same_com_log) || ( info.showUserRestricted && !same_com_log)) )"
                 >
-                  Online Registration Closed
-                </button>
-              </div> */}
+                  <div
+                    className="center-alignment mdl-color-text--grey-600 ng-hide"
+                    style={{ marginTop: "15px" }}
+                    ng-show="info.userRegRestricted || (eventDetails.booking_on==1 && info.showUserRestricted && info.userRegInt==3 && !same_com_log)"
+                  >
+                    <i className="icon-info font-20" />
+                    <div className="margin-top-6 font-14">
+                      <span
+                        ng-if="!info.userRegRestrictedRole && !info.userRegRestrictedUser && !info.userRegRole"
+                        className="ng-scope"
+                      >
+                        <span
+                          ng-if="!info.showVerifiedMem"
+                          className="ng-binding ng-scope"
+                        >
+                          Registration close
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="mdl-cell mdl-cell--8-col mdl-cell--5-col-tablet mdl-cell--4-col-phone main-family margin-top-gt-xs-10">
           <div
@@ -399,19 +486,37 @@ export default function ViewEventDetail() {
                   ng-if="checkDates(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)=='Past Event'"
                   className="ng-scope"
                 >
-                  <div className="flexbox margin-bottom-24 align-items-center">
+                  {/* <div className="flexbox margin-bottom-24 align-items-center">
                     <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
                     <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
                       ✅ You were already registered for this event
                     </span>
-                  </div>
-                  <div
-                    className="mdl-color-text--white mdl-color--teal-A700 font-14 job-intern-capsule margin-bottom-0 inline-block ng-binding"
-                    style={{ margin: "0px 6px 12px 0px" }}
-                    ng-bind="getEventStatus(eventDetails.sdate,eventDetails.fdate,eventDetails.booking_on,eventDetails.timezone,eventDetails.stime,eventDetails.ftime)"
-                  >
-                    Coming Soon
-                  </div>
+                  </div> */}
+                  {event.status == "1" ? (
+                    <div
+                      ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                      className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--teal-A700"
+                      style={{
+                        margin: "0px 8px 0px 0px",
+                        borderRadius: "16px",
+                      }}
+                      ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                    >
+                      Coming Soon
+                    </div>
+                  ) : (
+                    <div
+                      ng-hide="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                      className="padding-tb-6 center-alignment mdl-color-text--white font-14 font-xs-12 job-intern-capsule inline-block ng-binding ng-scope mdl-color--grey-400"
+                      style={{
+                        margin: "0px 8px 0px 0px",
+                        borderRadius: "16px",
+                      }}
+                      ng-if="event.activate_status!=1 && (event.booking_on==1 || (event.metadata.reg.type==='form' && event.metadata.reg.closed!=1))"
+                    >
+                      Past Event
+                    </div>
+                  )}
                 </div>
 
                 <div className="margin-top-24 margin-top-xs-14 flexbox flex-wrap-wrap align-items-center">
@@ -430,60 +535,6 @@ export default function ViewEventDetail() {
                     {/* <img src="./img/Ticket.svg" className="margin-right-6" /> */}
                     <b style={{ fontSize: "20px" }}>🎫</b> View ticket
                   </a>
-                  <div className="mdl-menu__container is-upgraded">
-                    <div className="mdl-menu__outline" />
-                    <ul
-                      className="mdl-menu mdl-menu-bottom-left mdl-js-menu mdl-js-rippleeffect"
-                      htmlFor="alltickets"
-                      style={{ width: "max-content", textAlign: "left" }}
-                      data-upgraded=",MaterialMenu"
-                    >
-                      <li
-                        className="mdl-menu__item ng-scope"
-                        ng-repeat="code in codes"
-                        tabIndex={-1}
-                      >
-                        <a
-                          className="mdl-color-text--blue-900 link-detail font-14  padding-bottom-3 ng-binding"
-                          ng-click="downloadEventTicket(code[0])"
-                        >
-                          ticket of Jan 25, 2023 03:20 PM
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="mdl-menu__container is-upgraded">
-                    <div className="mdl-menu__outline" />
-                    <ul
-                      className="mdl-menu mdl-menu-bottom-left mdl-js-menu mdl-js-rippleeffect"
-                      htmlFor="demo-menu-lower-left"
-                      style={{ padding: "0px", minWidth: "60px" }}
-                      data-upgraded=",MaterialMenu"
-                    >
-                      <li className="mdl-menu__item" tabIndex={-1}>
-                        <a
-                          className="mdl-color-text--blue-900 link-detail font-14 ng-binding"
-                          ng-href="https://www.almashines.com/api/events/fetchgcal?eid=7781"
-                          target="_blank"
-                          href="https://www.almashines.com/api/events/fetchgcal?eid=7781"
-                        >
-                          Google Calendar
-                        </a>
-                      </li>
-
-                      <li className="mdl-menu__item" tabIndex={-1}>
-                        <a
-                          className="mdl-color-text--blue-900 link-detail font-14 ng-binding"
-                          ng-href="https://www.almashines.com/api/events/fetchical?eid=7781"
-                          target="_blank"
-                          href="https://www.almashines.com/api/events/fetchical?eid=7781"
-                        >
-                          iCal or Outlook{" "}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
@@ -513,11 +564,11 @@ export default function ViewEventDetail() {
                 ng-bind-html="eventDetails.location | convertToAnchor"
                 ng-if="eventDetails.location!=null"
               >
-                Shree Swaminarayan College of Computer Science Gurukul Campus ,
-                Sardarnagar ,<br></br>Bhavnagar
+                {event.locationn}
               </div>
             </div>
           </div>
+          <br />
 
           <hr
             ng-show="(!eventDetails.regsetup_id && eventDetails.mode==1) || eventDetails.mode!=1 || myEvent || $root.app_data.isAdmin"
@@ -549,7 +600,8 @@ export default function ViewEventDetail() {
               }}
               bind-html-compile="eventDetails.desc | contentFilters: 'webinar,GoogleForm'"
             >
-              <span className="ng-scope">The wait is over. The </span>
+              {event.description}
+              {/* <span className="ng-scope">The wait is over. The </span>
               <strong className="ng-scope">
                 Grand Alumni Gathering on Crystal Jubilee of Gurukul
               </strong>
@@ -578,7 +630,7 @@ export default function ViewEventDetail() {
               <br className="ng-scope" />
               <span className="ng-scope">Book Your Seat Nowww.....</span>
               <br className="ng-scope" />
-              <br className="ng-scope" />
+              <br className="ng-scope" /> */}
               &nbsp;
             </div>
           </div>
@@ -850,7 +902,7 @@ export default function ViewEventDetail() {
               </div>
             </div>
           </div> */}
-{/* 
+          {/* 
           <div
             className="center-section-margin asScrollSpy"
             style={{ padding: "27px 0px 0px" }}

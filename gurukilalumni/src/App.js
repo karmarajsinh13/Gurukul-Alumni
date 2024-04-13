@@ -48,6 +48,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/Events" element={<Events />} />
               <Route path="/ViewEventDetail" element={<ViewEventDetail />} />
+              <Route path="/ViewEventDetail/:id" element={<ViewEventDetail />} />
+              
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/About" element={<About />} />
               <Route path="/Contact" element={<Contact />} />
