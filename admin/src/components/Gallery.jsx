@@ -11,15 +11,15 @@ export default function Gallery() {
   }, []);
 
   const getgallery = async () => {
-    const res = await axios.get("http://localhost:3000/gurukulalumni/gallery");
+    const res = await axios.get("http://localhost:3000/gurukulalumni/gallerys");
     setgallery(res.data);
     console.log(res.data);
   };
-  const deletegallery = async (id) => {
+  const deletegallery = async (img_id) => {
     let ans = window.confirm("are you sure?");
     if (ans) {
       const res = await axios.delete(
-        "http://localhost:3000/gurukulalumni/gallery/" + id
+        "http://localhost:3000/gurukulalumni/gallerys/" + img_id
       );
       console.log(res.data);
       alert(res.data);
@@ -35,7 +35,7 @@ export default function Gallery() {
           <div class="card mb-4">
             <div className="card-body">
               <div class="card-header pb-0">
-                <h2>User table</h2>
+                <h2>Gallery table</h2>
                 <li class="nav-item d-flex align-items-center">
                   <Link
                     class="btn btn-outline-primary btn-sm mb-0 me-3"
@@ -74,11 +74,11 @@ export default function Gallery() {
                         <tr role="row" className="odd">
                           <td class="align-middle text-center">
                             <img
-                              src={`http://localhost:3000/uploads/${gallery.image1}`}
+                              src={`http://localhost:3000/uploads/${gallery.img}`}
                               class="avatar avatayyr-lg me-6"
                               style={{
-                                width: "100px",
-                                height: "100px",
+                                width: "200px",
+                                height: "150px",
                                 objectFit: "cover",
                                 objectPosition: "center",
                                 borderRadius: "10px",
@@ -97,19 +97,20 @@ export default function Gallery() {
                             >
                                <Link to={`/Add_gallery/` + gallery.id}>Edit</Link>
                             </button> &nbsp;&nbsp;
-                            <button
+                            {/* <button
                               className="btn btn-xs btn-info edit_gallery"
                               type="button"
 
                             >
                               <Link to={`/All_gallery/` + gallery.id}>View All</Link>
                             </button>
-                            &nbsp;&nbsp;
+                            &nbsp;&nbsp; */}
                             <button
-                              className="btn btn-xs btn-danger delete_gallery"
-                              type="button"
-                              data-id={1}
+                              href="/Gallery"
+                              class="btn btn-xs btn-danger delete_gallery"
+                              onClick={() => deletegallery(gallery.img_id)}
                             >
+                              <i class="far fa-trash-alt me-2"></i>
                               Delete
                             </button>
                           </td>

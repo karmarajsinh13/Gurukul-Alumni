@@ -4,57 +4,42 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Add_gallery() {
-  const [image1, setImg1] = useState("");
-  const [image2, setImg2] = useState("");
-  const [image3, setImg3] = useState("");
-  const [image4, setImg4] = useState("");
-  const [image5, setImg5] = useState("");
-  const [title, settitle] = useState("");
-  const [description, setdescription] = useState("");
+  const [img, setImg1] = useState("");
+  const [title, settitle]= useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const id = location.pathname.split("/")[2]
+  const img_id = location.pathname.split("/")[2]
     ? location.pathname.split("/")[2]
     : "";
   useEffect(() => {
-    console.log(id);
-    if (id) {
+    console.log(img_id);
+    if (img_id) {
       getgallery();
     }
   }, []);
   const getgallery = async () => {
-    const url = "http://localhost:3000/gurukulalumni/gallery/" + id;
+    const url = "http://localhost:3000/gurukulalumni/gallerys/" + img_id;
     console.log(url);
     const res = await axios.get(url);
     console.log(res.data);
-    setImg1(res.data.image1);
-    setImg2(res.data.image2);
-    setImg3(res.data.image3);
-    setImg4(res.data.image4);
-    setImg5(res.data.image5);
+    setImg1(res.data.img);
     settitle(res.data.title);
-    setdescription(res.data.description);
   };
   const submitbtn = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
-    formdata.append("image1", image1);
-    formdata.append("image2", image2);
-    formdata.append("image3", image3);
-    formdata.append("image4", image4);
-    formdata.append("image5", image5);
+    formdata.append("img", img);
     formdata.append("title", title);
-    formdata.append("description", description);
     let res = "";
     console.log(formdata);
-    if (id) {
+    if (img_id) {
       res = await axios.put(
-        "http://localhost:3000/gurukulalumni/gallery/" + id,
+        "http://localhost:3000/gurukulalumni/gallerys/" + img_id,
         formdata
       );
     } else {
       res = await axios.post(
-        "http://localhost:3000/gurukulalumni/gallery",
+        "http://localhost:3000/gurukulalumni/gallerys",
         formdata
       );
     }
@@ -100,7 +85,7 @@ export default function Add_gallery() {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      {/* <div className="col-md-6">
                         <div className="form-group">
                           <label
                             htmlFor="example-text-input"
@@ -115,7 +100,7 @@ export default function Add_gallery() {
                             onChange={(e) => setdescription(e.target.value)}
                           />
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="col-md-6">
                         <div className="form-group">
@@ -123,17 +108,17 @@ export default function Add_gallery() {
                             htmlFor="example-text-input"
                             className="form-control-label"
                           >
-                            Cover Image
+                            Add Image
                           </label>
                           <input
                             className="form-control"
                             type="file"
-                            defaultValue={image1}
+                            defaultValue={img}
                             onChange={(e) => setImg1(e.target.files[0])}
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      {/* <div className="col-md-6">
                         <div className="form-group">
                           <label
                             htmlFor="example-text-input"
@@ -148,8 +133,8 @@ export default function Add_gallery() {
                             onChange={(e) => setImg2(e.target.files[1])}
                           />
                         </div>
-                      </div>
-                      <div className="col-md-6">
+                      </div> */}
+                      {/* <div className="col-md-6">
                         <div className="form-group">
                           <label
                             htmlFor="example-text-input"
@@ -181,8 +166,8 @@ export default function Add_gallery() {
                             onChange={(e) => setImg4(e.target.files[3])}
                           />
                         </div>
-                      </div>
-                      <div className="col-md-6">
+                      </div> */}
+                      {/* <div className="col-md-6">
                         <div className="form-group">
                           <label
                             htmlFor="example-text-input"
@@ -197,7 +182,7 @@ export default function Add_gallery() {
                             onChange={(e) => setImg5(e.target.files[4])}
                           />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <button

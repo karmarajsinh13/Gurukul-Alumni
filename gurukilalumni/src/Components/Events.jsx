@@ -6,10 +6,12 @@ import axios from "axios";
 
 export default function Events() {
   const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [event_participate, setEvent_participate] = useState([]);
   const [event, setEvent] = useState([]);
 
   useEffect(() => {
     getEvent();
+    getEvent_participate();
   }, []);
 
   const getEvent = async () => {
@@ -18,6 +20,7 @@ export default function Events() {
 
     console.log(res.data);
   };
+  
   const deleteEvent = async (event_id) => {
     let ans = window.confirm("are you sure?");
     if (ans) {
@@ -29,6 +32,14 @@ export default function Events() {
       getEvent();
     }
   };
+  const getEvent_participate = async (ep_id) => {
+   
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/event_participate/" + ep_id
+    );
+    setEvent_participate(res.data);
+
+};
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">

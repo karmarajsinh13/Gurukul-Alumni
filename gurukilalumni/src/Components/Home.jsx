@@ -2,6 +2,7 @@ import React from "react";
 import banner1 from "../img/banner1.jpg";
 import home1 from '../img/home1.jpg'; 
 import vrundesh from '../img/vrundesh.jpg';
+import { Link } from "react-router-dom";
 // "https://afilemanager.s3.dualstack.ap-southeast-1.amazonaws.com/prod/cid_0/mentorship-3.png"
 
 export default function Home() {
@@ -68,7 +69,7 @@ export default function Home() {
                             </p>
                             <div className="flexbox flex-dir-column margin-top-40 padding-lr-35">
                               {" "}
-                              <a
+                              {/* <a
                                 className="mdl-button mdl-js-button mdl-button--primary mdl-color--primary font-14 mdl-color-text--white ng-scope ng-binding"
                                 data-upgraded=",MaterialButton"
                                 ga-event="Mentorship,mentor-firstlayer,2208215"
@@ -82,7 +83,8 @@ export default function Home() {
                                 href="/form/962"
                               >
                                 Invite Friend
-                              </a>{" "}
+                              </a>{" "} */}
+                              <Link to="/About">
                               <a
                                 className="mdl-button mdl-js-button border-primary font-14 mdl-color-text--primary margin-top-16 ng-scope ng-binding"
 
@@ -95,7 +97,7 @@ export default function Home() {
                                 href="/form/965"
                               >
                                 Purpose <b style={{ fontSize: '15px',color: '#5491f5' }}>!!!</b>
-                              </a>
+                              </a></Link>
                             </div>
                           </div>
                           <div className="mdl-cell--9-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone width-ms-100">
@@ -109,7 +111,7 @@ export default function Home() {
                         </div>
                       </div>
                  
-                      <div
+                      {/* <div
                         className="margin-top-60"
                         style={{ textAlign: "center" }}
                       >
@@ -371,7 +373,7 @@ export default function Home() {
                             />
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                       <div
                         className="margin-top-60"
                         style={{ textAlign: "center" }}

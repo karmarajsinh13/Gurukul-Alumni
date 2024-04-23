@@ -1,5 +1,6 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -202,6 +203,7 @@ export default function Footer() {
                   ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkContainerStyles) ? metadata_outer_footer_design.tConfiguration.linkContainerStyles : ''}}"
                   style={{ marginBottom: "10px" }}
                 >
+                   <Link to="/">
                   <li
                     ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
@@ -216,6 +218,8 @@ export default function Footer() {
                       Home
                     </div>
                   </li>
+                  </Link>
+                  <Link to="/About">
                   <li
                     ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
@@ -235,6 +239,8 @@ export default function Footer() {
                       About
                     </div>
                   </li>
+                  </Link>
+                  <Link to="/Contact">
                   <li
                     ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
@@ -253,8 +259,8 @@ export default function Footer() {
                     >
                       Contact
                     </div>
-                  </li>
-                  <li
+                  </li></Link>
+                  {/* <li
                     ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
                     ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
@@ -310,7 +316,7 @@ export default function Footer() {
                     >
                       Privacy
                     </div>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

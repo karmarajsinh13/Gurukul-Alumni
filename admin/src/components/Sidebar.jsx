@@ -99,7 +99,7 @@ export default function Sidebar() {
       icon: <AiOutlineLaptop size={20} color="#FB8340" />,
     },
     {
-      path: "/Contact",
+      path: "/Contact_us",
       name: "Contact",
       icon: <PiContactlessPaymentBold size={20} color="#FB8340" />,
     },

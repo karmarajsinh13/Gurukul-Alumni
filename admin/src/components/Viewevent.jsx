@@ -128,9 +128,12 @@ export default function Viewevent() {
                         <br />
                         <h5>Description</h5>
                         <br />
-                        <div>
-                          <i class="ni education_hat mr-2"></i>
-                          {event.description}
+                        <div className="col-6" style={{marginLeft : "280px"}}>
+                          <i class="ni education_hat mr-2 " ></i>
+                          <div contentEditable='true' dangerouslySetInnerHTML={{ __html: event.description }} >
+                          </div>
+                         
+                         
                         </div>
                       </div>
                     </div>

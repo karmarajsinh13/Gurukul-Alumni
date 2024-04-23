@@ -3,28 +3,28 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Event() {
-  const [event, setEvent] = useState([]);
-
+export default function Job() {
+  const [job, setJob] = useState([]);
+  let i = 1;
   useEffect(() => {
-    getEvent();
+    getjob();
   }, []);
 
-  const getEvent = async () => {
-    const res = await axios.get("http://localhost:3000/gurukulalumni/event");
-    setEvent(res.data);
+  const getjob = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/job");
+    setJob(res.data);
 
     console.log(res.data);
   };
-  const deleteEvent = async (event_id) => {
+  const deleteJob = async (job_id) => {
     let ans = window.confirm("are you sure?");
     if (ans) {
       const res = await axios.delete(
-        "http://localhost:3000/gurukulalumni/event/" + event_id
+        "http://localhost:3000/gurukulalumni/job/" + job_id
       );
       console.log(res.data);
       alert(res.data);
-      getEvent();
+      getjob();
     }
   };
   return (
@@ -35,13 +35,13 @@ export default function Event() {
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h2>Events</h2>
+              <h2>Job table</h2>
               <li class="nav-item d-flex align-items-center">
                 <Link
                   class="btn btn-outline-primary btn-sm mb-0 me-3"
-                  to="/Add_event"
+                  to="/Add_Job"
                 >
-                  Organise Event
+                  Create Job
                 </Link>
               </li>
             </div>
@@ -49,24 +49,24 @@ export default function Event() {
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   {/* <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"  style={{
-                          width: "40px",
-                        }}>
-                        Image
-                      </th>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"  style={{
+                        width: "40px",
+                      }}>
+                      Image
+                    </th>
 
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
-                        Name
-                      </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                      Name
+                    </th>
 
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Status
-                      </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      Status
+                    </th>
 
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead> */}
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead> */}
                   <thead>
                     <tr role="row">
                       <th
@@ -75,13 +75,16 @@ export default function Event() {
                           width: "40px",
                         }}
                       >
-                        IMG
+                        Title
                       </th>
                       <th className="text-center " style={{ width: "50px" }}>
-                        event
+                        Deadline
                       </th>
                       <th className="text-center " style={{ width: "50px" }}>
                         Status
+                      </th>
+                      <th className="text-center " style={{ width: "50px" }}>
+                        Created_by
                       </th>
                       <th
                         className="text-center sorting"
@@ -92,50 +95,41 @@ export default function Event() {
                     </tr>
                   </thead>
                   <tbody>
-                    {event.map((event) => (
-                      <tr role="row" className="odd">
+                    {job.map((job) => (
+                      <tr role="row"  className="odd">
+                        <td class="align-middle text-center">{job.title}</td>
+                        <td class="align-middle text-center">{job.deadline}</td>
                         <td class="align-middle text-center">
-                          <img
-                            src={`http://localhost:3000/uploads/${event.image}`}
-                            class="avatar avatayyr-lg me-6"
-                            style={{
-                              width: "210px",
-                              height: "100px",
-                            }}
-                            alt="user1"
-                          />
-                        </td>
-                        <td class="align-middle text-center">{event.ename}</td>
-                        <td class="align-middle text-center">
-                          {event.status == "1" ? (
+                          {job.status == "1" ? (
                             <td class="align-middle text-center text-sm">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <span class="badge badge-sm bg-gradient-success">
-                                Upcoming
+                                Open
                               </span>
                             </td>
                           ) : (
                             <td class="align-middle text-center text-sm">
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <span class="badge badge-sm bg-gradient-secondary">
-                                Past
+                                Closed
                               </span>
                             </td>
                           )}
                         </td>
+                        <td class="align-middle text-center">{job.entry_by}</td>
                         <td className="text-center">
                           <button
                             className="btn btn-xs btn-primary edit_gallery"
                             type="button"
                           >
-                            <Link to={`/Add_event/` + event.event_id}>
-                              Edit
-                            </Link>
+                            <Link to={`/Add_job/` + job.job_id}>Edit</Link>
                           </button>{" "}
                           &nbsp;&nbsp;
                           <button
                             className="btn btn-xs btn-info edit_gallery"
                             type="button"
                           >
-                            <Link to={`/Viewevent/` + event.event_id}>
+                            <Link to={`/Viewjob/` + job.job_id}>
                               View All
                             </Link>
                           </button>
@@ -144,7 +138,7 @@ export default function Event() {
                             className="btn btn-xs btn-danger delete_gallery"
                             type="button"
                             data-id={1}
-                            onClick={() => deleteEvent(event.event_id)}
+                            onClick={() => deleteJob(job.job_id)}
                           >
                             Delete
                           </button>

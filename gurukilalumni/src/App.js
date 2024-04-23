@@ -22,6 +22,7 @@ import ViewGallery from "./Components/ViewGallery";
 import Login from "./Components/Login";
 import Editprofile from "./Components/Editprofile";
 import Editprofileacc from "./Components/Editprofileacc";
+import All_alumni from "./Components/All_alumni";
 
 const Layout = () => {
   return (
@@ -49,14 +50,16 @@ function App() {
               <Route path="/Events" element={<Events />} />
               <Route path="/ViewEventDetail" element={<ViewEventDetail />} />
               <Route path="/ViewEventDetail/:id" element={<ViewEventDetail />} />
-              
+              <Route path="/All_alumni" element={<All_alumni />} />
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/About" element={<About />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/Job" element={<Job />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/EditProfile" element={<Editprofile />} />
+              <Route path="/EditProfile/:id" element={<Editprofile />} />
               <Route path="/Editprofileacc" element={<Editprofileacc />} />
+              <Route path="/Editprofileacc/:id" element={<Editprofileacc />} />
               <Route path="/ViewJob" element={<ViewJob />} />
               <Route path="/ViewGallery" element={<ViewGallery />} />
             </Routes>
@@ -73,6 +76,7 @@ function App() {
               <Route path="/About" element={<About />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/Job" element={<Job />} />
+              <Route path="/All_alumni" element={<All_alumni />} />
               {/* <Route path="/DisplayStudents" exact element={<DisplayStudents />} /> */}
             </Routes>
             <Footer></Footer>

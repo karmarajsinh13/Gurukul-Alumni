@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 export default function Profile() {
   const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [user, setUser] = useState([]);
   const [firstname, setFname] = useState("");
   const [lastname, setLname] = useState("");
   const [username, setUsername] = useState("");
@@ -238,17 +239,19 @@ export default function Profile() {
                         ng-show="my_profile && !adminManageIcard"
                         className="ng-scope"
                       >
+                          <Link to={`/Editprofile/` + user_id}>
                         <a
                           ui-sref="inapp.icardRequest"
                           className="mdl-button mdl-js-button mdl-js-rippleeffect mdl-color-text--white mdl-color--accent ng-binding"
                           href="/icard"
                           data-upgraded=",MaterialButton"
                         >
-                          My Alumni Card
-                        </a>
+                          {/* My Alumni Card */}
+                          Edit Profile
+                        </a></Link>
                       </div>
 
-                      <div
+                      {/* <div
                         ng-if="icardStatus || icardRejected"
                         ng-show="adminManageIcard"
                         className="ng-scope ng-hide"
@@ -270,7 +273,7 @@ export default function Profile() {
                             View Alumni Card
                           </span>
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -293,12 +296,13 @@ export default function Profile() {
                 >
                   <i className="mdl-color-text--primary icon-info new-icon" />
                   Contact Information
-                  <Link to="/Editprofile">
+                  <Link to={`/Editprofile/` + user_id}>
                     <a
                       style={{ float: "right" }}
                       className="mdl-color-text--accent link-detail mdl-typography--font-regular ng-binding ng-scope"
                     >
                       Edit
+                     
                     </a>
                   </Link>
                 </div>
@@ -388,7 +392,7 @@ export default function Profile() {
                     className="mdl-color-text--accent link-detail mdl-typography--font-regular ng-scope"
                     ng-click="!info.showEdit && goToSettings('basic_details')"
                   >
-                    <Link to="/Editprofile">
+                    <Link to={`/Editprofile/` + user_id}>
                       <span ng-show="!info.showEdit" className="ng-binding">
                         Edit
                       </span>

@@ -3,29 +3,75 @@ import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { RiAddLine, RiPulseFill } from "react-icons/ri";
+import { RxFilePlus } from "react-icons/rx";
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
+import $ from "jquery";
+//Datatable Modules
+import "../../node_modules/datatables.net-dt/js/dataTables.dataTables.js";
 
-
+import "../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css";
+import "../../node_modules/datatables.net-buttons/js/dataTables.buttons.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.colVis.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.flash.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.html5.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.print.js";
+import "../../node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css";
+import "../../node_modules/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js";
 
 export default function Home() {
-  const[user,setUser]=useState([]);
- 
+  const [user, setUser] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    
-    getTotelUsers();
+    getTotalUsers();
+    getUser();
   }, []);
 
-  const getTotelUsers = async () => {
-    const res = await axios.get("http://localhost:3000/gurukulalumni/user" );
+  const getTotalUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/user");
+      setUser(res.data);
+      setTotalUsers(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  $(document).ready(function () {
+    setTimeout(function () {
+      $("#example").DataTable({
+        bDestroy: true,
+        pagingType: "full_numbers",
+        pageLength: 5,
+        processing: true,
+        dom: "Bfrtip",
+        buttons: ["copy", "csv", "print"],
+      });
+    }, 1000);
+  });
+
+  const getUser = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/user");
     setUser(res.data);
-    getTotelUsers();
+
     console.log(res.data);
+  };
+  const deleteUser = async (user_id) => {
+    let ans = window.confirm("are you sure?");
+    if (ans) {
+      const res = await axios.delete(
+        "http://localhost:3000/gurukulalumni/user/" + user_id
+      );
+      console.log(res.data);
+      alert(res.data);
+      getUser();
+    }
   };
   return (
     <div style={{ marginLeft: "270px", marginTop: "50px" }}>
-      
       <main class="main-content position-relative border-radius-lg ">
-      {/* <nav className="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+        {/* <nav className="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
     <div className="container-fluid">
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
    
@@ -74,7 +120,7 @@ export default function Home() {
       </div>
     </div>
   </nav>    */}
-   
+
         <div class="container-fluid py-4">
           <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -86,7 +132,12 @@ export default function Home() {
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
                           Total Alumnis
                         </p>
-                        <h5 class="font-weight-bolder">{getTotelUsers}</h5>
+                        <h5
+                          class="font-weight-bolder"
+                          style={{ fontSize: "35px" }}
+                        >
+                          {totalUsers}
+                        </h5>
                         <p class="mb-0">
                           <span class="text-success text-sm font-weight-bolder">
                             {/* +55% */}
@@ -198,8 +249,93 @@ export default function Home() {
               </div>
             </div>
           </div>
+
           <div class="row mt-4">
             <div class="col-lg-7 mb-lg-0 mb-4">
+              <div class="card z-index-2 h-100 ">
+                <div class="card-header pb-0 p-3">
+                  <div class="d-flex justify-content-between">
+                    <link
+                      rel="stylesheet"
+                      type="text/css"
+                      href="../../public/assets/css/dataTables.bootstrap5.min.css"
+                    ></link>
+                    <link
+                      rel="stylesheet"
+                      type="text/css"
+                      href="../../public/assets/css/responsive.bootstrap5.min.css"
+                    ></link>
+                    <h6 class="mb-2">All Users</h6>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table align-items-center ">
+                    <tbody>
+                      {user.map((user) => (
+                        <tr>
+                          <td class="w-30">
+                            <div class="d-flex px-2 py-1 align-items-center">
+                              <div>
+                                <img
+                                  src={`http://localhost:3000/uploads/${user.photo}`}
+                                  class="avatar avatar-sm me-3"
+                                  alt="Country flag"
+                                />
+                              </div>
+                              <div class="ms-4">
+                                <p class="text-xs font-weight-bold mb-0">
+                                  Name:
+                                </p>
+                                <h6 class="text-sm mb-0">{user.firstname}</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="text-center">
+                              <p class="text-xs font-weight-bold mb-0">City:</p>
+                              <h6 class="text-sm mb-0">{user.city}</h6>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="text-center">
+                              <p class="text-xs font-weight-bold mb-0">
+                                Contact:
+                              </p>
+                              <h6 class="text-sm mb-0">{user.phone}</h6>
+                            </div>
+                          </td>
+
+                          {user.status == "1" ? (
+                            <td class="align-middle text-sm">
+                              <div class="col text-center">
+                                <p class="text-xs font-weight-bold mb-0">
+                                  Status:
+                                </p>
+                                <span class="badge badge-sm bg-gradient-success">
+                                  Active
+                                </span>
+                              </div>
+                            </td>
+                          ) : (
+                            <td class="align-middle text-sm">
+                              <div class="col text-center">
+                                <p class="text-xs font-weight-bold mb-0">
+                                  Status:
+                                </p>
+                                <span class="badge badge-sm bg-gradient-secondary">
+                                  Inactive
+                                </span>
+                              </div>
+                            </td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            {/* <div class="col-lg-7 mb-lg-0 mb-4">
               <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
                   <h6 class="text-capitalize">Sales overview</h6>
@@ -218,7 +354,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div class="col-lg-5">
               <div class="card card-carousel overflow-hidden h-100 p-0">
                 <div
@@ -230,7 +366,7 @@ export default function Home() {
                     <div
                       class="carousel-item h-100 active"
                       style={{
-                        backgroundImage: "url('../assets/img/carousel-1.jpg')",
+                        backgroundImage: "url('../assets/img/img1.jpg')",
                         backgroundSize: "cover",
                       }}
                     >
@@ -238,21 +374,39 @@ export default function Home() {
                         <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                           <i class="ni ni-camera-compact text-dark opacity-10"></i>
                         </div>
-                        <h5 class="text-white mb-1">Get started with Argon</h5>
-                        <p>
-                          There’s nothing I really wanted to do in life that I
-                          wasn’t able to get good at.
-                        </p>
+                        <h5
+                          class="text-black mb-1"
+                          style={{
+                            color: "black",
+                            fontWeight: "bold",
+                            fontSize: "20px",
+
+                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Welcome Admin , To{" "}
+                          <span
+                            style={{
+                              color: "#E6E6FA",
+                              borderBlockColor: "red",
+                            }}
+                          >
+                            Gurukul
+                          </span>{" "}
+                          Alumni
+                        </h5>
+                        <h6 class="text-black">By Karmarajsinh Gohil</h6>
                       </div>
                     </div>
                     <div
                       class="carousel-item h-100"
                       style={{
-                        backgroundImage: "url('../assets/img/carousel-2.jpg')",
+                        backgroundImage: "url('../assets/img/img2.jpg')",
                         backgroundSize: "cover",
                       }}
                     >
-                      <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                      {/* <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                         <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                           <i class="ni ni-bulb-61 text-dark opacity-10"></i>
                         </div>
@@ -263,16 +417,16 @@ export default function Home() {
                           That’s my skill. I’m not really specifically talented
                           at anything except for the ability to learn.
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                     <div
                       class="carousel-item h-100"
                       style={{
-                        backgroundImage: "url('../assets/img/carousel-3.jpg')",
+                        backgroundImage: "url('../assets/img/img3.jpg')",
                         backgroundSize: "cover",
                       }}
                     >
-                      <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                      {/* <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                         <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                           <i class="ni ni-trophy text-dark opacity-10"></i>
                         </div>
@@ -283,7 +437,7 @@ export default function Home() {
                           Don’t be afraid to be wrong because you can’t learn
                           anything from a compliment.
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <button
@@ -314,8 +468,9 @@ export default function Home() {
               </div>
             </div>
           </div>
+
           <div class="row mt-4">
-            <div class="col-lg-7 mb-lg-0 mb-4">
+            {/* <div class="col-lg-7 mb-lg-0 mb-4">
               <div class="card ">
                 <div class="card-header pb-0 p-3">
                   <div class="d-flex justify-content-between">
@@ -473,7 +628,7 @@ export default function Home() {
                   </table>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div class="col-lg-5">
               <div class="card">
                 <div class="card-header pb-0 p-3">
@@ -563,7 +718,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-
-
   );
 }

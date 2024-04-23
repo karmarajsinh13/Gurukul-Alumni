@@ -1,7 +1,7 @@
 import { db } from "../db.js";
 
 export const getContacts = (req, res) => {
-  const query1 = "SELECT * FROM contact_us";
+  const query1 = `SELECT *,DATE_FORMAT(entry_date, "%d-%m-%y") AS entry_date FROM contact_us`;
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -12,7 +12,7 @@ export const getContacts = (req, res) => {
 };
 
 export const getContact = (req, res) => {
-  const query = "select * from contact_us where contact_id=?";
+  const query = `select *,DATE_FORMAT(entry_date, "%y-%m-%d") AS entry_date from contact_us where contact_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
@@ -39,7 +39,7 @@ export const deleteContact = (req, res) => {
 export const insertContact = (req, res) => {
   const query =
     "INSERT INTO contact_us(`user_name`,`user_phone`,`user_email`,`description`,`entry_date`) values(?)";
-    const date = new Date();
+  const date = new Date();
   const values = [
     req.body.user_name,
     req.body.user_phone,

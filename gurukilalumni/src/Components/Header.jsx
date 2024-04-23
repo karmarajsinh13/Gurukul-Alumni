@@ -221,6 +221,9 @@ export default function Header() {
               <Link className="hover:underline" to="/Events">
                 Events
               </Link>
+              <Link className="hover:underline" to="/All_alumni">
+                Find alumni
+              </Link>
               {/* <li className="hover:underline">News & Stories</li> */}
               <Link className="hover:underline" to="/Gallery">
                 Gallery

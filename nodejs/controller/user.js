@@ -2,7 +2,7 @@
 import { db } from "../db.js";
 
 export const getUsers = (req, res) => {
-  const query1 = `SELECT *,DATE_FORMAT(dob, "%d %M %y") AS dob FROM user`;
+  const query1 = `SELECT *,DATE_FORMAT(dob, "%y-%m-%d") AS dob FROM user`;
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -24,7 +24,7 @@ export const TotalUsers = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-  const query = `select *,DATE_FORMAT(dob, "%d %M %y") AS dob from user where user_id=?`;
+  const query = `select *,DATE_FORMAT(dob, "%y-%m-%d") AS dob from user where user_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
@@ -54,7 +54,7 @@ export const insertUser = (req, res) => {
     req.body.passing_year,
     req.body.gender,
     req.body.dob,
-    req.file?.filename,
+    req.file?.filename || req.body.photo,
     req.body.city,
     req.body.state,
     req.body.address,

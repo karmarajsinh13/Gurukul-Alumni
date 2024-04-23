@@ -27,8 +27,8 @@ export default function ViewEventDetail() {
     ? location.pathname.split("/")[2]
     : "";
   const ep_id = location.pathname.split("/")[2]
-    ? location.pathname.split("/")[2]
-    : "";
+      ? location.pathname.split("/")[2]
+      : "";
 
   useEffect(() => {
     if ((event_id, user_id, ep_id)) {
@@ -47,6 +47,14 @@ export default function ViewEventDetail() {
 
     console.log(res.data);
   };
+  const getEvent_participate = async () => {
+   
+      const res = await axios.get(
+        "http://localhost:3000/gurukulalumni/event_participate/" + ep_id
+      );
+      setEvent_participate(res.data);
+  
+  };
   const refreshPage = () => {
     window.location.reload();
   };
@@ -60,15 +68,7 @@ export default function ViewEventDetail() {
       setPhone(res.data.phone);
     } catch (error) {}
   };
-  const getEvent_participate = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:3000/gurukulalumni/event_participate/" + ep_id
-      );
-      setEvent_participate(res.data);
-      
-    } catch (error) {}
-  };
+ 
 
   const showRegistrationForm = () => {
     setShowForm(true);
@@ -152,6 +152,7 @@ export default function ViewEventDetail() {
                   className="mdl-color-text--white mdl-typography--font-regular new-icon ng-binding"
                   style={{ textDecoration: "none" }}
                 >
+                  {event_participate.number}
                   Shree Swaminarayan College of Computer Science
                 </a>
               </span>
@@ -345,9 +346,7 @@ export default function ViewEventDetail() {
                       </button>
                       
                     )} */}
-                    {event_participate.event_id == event_id &&
-                    event_participate.user_id == user_id && 
-                    event_participate.ep_name == firstname ? (
+                    {event_participate.event_id === event_id ? (
                       <div className="flexbox margin-bottom-24 align-items-center">
                         <i className="font-18 font-xs-14 margin-right-8 icon-check_circle mdl-color-text--light-green" />
                         <span className="font-14 font-xs-12 mdl-color-text--grey-900 ng-binding">
@@ -600,7 +599,10 @@ export default function ViewEventDetail() {
               }}
               bind-html-compile="eventDetails.desc | contentFilters: 'webinar,GoogleForm'"
             >
-              {event.description}
+              <div
+                contentEditable="true"
+                dangerouslySetInnerHTML={{ __html: event.description }}
+              ></div>
               {/* <span className="ng-scope">The wait is over. The </span>
               <strong className="ng-scope">
                 Grand Alumni Gathering on Crystal Jubilee of Gurukul
@@ -656,7 +658,7 @@ export default function ViewEventDetail() {
 
               <a
                 className="mdl-color-text--accent link-detail mdl-typography--font-regular float-right font-16 ng-binding"
-                ui-sref="inapp.event_attendees({eventId: '7781',source: 'eventView',source_baggage: 'source_baggage_for_attendees'})"
+                ui-sref="inapp.event_attendees({event_id: '7781',source: 'eventView',source_baggage: 'source_baggage_for_attendees'})"
                 ng-hide="eventDetails.metadata.reg.type=='form'"
                 href="/events/attendees/7781?source=eventView&source_baggage=source_baggage_for_attendees"
               >

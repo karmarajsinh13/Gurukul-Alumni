@@ -16,9 +16,11 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname + Date.now());
   },
+  
 });
 
 const upload = multer({ storage: storage });
+
 const router5 = express.Router();
 
 router5.get("/", getgallerys);

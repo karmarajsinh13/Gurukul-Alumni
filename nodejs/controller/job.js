@@ -12,9 +12,9 @@ export const getjobs = (req, res) => {
 };
 
 export const getjob = (req, res) => {
-  const query = "select * from job where job_id=?";
+  const query = `select *,DATE_FORMAT(deadline, "%y-%m-%d") AS deadline from job where job_id=?`;
 
-  db.query(query, [req.params.job_id], (err, data) => {
+  db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
     return res.json(data[0]);
   });
@@ -22,7 +22,7 @@ export const getjob = (req, res) => {
 
 export const deletejob = (req, res) => {
   const query = "DELETE FROM job where job_id= ?";
-  db.query(query, [req.params.job_id], (err, data) => {
+  db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);
     return res.json("job has been deleted");
   });
@@ -30,17 +30,18 @@ export const deletejob = (req, res) => {
 
 export const insertjob = (req, res) => {
   const query =
-    "INSERT INTO job(`title`,`description`,`category`,`salary`,`location`,`deadline`,`entry_by`,`entry_date`,`update_date`) values(?)";
+    "INSERT INTO job(`title`,`description`,`salary`,`locationn`,`deadline`,`status`,`entry_by`,`entry_date`) values(?)";
+    const date = new Date();
   const values = [
      req.body.title,
      req.body.description,
-     req.body.category,
      req.body.salary,
-     req.body.location,
+     req.body.locationn,
      req.body.deadline,
+     req.body.status,
      req.body.entry_by,
-     req.body.entry_date,
-     req.body.update_date,       
+     date,
+ 
   ];
   console.log(query);
   console.log(values);
@@ -51,14 +52,19 @@ export const insertjob = (req, res) => {
 };
 export const updatejob = (req, res) => {
   const query =
-    "UPDATE `job` SET `image`=?,`title`=?,`description`=?  where job_id=?";
+    "UPDATE `job` SET `title`=?,`description`=?,`salary`=?,`locationn`=?,`deadline`=?,`status`=?,`entry_by`=?,`entry_date`=? where job_id=?";
   const values = [
-        req.body.image,
-        req.body.title,
-        req.body.description,
+    req.body.title,
+     req.body.description,
+     req.body.salary,
+     req.body.locationn,
+     req.body.deadline,
+     req.body.status,
+     req.body.entry_by,
+     new Date(),
   ];
   console.log(query);
-  db.query(query, [...values, req.params.job_id], (err, data) => {
+  db.query(query, [...values, req.params.id], (err, data) => {
     if (err) return res.json(err);
     return res.json("job data has been updated");
   });

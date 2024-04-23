@@ -1,6 +1,22 @@
 import React from "react";
+import gurukullogo from "../gurukullogo.png";
+import { Link } from "react-router-dom";
+import { useState , useEffect } from "react";
+import axios from "axios";
 
 export default function ViewJob() {
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [job, setJob] = useState([]);
+
+  useEffect(() => {
+    getJob();
+  }, []);
+  const getJob = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/job");
+    setJob(res.data);
+
+    console.log(res.data);
+  };
   return (
     <div>
       <div className="page-strip mdl-color--grey-100 mdl-color--grey-100-themed">
@@ -16,7 +32,7 @@ export default function ViewJob() {
                     <div className="flexbox flex-dir-row justify-content-space-between align-items-center">
                       <div className="flexbox mdl-color-text--grey-900 ">
                         <div className="font-24 font-xs-18 line-height-26 ellipsis-2-lines mdl-typography--font-bold ng-binding">
-                          Marketing Executive
+                         {job.title}
                         </div>
                       </div>
                       <div className="flexbox align-items-center">

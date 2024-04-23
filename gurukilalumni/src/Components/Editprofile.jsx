@@ -232,14 +232,14 @@ export default function Editprofile() {
                                             accept="image/*"
                                             id="eventPicChangengf"
                                             defaultValue={photo}
-                                           
+                                            onChange={(e) =>
+                                              setImg(e.target.files[0])
+                                            }
                                           />
                                         </div>
                                         <img
                                           className="team-avatar"
                                           src={`http://localhost:3000/uploads/${photo}`}
-
-                                          
                                         />
                                       </div>
                                     </div>
@@ -250,7 +250,7 @@ export default function Editprofile() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="min-height-195 margin-top-xs-40">
                         <div className="padding-lr-20 padding-lr-xs-0 ng-scope">
                           <div className="ng-scope">
@@ -268,7 +268,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={firstname}
-                                          onChange={(e) => setFname(e.target.value)}
+                                          onChange={(e) =>
+                                            setFname(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           First Name
@@ -291,7 +293,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={lastname}
-                                          onChange={(e) => setLname(e.target.value)}
+                                          onChange={(e) =>
+                                            setLname(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Last Name
@@ -316,7 +320,9 @@ export default function Editprofile() {
                                             className="mdl-textfield__input ng-isolate-scope picker__input"
                                             type="date"
                                             defaultValue={dob}
-                                            onChange={(e) => setdob(e.target.value)}
+                                            onChange={(e) =>
+                                              setdob(e.target.value)
+                                            }
                                           />
                                           <div className="picker"></div>
 
@@ -341,7 +347,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={phone}
-                                          onChange={(e) => setphone(e.target.value)}
+                                          onChange={(e) =>
+                                            setphone(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Phone
@@ -360,7 +368,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={email}
-                                          onChange={(e) => setemail(e.target.value)}
+                                          onChange={(e) =>
+                                            setemail(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Email
@@ -382,7 +392,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={username}
-                                          onChange={(e) => setUsername(e.target.value)}
+                                          onChange={(e) =>
+                                            setUsername(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Username
@@ -406,17 +418,15 @@ export default function Editprofile() {
                                         <select
                                           className="select-dropdown ng-pristine ng-untouched ng-valid ng-not-empty"
                                           style={{ height: "27px" }}
-                                          onChange={(e) => setgender(e.target.value)}
+                                          onChange={(e) =>
+                                            setgender(e.target.value)
+                                          }
                                           defaultValue={gender}
                                         >
-                                          
                                           <option label="Male" value="Male">
                                             Male
                                           </option>
-                                          <option
-                                            label="Female"
-                                            value="Female"
-                                          >
+                                          <option label="Female" value="Female">
                                             Female
                                           </option>
                                         </select>
@@ -431,7 +441,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={city}
-                                          onChange={(e) => setCity(e.target.value)}
+                                          onChange={(e) =>
+                                            setCity(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           City
@@ -453,7 +465,9 @@ export default function Editprofile() {
                                           className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
                                           type="text"
                                           defaultValue={state}
-                                          onChange={(e) => setState(e.target.value)}
+                                          onChange={(e) =>
+                                            setState(e.target.value)
+                                          }
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           State
@@ -466,6 +480,28 @@ export default function Editprofile() {
                                         </span>
                                       </div>
                                     </div>
+                                    <div
+                                      id="first_name"
+                                      className="ng-scope mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                                    >
+                                      <div className="mdl-textfield mdl-js-textfield maximize-width main-family mdl-textfield--floating-label settings__label is-dirty is-upgraded">
+                                        <input
+                                          className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
+                                          type="textarea"
+                                          defaultValue={address}
+                                          onChange={(e) =>
+                                            setAddress(e.target.value)
+                                          }
+                                        />
+                                        <label className="mdl-textfield__label ng-binding">
+                                          Address
+                                        </label>
+                                        <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
+                                          <i className="icon-error margin-right-6" />
+                                        </span>
+                                      </div>
+                                    </div>
+
                                     <input
                                       type="hidden"
                                       defaultValue={address}
@@ -484,11 +520,16 @@ export default function Editprofile() {
                                     ></input>
                                     <div className="maximize-width padding-top-8 settings_footer settings_header_footer_common">
                                       <div className="flexbox flex-dir-row justify-content-end">
-                                        <button className="mdl-button mdl-js-button mdl-js-rippleeffect margin-right-12 settings__btn-secondary font-16 ng-binding" onClick={Cancle}>
+                                        <button
+                                          className="mdl-button mdl-js-button mdl-js-rippleeffect margin-right-12 settings__btn-secondary font-16 ng-binding"
+                                          onClick={Cancle}
+                                        >
                                           Cancel
                                         </button>
-                                        <button className="mdl-button mdl-js-button settings__btn-primary margin-right-xs-16 float-right ladda-button font-16" 
-                                        onClick={submitbtn}>
+                                        <button
+                                          className="mdl-button mdl-js-button settings__btn-primary margin-right-xs-16 float-right ladda-button font-16"
+                                          onClick={submitbtn}
+                                        >
                                           <span className="ladda-label ng-binding">
                                             Save changes
                                           </span>

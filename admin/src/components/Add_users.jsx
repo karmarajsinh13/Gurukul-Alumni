@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import DataTable from 'react-data-table-component';
 
 export default function Add_users() {
   const [firstname, setFname] = useState("");
@@ -221,7 +222,7 @@ export default function Add_users() {
                           className="form-control-label"
                         >
                           Profile Pic
-                        </label>
+                        </label>  
                         <input
                           className="form-control"
                           type="file"

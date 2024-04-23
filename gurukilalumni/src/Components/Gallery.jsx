@@ -3,8 +3,32 @@ import img1 from "../img/img1.jpg";
 import img2 from "../img/img2.jpg";
 import img3 from "../img/img3.jpg";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export default function Gallery() {
+  const [gallerys, setgallery] = useState([]);
+
+  useEffect(() => {
+    getgallery();
+  }, []);
+
+  const getgallery = async () => {
+    const res = await axios.get("http://localhost:3000/gurukulalumni/gallerys");
+    setgallery(res.data);
+    console.log(res.data);
+  };
+  const deletegallery = async (img_id) => {
+    let ans = window.confirm("are you sure?");
+    if (ans) {
+      const res = await axios.delete(
+        "http://localhost:3000/gurukulalumni/gallerys/" + img_id
+      );
+      console.log(res.data);
+      alert(res.data);
+      getgallery();
+    }
+  };
   return (
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed ng-scope">
       <div className="mdl-grid change-size main-family padding-lr-xs-0">
@@ -137,7 +161,7 @@ export default function Gallery() {
             </li> */}
           </ul>
         </div>
-
+     
         <div className="mdl-cell mdl-cell--8-col maximize-width-xs margin-lr-xs-0 mdl-cell--5-col-tablet">
           <div
             className="mdl-grid padding-zero ng-isolate-scope"
@@ -275,7 +299,7 @@ export default function Gallery() {
             >
               No gallery to display under this category!
             </div> */}
-
+   {gallerys.map((gallery) => (
             <div
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
               ng-repeat="(key,n) in display"
@@ -289,14 +313,14 @@ export default function Gallery() {
                 >
                   
 
-                  <Link to="/ViewGallery">
+                
                     <img
                       className="aspect-ratio-child aspect-ratio-fit-photo border-radius-12 ng-isolate-scope"
-                      src={img1}
+                      src={`http://localhost:3000/uploads/${gallery.img}`}
                     />
-                  </Link>
+              
                 </div>
-                <div className="maximize-width border-box padding-tb-8 padding-lr-0 padding-tb-xs-0">
+                {/* <div className="maximize-width border-box padding-tb-8 padding-lr-0 padding-tb-xs-0">
                   <div className="flexbox">
                     <div className="flex-grow-3">
                       <div className="flexbox mdl-color-text--grey-900">
@@ -331,11 +355,12 @@ export default function Gallery() {
                       <div className="flexbox padding-top-4"></div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
+            ))}
 
-            <div
+            {/* <div
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
            
             >
@@ -533,7 +558,7 @@ export default function Gallery() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="mdl-cell mdl-cell--12-col ng-hide" ng-show="load">
               <div
@@ -548,6 +573,7 @@ export default function Gallery() {
             </div>
           </div>
         </div>
+   
       </div>
     </div>
   );

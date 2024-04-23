@@ -24,6 +24,10 @@ import All_gallery from "./components/All_gallery";
 import Add_event from "./components/Add_event";
 import Event from "./components/Event";
 import Viewevent from "./components/Viewevent";
+import Contact_us from "./components/Contact_us";
+import Job from "./components/Job";
+import Add_job from "./components/Add_job";
+import Viewjob from "./components/Viewjob";
 const Layout = () => {
   return (
     <>
@@ -62,8 +66,12 @@ function App() {
               <Route path="/Event" element={<Event />} />
               <Route path="/Viewevent" element={<Viewevent />} />
               <Route path="/Viewevent/:id" element={<Viewevent />} />
-
-
+              <Route path="/Contact_us" element={<Contact_us />} />
+              <Route path="/Contact_us/:id" element={<Contact_us />} />
+              <Route path="/Job" element={<Job />} />
+              <Route path="/Add_job" element={<Add_job />} />
+              <Route path="/Add_job/:id" element={<Add_job />} />
+              <Route path="/Viewjob/:id" element={<Viewjob/>} />
             </Routes>
             <Footer></Footer>
           </>

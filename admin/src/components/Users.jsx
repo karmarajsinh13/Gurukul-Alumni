@@ -2,9 +2,36 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import $ from "jquery";
+//Datatable Modules
+import "../../node_modules/datatables.net-dt/js/dataTables.dataTables.js";
+
+import "../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css";
+import "../../node_modules/datatables.net-buttons/js/dataTables.buttons.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.colVis.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.flash.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.html5.js";
+import "../../node_modules/datatables.net-buttons/js/buttons.print.js";
+import "../../node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css";
+import "../../node_modules/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js";
+
 
 export default function Users() {
   const [user, setUser] = useState([]);
+
+  $(document).ready(function () {
+    setTimeout(function () {
+      $("#example").DataTable({
+        bDestroy: true,
+        pagingType: "full_numbers",
+        pageLength: 5,
+        processing: true,
+        dom: "Bfrtip",
+        buttons: ["copy", "csv", "print"],
+      });
+    }, 1000);
+  });
+
 
   useEffect(() => {
     getUser();
@@ -36,7 +63,18 @@ export default function Users() {
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h2>User table</h2>
+              <link
+                      rel="stylesheet"
+                      type="text/css"
+                      href="../../public/assets/css/dataTables.bootstrap5.min.cs"
+                    ></link>
+                    <link
+                      rel="stylesheet"
+                      type="text/css"
+                      href="../../public/assets/css/responsive.bootstrap5.min.css"
+                    ></link>
               <li class="nav-item d-flex align-items-center">
+
                 <Link
                   class="btn btn-outline-primary btn-sm mb-0 me-3"
                   to="/Add_users"

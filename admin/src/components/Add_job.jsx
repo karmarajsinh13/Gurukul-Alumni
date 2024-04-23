@@ -40,68 +40,83 @@ const formats = [
   "video",
 ];
 
-export default function Add_event() {
-  const [ename, setName] = useState("");
-  const [date, setDate] = useState("");
+export default function Add_job() {
+  const [title, setTitle] = useState("");
+  const [deadline, setdeadline] = useState("");
   const [locationn, setLocation] = useState("");
-  const [start_time, setStime] = useState("");
-  const [end_time, setEtime] = useState("");
+  const [salary, setSalary] = useState("");
   const [description, setDesc] = useState("");
-  const [image, setImg] = useState("");
   const [status, setStatus] = useState("");
+  const [entry_by, setEB] = useState("");
+  const [admin_id, setId] = useState(sessionStorage.getItem("admin"));
+  const [Admin, setAdmin] = useState([]);
+  const [firstname, setFname] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const event_id = location.pathname.split("/")[2]
+  const job_id = location.pathname.split("/")[2]
     ? location.pathname.split("/")[2]
     : "";
   useEffect(() => {
-    console.log(event_id);
-    if (event_id) {
-      getEvent();
+    console.log(job_id);
+    if (job_id, admin_id) { 
+      getjob();
+      getAdmin();
     }
-  }, []);
-  const getEvent = async () => {
-    const url = "http://localhost:3000/gurukulalumni/event/" + event_id;
-    console.log(url);
-    const res = await axios.get(url);
+  }, [admin_id]);
+  const getAdmin = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/admin/" + admin_id
+    );
+    setAdmin(res.data);
+    setFname(res.data.firstname);
+
     console.log(res.data);
-    setName(res.data.ename);
-    setDate(res.data.date);
+  };
+
+  const getjob = async () => {
+    const res = await axios.get(
+      "http://localhost:3000/gurukulalumni/job/" + job_id
+    );
+    console.log(res.data);
+    
+    setTitle(res.data.title);
+    setdeadline(res.data.deadline);
     setLocation(res.data.locationn);
-    setStime(res.data.start_time);
-    setEtime(res.data.end_time);
+    setSalary(res.data.salary);
     setDesc(res.data.description);
-    setImg(res.data.image);
     setStatus(res.data.status);
+    setEB(res.data.entry_by);
   };
   const submitbtn = async (e) => {
     e.preventDefault();
 
-    const formdata = new FormData();
-    formdata.append("ename", ename);
-    formdata.append("date", date);
-    formdata.append("locationn", locationn);
-    formdata.append("start_time", start_time);
-    formdata.append("end_time", end_time);
-    formdata.append("description", description);
-    formdata.append("image", image);
-    formdata.append("status", status);
-
+    const data = {
+      title,
+      deadline,
+      locationn,
+      salary,
+      entry_by: firstname,
+      description,
+      status,
+    };
+    //   const formdata = new FormData();
+    //   for (let key in data) {
+    //     formdata.append(key, data[key]);
+    //   }
     let res = "";
-    console.log(formdata);
-    if (event_id) {
+
+    if (job_id) {
       res = await axios.put(
-        "http://localhost:3000/gurukulalumni/event/" + event_id,
-        formdata
+        "http://localhost:3000/gurukulalumni/job/" +job_id,
+        data
       );
     } else {
-      res = await axios.post(
-        "http://localhost:3000/gurukulalumni/event", formdata
-      );
+      res = await axios.post("http://localhost:3000/gurukulalumni/job", data);
     }
+
     alert(res.data);
     console.log(res.data);
-    navigate("/Event");
+    navigate("/Job");
   };
   return (
     <div
@@ -118,45 +133,61 @@ export default function Add_event() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Organise Event
+                Create Job
               </h3>
               <p class="mb-0">Add Event here</p>
               <form>
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
                           className="form-control-label"
                         >
-                          Event Name
+                          Job Title
                         </label>
                         <input
                           className="form-control"
                           type="text"
-                          defaultValue={ename}
-                          onChange={(e) => setName(e.target.value)}
+                          defaultValue={title}
+                          onChange={(e) => setTitle(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
                           className="form-control-label"
                         >
-                          Event Start Date
+                          Deadline Date
                         </label>
                         <input
                           className="form-control"
                           type="date"
-                          defaultValue={date}
-                          onChange={(e) => setDate(e.target.value)}
+                          defaultValue={deadline}
+                          onChange={(e) => setdeadline(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label
+                          htmlFor="example-text-input"
+                          className="form-control-label"
+                        >
+                          Salary
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          defaultValue={salary}
+                          onChange={(e) => setSalary(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-12">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
@@ -172,23 +203,8 @@ export default function Add_event() {
                         />
                       </div>
                     </div>
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <label
-                          htmlFor="example-text-input"
-                          className="form-control-label"
-                        >
-                          Event Image
-                        </label>
-                        <input
-                          className="form-control"
-                          type="file"
-                          defaultValue={image}
-                          onChange={(e) => setImg(e.target.files[0])}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-12" >
+
+                    <div className="col-md-12">
                       <div className="form-group">
                         <label
                           htmlFor="example-text-input"
@@ -203,42 +219,16 @@ export default function Add_event() {
                           defaultValue={description}
                           onChange={(e) => setDesc(e)}
                           rows={10}
-                          
                         ></ReactQuill>
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label
-                          htmlFor="example-text-input"
-                          className="form-control-label"
-                        >
-                          Start time
-                        </label>
-                        <input
-                          className="form-control"
-                          type="time"
-                          defaultValue={start_time}
-                          onChange={(e) => setStime(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label
-                          htmlFor="example-text-input"
-                          className="form-control-label"
-                        >
-                          End time
-                        </label>
-                        <input
-                          className="form-control"
-                          type="time"
-                          defaultValue={end_time}
-                          onChange={(e) => setEtime(e.target.value)}
-                        />
-                      </div>
-                    </div>
+
+                    <input
+                      className="form-control"
+                      type="hidden"
+                      defaultValue={entry_by}
+                      onChange={(e) => setEB(e.target.value)}
+                    />
 
                     <div class="col-md-4">
                       <div className="form-group">
@@ -255,8 +245,8 @@ export default function Add_event() {
                           onChange={(e) => setStatus(e.target.value)}
                         >
                           <option>Choose</option>
-                          <option value="0">Inactive</option>
-                          <option value="1">Active</option>
+                          <option value="0">Closed</option>
+                          <option value="1">Open</option>
                         </select>
                       </div>
                     </div>
