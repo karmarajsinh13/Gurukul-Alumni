@@ -68,7 +68,7 @@ export default function ViewJob() {
                     </div>
                     <div className="flexbox  flex-dir-column-xs margin-top-8">
                       <span className="mdl-color-text--grey-600 font-16 line-height-22 padding-right-xs-16 ng-binding">
-                        Gyanmanjari Career Academy
+                        Gurukul College
                       </span>
                       <span className="margin-left-30  margin-left-xs-0 margin-top-xs-12">
                         <i className="icon-location_on" />
