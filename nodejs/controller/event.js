@@ -2,7 +2,18 @@
 import { db } from "../db.js";
 
 export const getEvents = (req, res) => {
-  const query1 = `SELECT *,DATE_FORMAT(date, "%y-%m-%d") AS date FROM events`;
+  const query1 = `SELECT *,DATE_FORMAT(date, "%d-%m-%y") AS date FROM events`;
+  db.query(query1, (err, data) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.json(data);
+    }
+  });
+};
+export const Totalevent = (req, res) => {
+  const query1 = "SELECT count(*) FROM events";
+  // in (select event_id from event_participate where user_id=?)
   db.query(query1, (err, data) => {
     if (err) {
       return res.json(err);
@@ -12,8 +23,11 @@ export const getEvents = (req, res) => {
   });
 };
 
+
+
+
 export const getEvent = (req, res) => {
-  const query = `select *,DATE_FORMAT(date, "%y-%m-%d") AS date from events where event_id=?`;
+  const query = `select *,DATE_FORMAT(date, "%d-%m-%y") AS date from events where event_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);

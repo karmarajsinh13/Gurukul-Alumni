@@ -5,6 +5,8 @@ import {
   getEvents,
   insertEvent,
   updateEvent,
+  Totalevent,
+
 } from "../controller/event.js";
 import multer from "multer";
 
@@ -22,6 +24,8 @@ const upload = multer({ storage: storage });
 const router4 = express.Router();
 
 router4.get("/", getEvents);
+router4.get("/", Totalevent);
+
 router4.get("/:id", getEvent);
 router4.put("/:id",upload.single("image"), updateEvent);
 router4.post("/",upload.single("image"), insertEvent);

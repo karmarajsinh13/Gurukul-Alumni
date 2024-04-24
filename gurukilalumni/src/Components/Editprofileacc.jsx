@@ -5,101 +5,115 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Editprofileacc() {
-    const [user_id, setId] = useState(sessionStorage.getItem("user"));
-    const [firstname, setFname] = useState("");
-    const [lastname, setLname] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [status, setStatus] = useState("");
-    const [photo, setImg] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [dob, setdob] = useState("");
-    const [gender, setgender] = useState("");
-    const [email, setemail] = useState("");
-    const [phone, setphone] = useState("");
-    const [passing_year, setpassing_year] = useState("");
-    const navigate = useNavigate();
-    useEffect(() => {
-      if (user_id) fatchUserName();
-      getUser();
-      if (!user_id) {
-        navigate("/");
-        //window.location.reload();
-      }
-    }, [user_id]);
-    const getUser = async () => {
-      const url = "http://localhost:3000/gurukulalumni/user/" + user_id;
-      console.log(url);
-      const res = await axios.get(url);
-      console.log(res.data);
+  const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [firstname, setFname] = useState("");
+  const [lastname, setLname] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("");
+  const [photo, setImg] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [dob, setdob] = useState("");
+  const [gender, setgender] = useState("");
+  const [email, setemail] = useState("");
+  const [phone, setphone] = useState("");
+  const [passing_year, setpassing_year] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user_id) fatchUserName();
+    getUser();
+    if (!user_id) {
+      navigate("/");
+      //window.location.reload();
+    }
+  }, [user_id]);
+  const getUser = async () => {
+    const url = "http://localhost:3000/gurukulalumni/user/" + user_id;
+    console.log(url);
+    const res = await axios.get(url);
+    console.log(res.data);
+    setFname(res.data.firstname);
+    setLname(res.data.lastname);
+    setUsername(res.data.username);
+    setPassword(res.data.password);
+    setStatus(res.data.status);
+    setImg(res.data.photo);
+    setAddress(res.data.address);
+    setCity(res.data.city);
+    setState(res.data.state);
+    setemail(res.data.email);
+    setphone(res.data.phone);
+    setpassing_year(res.data.passing_year);
+    setdob(res.data.dob);
+    setgender(res.data.gender);
+  };
+  const submitbtn = async (e) => {
+    e.preventDefault();
+
+    const formdata = new FormData();
+    formdata.append("firstname", firstname);
+    formdata.append("lastname", lastname);
+    formdata.append("username", username);
+    formdata.append("password", password);
+    formdata.append("status", status);
+    formdata.append("photo", photo);
+    formdata.append("address", address);
+    formdata.append("city", city);
+    formdata.append("state", state);
+    formdata.append("email", email);
+    formdata.append("phone", phone);
+    formdata.append("passing_year", passing_year);
+    formdata.append("dob", dob);
+    formdata.append("gender", gender);
+    let res = "";
+    console.log(formdata);
+    if (user_id) {
+      res = await axios.put(
+        "http://localhost:3000/gurukulalumni/user/" + user_id,
+        formdata
+      );
+    } else {
+      res = await axios.post(
+        "http://localhost:3000/gurukulalumni/user",
+        formdata
+      );
+    }
+    alert(res.data);
+    console.log(res.data);
+    navigate("/Profile");
+  };
+  const fatchUserName = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/gurukulalumni/user" + user_id
+      );
       setFname(res.data.firstname);
-      setLname(res.data.lastname);
-      setUsername(res.data.username);
-      setPassword(res.data.password);
-      setStatus(res.data.status);
-      setImg(res.data.photo);
-      setAddress(res.data.address);
-      setCity(res.data.city);
-      setState(res.data.state);
-      setemail(res.data.email);
-      setphone(res.data.phone);
-      setpassing_year(res.data.passing_year);
-      setdob(res.data.dob);
-      setgender(res.data.gender);
-    };
-    const submitbtn = async (e) => {
-      e.preventDefault();
-  
-      const formdata = new FormData();
-      formdata.append("firstname", firstname);
-      formdata.append("lastname", lastname);
-      formdata.append("username", username);
-      formdata.append("password", password);
-      formdata.append("status", status);
-      formdata.append("photo", photo);
-      formdata.append("address", address);
-      formdata.append("city", city);
-      formdata.append("state", state);
-      formdata.append("email", email);
-      formdata.append("phone", phone);
-      formdata.append("passing_year", passing_year);
-      formdata.append("dob", dob);
-      formdata.append("gender", gender);
-      let res = "";
-      console.log(formdata);
-      if (user_id) {
-        res = await axios.put(
-          "http://localhost:3000/gurukulalumni/user/" + user_id,
-          formdata
-        );
-      } else {
-        res = await axios.post(
-          "http://localhost:3000/gurukulalumni/user",
-          formdata
-        );
-      }
-      alert(res.data);
+    } catch (error) {}
+  };
+  const btnSignOut = () => {
+    sessionStorage.clear();
+    setId("");
+    navigate("/");
+    window.location.reload();
+
+    //navigate("/Login")
+  };
+  const deleteUser = async () => {
+    let ans = window.confirm("are you sure?");
+    if (ans) {
+      const res = await axios.delete(
+        "http://localhost:3000/gurukulalumni/user/" + user_id
+      );
       console.log(res.data);
-      navigate("/Users");
-    };
-    const fatchUserName = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:3000/gurukulalumni/user" + user_id
-        );
-        setFname(res.data.firstname);
-      } catch (error) {}
-    };
-    const btnSignOut = () => {
+      alert(res.data);
       sessionStorage.clear();
       setId("");
       navigate("/");
       window.location.reload();
-  
-      //navigate("/Login")
-    };
+    }
+  };
   return (
     <div>
       <div id="inside-ui-view">
@@ -133,7 +147,7 @@ export default function Editprofileacc() {
                         ng-class="(x.link=='none')?'mdl-color-text--white mdl-color-text--white-themed':'mdl-color-text--white mdl-color-text--white-themed link-detail'"
                         ng-click="getBreadLink($index,bcCreationData)"
                       >
-                        Karmarajsinh Gohil
+                        {username}
                       </span>
                     </div>
                     <div
@@ -163,7 +177,18 @@ export default function Editprofileacc() {
                 </div>
               </div>
             </div>
-
+            <input type="hidden" defaultValue={address}></input>
+            <input type="hidden" defaultValue={passing_year}></input>
+            <input type="hidden" defaultValue={state}></input>
+            <input type="hidden" defaultValue={city}></input>
+            <input type="hidden" defaultValue={firstname}></input>
+            <input type="hidden" defaultValue={lastname}></input>
+            <input type="hidden" defaultValue={email}></input>
+            <input type="hidden" defaultValue={phone}></input>
+            <input type="hidden" defaultValue={username}></input>
+            <input type="hidden" defaultValue={photo}></input>
+            <input type="hidden" defaultValue={gender}></input>
+            <input type="hidden" defaultValue={dob}></input>
             <div
               className="page-strip mdl-color--grey-100 mdl-color--grey-100-themed"
               ng-class="{'mdl-color--grey-100 mdl-color--grey-100-themed':!isMobView}"
@@ -190,14 +215,15 @@ export default function Editprofileacc() {
                         className="padding-tb-16 padding-tb-xs-0 margin-lr-xs-16"
                         ng-class="{'border-radius-8 border-light-grey':isMobView}"
                       >
-                        <Link  to="/Editprofile">
-                        <div className="padding-tb-16 padding-left-16 padding-lr-24 cursor-pointer flexbox align-items-center justify-content-space-between ng-binding ng-scope">
-                          Basic details
-                          <i
-                            ng-show="isMobView"
-                            className="icon-arrow487 font-24 ng-hide"
-                          />
-                        </div></Link>
+                        <Link to="/Editprofile">
+                          <div className="padding-tb-16 padding-left-16 padding-lr-24 cursor-pointer flexbox align-items-center justify-content-space-between ng-binding ng-scope">
+                            Basic details
+                            <i
+                              ng-show="isMobView"
+                              className="icon-arrow487 font-24 ng-hide"
+                            />
+                          </div>
+                        </Link>
 
                         <div className="padding-tb-16 padding-left-16 padding-lr-24 cursor-pointer flexbox align-items-center justify-content-space-between ng-binding mdl-color-text--blue-900 mdl-color--blue-50 mdl-typography--font-medium">
                           Account &amp; Password
@@ -243,7 +269,7 @@ export default function Editprofileacc() {
                           className="ng-scope"
                         >
                           <account-settings
-                            uid={2208215}
+                         
                             className="ng-isolate-scope"
                           >
                             <div>
@@ -283,7 +309,7 @@ export default function Editprofileacc() {
                                     <h6 className="mdl-color-text--black mdl-typography--font-semibold ng-binding">
                                       Change password
                                     </h6>
-                                    <div bind-html-compile='"Email_Sent_Reset_Pass" | asPortalLang: "An email will be sent to your registered email id \"[DATA:userEmail]\" with instructions to set new password": {userEmail: "<span class=\"settings__text-primary font-14\">"+$root.app_data.email+"</span>"}'>
+                                    {/* <div bind-html-compile='"Email_Sent_Reset_Pass" | asPortalLang: "An email will be sent to your registered email id \"[DATA:userEmail]\" with instructions to set new password": {userEmail: "<span class=\"settings__text-primary font-14\">"+$root.app_data.email+"</span>"}'>
                                       <span className="ng-scope">
                                         An email will be sent to your registered
                                         email id "
@@ -294,6 +320,27 @@ export default function Editprofileacc() {
                                       <span className="ng-scope">
                                         " with instructions to set new password
                                       </span>
+                                    </div> */}
+                                    <div
+                                      id="password"
+                                      className="ng-scope mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                                    >
+                                      <div className="mdl-textfield mdl-js-textfield maximize-width main-family mdl-textfield--floating-label settings__label is-dirty is-upgraded">
+                                        <input
+                                          className="mdl-textfield__input main-family ng-pristine ng-untouched ng-valid ng-not-empty"
+                                          type="password"
+                                          defaultValue={password}
+                                          onChange={(e) =>
+                                            setPassword(e.target.value)
+                                          }
+                                        />
+                                        <label className="mdl-textfield__label ng-binding">
+                                          Password
+                                        </label>
+                                        <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
+                                          <i className="icon-error margin-right-6" />
+                                        </span>
+                                      </div>
                                     </div>
                                     <span
                                       className="mdl-button mdl-js-button settings__btn-secondary mdl-js-rippleeffect margin-lr-0 margin-top-20 margin-bottom-10 font-14 ladda-button"
@@ -302,8 +349,10 @@ export default function Editprofileacc() {
                                       ng-click="changePassword()"
                                       data-spinner-color="#242424"
                                     >
-                                      <span className="ladda-label ng-binding">
-                                        Send email to change password
+                                      <span className="ladda-label ng-binding" 
+                                      onClick={submitbtn}
+                                      >
+                                       Change Password
                                       </span>
                                       <span className="ladda-spinner" />
                                     </span>
@@ -329,7 +378,10 @@ export default function Editprofileacc() {
                                       ng-click="sendMessage($event)"
                                       data-spinner-color="#CC3300"
                                     >
-                                      <span className="ladda-label ng-binding">
+                                      <span
+                                        className="ladda-label ng-binding"
+                                        onClick={() => deleteUser(user_id)}
+                                      >
                                         Delete my account
                                       </span>
                                       <span className="ladda-spinner" />

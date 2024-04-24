@@ -22,12 +22,50 @@ import "../../node_modules/datatables.net-responsive-bs5/js/responsive.bootstrap
 export default function Home() {
   const [user, setUser] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [Upcomingevent, setUpcomingevent] = useState(0);
+  const [Totalimages, setTotalimages] = useState(0);
+  const [Totaljob, setTotaljob] = useState([]);
 
   useEffect(() => {
     getTotalUsers();
+    getUpcomingevent();
     getUser();
+    getTotalimages();
+    getTotaljob();
   }, []);
 
+  const getTotaljob= async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/job");
+  
+  
+      setTotaljob(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getTotalimages = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/gallerys");
+ 
+  
+      setTotalimages(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getUpcomingevent = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/upcomingevent");
+  
+      setUpcomingevent(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getTotalUsers = async () => {
     try {
       const res = await axios.get("http://localhost:3000/gurukulalumni/user");
@@ -165,21 +203,27 @@ export default function Home() {
                     <div class="col-8">
                       <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                          Today's Users
+                          Upcoming Events
                         </p>
-                        <h5 class="font-weight-bolder">2,300</h5>
+                        <h5
+                          class="font-weight-bolder"
+                          style={{ fontSize: "35px" }}
+                        >
+                         {Upcomingevent}
+                        </h5>
+                       
                         <p class="mb-0">
                           <span class="text-success text-sm font-weight-bolder">
-                            +3%
+                            {/* +3% */}
                           </span>
-                          since last week
+                          {/* since last week */}
                         </p>
                       </div>
                     </div>
                     <div class="col-4 text-end">
                       <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
                         <i
-                          class="ni ni-world text-lg opacity-10"
+                          class="ni ni-collection text-lg opacity-10"
                           aria-hidden="true"
                         ></i>
                       </div>
@@ -195,21 +239,26 @@ export default function Home() {
                     <div class="col-8">
                       <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                          New Clients
+                          Total Gallerys
                         </p>
-                        <h5 class="font-weight-bolder">+3,462</h5>
+                        <h5
+                          class="font-weight-bolder"
+                          style={{ fontSize: "35px" }}
+                        >
+                         {Totalimages}
+                        </h5>
                         <p class="mb-0">
                           <span class="text-danger text-sm font-weight-bolder">
-                            -2%
+                            {/* -2% */}
                           </span>
-                          since last quarter
+                          {/* since last quarter */}
                         </p>
                       </div>
                     </div>
                     <div class="col-4 text-end">
                       <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
                         <i
-                          class="ni ni-paper-diploma text-lg opacity-10"
+                          class="ni ni-image text-lg opacity-10"
                           aria-hidden="true"
                         ></i>
                       </div>
@@ -225,21 +274,26 @@ export default function Home() {
                     <div class="col-8">
                       <div class="numbers">
                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                          Sales
+                         Total Jobs
                         </p>
-                        <h5 class="font-weight-bolder">$103,430</h5>
+                        <h5
+                          class="font-weight-bolder"
+                          style={{ fontSize: "35px" }}
+                        >
+                         {Totaljob}
+                        </h5>
                         <p class="mb-0">
                           <span class="text-success text-sm font-weight-bolder">
-                            +5%
+                            {/* +5% */}
                           </span>{" "}
-                          than last month
+                          {/* than last month */}
                         </p>
                       </div>
                     </div>
                     <div class="col-4 text-end">
                       <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
                         <i
-                          class="ni ni-cart text-lg opacity-10"
+                          class="ni ni-laptop text-lg opacity-10"
                           aria-hidden="true"
                         ></i>
                       </div>
@@ -265,13 +319,199 @@ export default function Home() {
                       type="text/css"
                       href="../../public/assets/css/responsive.bootstrap5.min.css"
                     ></link>
-                    <h6 class="mb-2">All Users</h6>
+                    <h6 class="mb-2">New Alumni</h6>
                   </div>
                 </div>
                 <div class="table-responsive">
                   <table class="table align-items-center ">
                     <tbody>
-                      {user.map((user) => (
+                      <tr>
+                        <td >
+                          <td>
+                            <img
+                              src="http://localhost:3000/uploads/karmarajsinh.jpg1712504920235"
+                              className="avatar avatar-sm me-3"
+                              alt="Country flag"
+                              style={{ height: "50px", width: "50px", marginLeft: "10px" }}
+                            />
+                          </td>
+                          <th className="ms-4">
+                            <p className="text-xs font-weight-bold mb-0">
+                              Name:
+                            </p>
+                            <h6 className="text-sm mb-0">Karmarajsinhh</h6>
+                          </th>
+                        </td>
+                        
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">City:</p>
+                          <h6 className="text-sm mb-0">Bhavnagar</h6>
+                        </td>
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Contact:
+                          </p>
+                          <h6 className="text-sm mb-0">7265992371</h6>
+                        </td>
+                        <td className="col text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Status:
+                          </p>
+                          <span className="badge badge-sm bg-gradient-success">
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td >
+                          <td>
+                            <img
+                              src="http://localhost:3000/uploads/vrundesh.jpg1712866678419"
+                              className="avatar avatar-sm me-3"
+                              alt="Country flag"
+                              style={{ height: "50px", width: "50px", marginLeft: "10px" }}
+                            />
+                          </td>
+                          <th className="ms-4">
+                            <p className="text-xs font-weight-bold mb-0">
+                              Name:
+                            </p>
+                            <h6 className="text-sm mb-0">Vrunda</h6>
+                          </th>
+                        </td>
+                        
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">City:</p>
+                          <h6 className="text-sm mb-0">Surat</h6>
+                        </td>
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Contact:
+                          </p>
+                          <h6 className="text-sm mb-0">7265992372</h6>
+                        </td>
+                        <td className="col text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Status:
+                          </p>
+                          <span className="badge badge-sm bg-gradient-success">
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td >
+                          <td>
+                            <img
+                              src="http://localhost:3000/uploads/kuldipsinh.jpg1713038908252"
+                              className="avatar avatar-sm me-3"
+                              alt="Country flag"
+                              style={{ height: "50px", width: "50px", marginLeft: "10px" }}
+                            />
+                          </td>
+                          <th className="ms-4">
+                            <p className="text-xs font-weight-bold mb-0">
+                              Name:
+                            </p>
+                            <h6 className="text-sm mb-0">Kuldipsinh</h6>
+                          </th>
+                        </td>
+                        
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">City:</p>
+                          <h6 className="text-sm mb-0">Bhavnagar</h6>
+                        </td>
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Contact:
+                          </p>
+                          <h6 className="text-sm mb-0">6353220031</h6>
+                        </td>
+                        <td className="col text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Status:
+                          </p>
+                          <span className="badge badge-sm bg-gradient-success">
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td >
+                          <td>
+                            <img
+                              src="http://localhost:3000/uploads/PHD.jpeg1713623941852"
+                              className="avatar avatar-sm me-3"
+                              alt="Country flag"
+                              style={{ height: "50px", width: "50px", marginLeft: "10px" }}
+                            />
+                          </td>
+                          <th className="ms-4">
+                            <p className="text-xs font-weight-bold mb-0">
+                              Name:
+                            </p>
+                            <h6 className="text-sm mb-0">Khushi</h6>
+                          </th>
+                        </td>
+                        
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">City:</p>
+                          <h6 className="text-sm mb-0">Bhavnagar</h6>
+                        </td>
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Contact:
+                          </p>
+                          <h6 className="text-sm mb-0">7572839608</h6>
+                        </td>
+                        <td className="col text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Status:
+                          </p>
+                          <span className="badge badge-sm bg-gradient-success">
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td >
+                          <td>
+                            <img
+                              src="http://localhost:3000/uploads/zala.jpg1713968749889"
+                              className="avatar avatar-sm me-3"
+                              alt="Country flag"
+                              style={{ height: "50px", width: "50px", marginLeft: "10px" }}
+                            />
+                          </td>
+                          <th className="ms-4">
+                            <p className="text-xs font-weight-bold mb-0">
+                              Name:
+                            </p>
+                            <h6 className="text-sm mb-0">Krushnakumarsinh</h6>
+                          </th>
+                        </td>
+                        
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">City:</p>
+                          <h6 className="text-sm mb-0">Surendranagar</h6>
+                        </td>
+                        <td className="text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Contact:
+                          </p>
+                          <h6 className="text-sm mb-0">6355246819</h6>
+                        </td>
+                        <td className="col text-center">
+                          <p className="text-xs font-weight-bold mb-0">
+                            Status:
+                          </p>
+                          <span className="badge badge-sm bg-gradient-success">
+                            Active
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* {user.map((user) => (
                         <tr>
                           <td class="w-30">
                             <div class="d-flex px-2 py-1 align-items-center">
@@ -329,7 +569,7 @@ export default function Home() {
                             </td>
                           )}
                         </tr>
-                      ))}
+                      ))} */}
                     </tbody>
                   </table>
                 </div>
@@ -629,7 +869,7 @@ export default function Home() {
                 </div>
               </div>
             </div> */}
-            <div class="col-lg-5">
+            {/* <div class="col-lg-5">
               <div class="card">
                 <div class="card-header pb-0 p-3">
                   <h6 class="mb-0">Categories</h6>
@@ -712,7 +952,7 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <Footer />
         </div>

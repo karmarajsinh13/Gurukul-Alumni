@@ -19,6 +19,20 @@ export const getevent_participate = (req, res) => {
     return res.json(data[0]);
   });
 };
+// export const Alyreadyreg = (req, res) => {
+//   const query1 = "SELECT count(*) FROM event_participant where user_id=? and event_id=?";
+//   // in (select event_id from event_participate where user_id=?)
+//   db.query(query1, (err, data) => {
+//     if (err) {
+//       return res.json(err);
+//     } else {
+//       return res.json(data);
+//     }
+//   });
+// };
+
+
+
 
 export const deleteevent_participate = (req, res) => {
   const query = "DELETE FROM event_participate where ep_id= ?";

@@ -23,6 +23,7 @@ import Login from "./Components/Login";
 import Editprofile from "./Components/Editprofile";
 import Editprofileacc from "./Components/Editprofileacc";
 import All_alumni from "./Components/All_alumni";
+import Viewgalleryimg from "./Components/Viewgalleryimg";
 
 const Layout = () => {
   return (
@@ -61,7 +62,10 @@ function App() {
               <Route path="/Editprofileacc" element={<Editprofileacc />} />
               <Route path="/Editprofileacc/:id" element={<Editprofileacc />} />
               <Route path="/ViewJob" element={<ViewJob />} />
+              <Route path="/ViewJob/:id" element={<ViewJob />} />
               <Route path="/ViewGallery" element={<ViewGallery />} />
+              <Route path="/ViewGalleryimg" element={<Viewgalleryimg />} />
+              <Route path="/ViewGalleryimg/:id" element={<Viewgalleryimg />} />
             </Routes>
             <Footer></Footer>
           </>

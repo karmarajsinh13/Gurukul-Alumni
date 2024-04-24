@@ -10,6 +10,10 @@ import router2 from "./models/r_admin.js";
 import router30 from "./models/r_login.js";
 import router31 from "./models/r_adminlogin.js";
 import router50 from "./models/r_alumnigallery.js";
+import router8 from "./models/r_pastevent.js";
+import router9 from "./models/r_upcomingevent.js";
+import router10 from "./models/r_totalregister.js";
+import router11 from "./models/r_alreadyregi.js";
 
 const app = express();
 app.use(cors());
@@ -27,6 +31,12 @@ app.use("/gurukulalumni/admin", router2);
 app.use("/gurukulalumni/login", router30);
 app.use("/gurukulalumni/adminlogin", router31);
 app.use("/gurukulalumni/gallerys", router50);
+app.use("/gurukulalumni/pastevent", router8);
+app.use("/gurukulalumni/upcomingevent", router9);
+app.use("/gurukulalumni/totalregister", router10);
+app.use("/gurukulalumni/alreadyregi", router11);
+
+
 
 app.listen(3000, () => {
   console.log("Server is running on 3000 port...");

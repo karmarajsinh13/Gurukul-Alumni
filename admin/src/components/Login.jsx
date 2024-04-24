@@ -101,6 +101,8 @@ export default function Login() {
                           />
                         </div>
 
+                        <p style={{ color: "red" }}>{error}</p>
+
                         <div class="text-center">
                           <button
                             type="button"

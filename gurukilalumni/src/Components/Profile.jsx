@@ -33,6 +33,7 @@ export default function Profile() {
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const [passing_year, setpassing_year] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     if (user_id) fatchUserName();
@@ -62,9 +63,24 @@ export default function Profile() {
     setdob(res.data.dob);
     setgender(res.data.gender);
   };
+  const validate = () => {
+    const error = {};
+
+    if (!firstname) {
+      error.firstname = "Please Enter Your First name";
+    }
+    if (!email) {
+      error.email = "Please Enter your email ";
+    }
+    if (!password) {
+      error.password = "Password is required Broooo!!!";
+    }
+    return error;
+  };
   const submitbtn = async (e) => {
     e.preventDefault();
-
+    setFormErrors(validate());
+    if(firstname && email && password){
     const formdata = new FormData();
     formdata.append("firstname", firstname);
     formdata.append("lastname", lastname);
@@ -96,6 +112,7 @@ export default function Profile() {
     alert(res.data);
     console.log(res.data);
     navigate("/Users");
+  }
   };
   const fatchUserName = async () => {
     try {

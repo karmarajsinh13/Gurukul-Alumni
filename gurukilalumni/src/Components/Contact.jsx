@@ -5,13 +5,14 @@ import axios from "axios";
 
 export default function Contact() {
   const [firstname, setName] = useState("");
-  const [user_name,setUser_name] =  useState("");
+  const [user_name, setUser_name] = useState("");
   const [email, setEmail] = useState("");
   const [user_email, setUser_email] = useState("");
-  const [phone,setPhone] = useState("");
-  const [user_phone,setUser_phone] = useState("");
+  const [phone, setPhone] = useState("");
+  const [user_phone, setUser_phone] = useState("");
   const [description, setMsg] = useState("");
   const [user_id, setId] = useState(sessionStorage.getItem("user"));
+  const [formErrors, setFormErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const contact_id = location.pathname.split("/")[2]
@@ -19,10 +20,11 @@ export default function Contact() {
     : "";
 
   useEffect(() => {
-    if (user_id,contact_id) fatchUserName();
+    if ((user_id, contact_id)) fatchUserName();
     getContact();
     getUser();
   }, [user_id]);
+
   const getContact = async () => {
     const res = await axios.get(
       "http://localhost:3000/gurukulalumni/contact_us/" + contact_id
@@ -32,7 +34,6 @@ export default function Contact() {
     setUser_name(res.data.user_name);
     setUser_phone(res.data.user_phone);
     setMsg(res.data.description);
-   
   };
   const getUser = async () => {
     const res = await axios.get(
@@ -43,7 +44,6 @@ export default function Contact() {
     setName(res.data.firstname);
     setPhone(res.data.phone);
     setEmail(res.data.email);
-    
   };
   const fatchUserName = async () => {
     try {
@@ -53,20 +53,28 @@ export default function Contact() {
       setName(res.data.firstname);
     } catch (error) {}
   };
+  const validate = () => {
+    const error = {};
+
+    if (!description) {
+      error.description = "Enter Your Message !!!";
+    }
+    return error;
+  };
   const btnSubmit = async (e) => {
     e.preventDefault();
-  
- 
+    setFormErrors(validate());
+    if (description) {
       const data = {
-        user_name:firstname,
-        user_phone:phone,
-        user_email:email,
+        user_name: firstname,
+        user_phone: phone,
+        user_email: email,
         description,
       };
       let res = "";
       if (contact_id) {
         res = await axios.put(
-          "http://localhost:3000/gurukulalumni/contact_us/" + contact_id ,
+          "http://localhost:3000/gurukulalumni/contact_us/" + contact_id,
           data
         );
       } else {
@@ -77,7 +85,7 @@ export default function Contact() {
       }
       navigate("/Contact");
       alert(res.data);
-    
+    }
   };
   return (
     <div>
@@ -194,7 +202,8 @@ export default function Contact() {
                   />
                   https://www.swamigurukul.com/
                 </div>
-                <div>
+                {/* Social Media Icons */}
+                {/* <div>
                   <a
                     ng-if="contact_details.facebook && contact_details.facebook!=0"
                     href="https://www.facebook.com/Gyanmajari-Vidyapith-109904388452507"
@@ -241,7 +250,7 @@ export default function Contact() {
                   >
                     <i className="icon-instagram social-buttons-icons font-14" />
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             <div
@@ -290,12 +299,10 @@ export default function Contact() {
                           style={{ padding: "15px" }}
                         >
                           {user_id ? (
-                          <div
-                            className="mdl-cell mdl-cell--12-col mdl-typography--font-light job-details-padding "
-                            ng-attr-style="{{options.styles.div3 ? options.styles.div3: ''}}"
-                          >
-                            
-                            
+                            <div
+                              className="mdl-cell mdl-cell--12-col mdl-typography--font-light job-details-padding "
+                              ng-attr-style="{{options.styles.div3 ? options.styles.div3: ''}}"
+                            >
                               <div
                                 ng-if="!showSuccessMsg"
                                 ng-repeat="field in formfields | orderObjectBy:'order'"
@@ -359,7 +366,9 @@ export default function Contact() {
                                             ng-change="fieldValidation(field)"
                                             fdprocessedid="qu11mq"
                                             defaultValue={firstname}
-                                            onChange={(e) => setUser_name(e.target.value)}
+                                            onChange={(e) =>
+                                              setUser_name(e.target.value)
+                                            }
                                           />
 
                                           <span
@@ -373,207 +382,216 @@ export default function Contact() {
                                   </div>
                                 </div>
                               </div>
-                          
-                            <div className="m-b-20">
-                              <div className="ng-scope">
-                                <div className="ng-scope">
-                                  <span className="ng-binding mdl-color-text--primary">
-                                    Your Email
-                                  </span>
-                                  <span
-                                    ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
-                                    className="ng-scope"
-                                  >
-                                    *
-                                  </span>
-                                </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
 
-                              <div ng-if="!field.disabled" className="ng-scope">
-                                <div
-                                  ng-if="field.type==1"
-                                  className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
-                                  style={{ marginTop: "-15px" }}
-                                  data-upgraded=",MaterialTextfield"
-                                >
-                                  <input
-                                    className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
-                                    type="textbox"
-                                    name="field_113"
-                                    ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
-                                    ng-model="formData[field.id]"
-                                    ng-change="fieldValidation(field)"
-                                    fdprocessedid="qu11mq"
-                                    defaultValue={email}
-                                    onChange={(e) => setUser_email(e.target.value)}
-                                  />
-                                
-                                  <span
-                                    ng-show="field.error"
-                                    className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="m-b-20">
-                              <div className="ng-scope">
+                              <div className="m-b-20">
                                 <div className="ng-scope">
-                                  <span className="ng-binding mdl-color-text--primary">
-                                    Your Number
-                                  </span>
-                                  <span
-                                    ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
-                                    className="ng-scope"
-                                  >
-                                    *
-                                  </span>
+                                  <div className="ng-scope">
+                                    <span className="ng-binding mdl-color-text--primary">
+                                      Your Email
+                                    </span>
+                                    <span
+                                      ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                      className="ng-scope"
+                                    >
+                                      *
+                                    </span>
+                                  </div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
                                 </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
 
-                              <div ng-if="!field.disabled" className="ng-scope">
                                 <div
-                                  ng-if="field.type==1"
-                                  className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
-                                  style={{ marginTop: "-15px" }}
-                                  data-upgraded=",MaterialTextfield"
-                                >
-                                  <input
-                                    className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
-                                    type="textbox"
-                                    name="field_113"
-                                    ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
-                                    ng-model="formData[field.id]"
-                                    ng-change="fieldValidation(field)"
-                                    fdprocessedid="qu11mq"
-                                    defaultValue={phone}
-                                    onChange={(e) => setUser_phone(e.target.value)}
-                                  />
-                                 
-                                  <span
-                                    ng-show="field.error"
-                                    className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              ng-if="!showSuccessMsg"
-                              ng-repeat="field in formfields | orderObjectBy:'order'"
-                              className="m-b-20"
-                              ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
-                              ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
-                            >
-                              <div
-                                ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
-                                className="ng-scope"
-                              >
-                                <div
-                                  ng-if="field.type!=6 || field.metadata.link_type"
-                                  ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
+                                  ng-if="!field.disabled"
                                   className="ng-scope"
                                 >
-                                  
-                                </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
+                                  <div
+                                    ng-if="field.type==1"
+                                    className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
+                                    style={{ marginTop: "-15px" }}
+                                    data-upgraded=",MaterialTextfield"
+                                  >
+                                    <input
+                                      className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
+                                      type="textbox"
+                                      name="field_113"
+                                      ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
+                                      ng-model="formData[field.id]"
+                                      ng-change="fieldValidation(field)"
+                                      fdprocessedid="qu11mq"
+                                      defaultValue={email}
+                                      onChange={(e) =>
+                                        setUser_email(e.target.value)
+                                      }
+                                    />
 
-                          
-                            </div>
-                            <div
-                              ng-if="!showSuccessMsg"
-                              ng-repeat="field in formfields | orderObjectBy:'order'"
-                              className="m-b-20"
-                              ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
-                              ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
-                            >
-                              <div
-                                ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
-                                className="ng-scope"
-                              >
+                                    <span
+                                      ng-show="field.error"
+                                      className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="m-b-20">
+                                <div className="ng-scope">
+                                  <div className="ng-scope">
+                                    <span className="ng-binding mdl-color-text--primary">
+                                      Your Number
+                                    </span>
+                                    <span
+                                      ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                      className="ng-scope"
+                                    >
+                                      *
+                                    </span>
+                                  </div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
+                                </div>
+
                                 <div
-                                  ng-if="field.type!=6 || field.metadata.link_type"
-                                  ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
+                                  ng-if="!field.disabled"
                                   className="ng-scope"
                                 >
-                                  <span
-                                    ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
-                                    className="ng-binding mdl-color-text--primary"
+                                  <div
+                                    ng-if="field.type==1"
+                                    className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
+                                    style={{ marginTop: "-15px" }}
+                                    data-upgraded=",MaterialTextfield"
                                   >
-                                    Your Message
-                                  </span>
-                                  <span
-                                    ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                    <input
+                                      className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
+                                      type="textbox"
+                                      name="field_113"
+                                      ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
+                                      ng-model="formData[field.id]"
+                                      ng-change="fieldValidation(field)"
+                                      fdprocessedid="qu11mq"
+                                      defaultValue={phone}
+                                      onChange={(e) =>
+                                        setUser_phone(e.target.value)
+                                      }
+                                    />
+
+                                    <span
+                                      ng-show="field.error"
+                                      className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                ng-if="!showSuccessMsg"
+                                ng-repeat="field in formfields | orderObjectBy:'order'"
+                                className="m-b-20"
+                                ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
+                                ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
+                              >
+                                <div
+                                  ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
+                                  className="ng-scope"
+                                >
+                                  <div
+                                    ng-if="field.type!=6 || field.metadata.link_type"
+                                    ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
+                                    className="ng-scope"
+                                  ></div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                ng-if="!showSuccessMsg"
+                                ng-repeat="field in formfields | orderObjectBy:'order'"
+                                className="m-b-20"
+                                ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
+                                ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
+                              >
+                                <div
+                                  ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
+                                  className="ng-scope"
+                                >
+                                  <div
+                                    ng-if="field.type!=6 || field.metadata.link_type"
+                                    ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
                                     className="ng-scope"
                                   >
-                                    *
-                                  </span>
+                                    <span
+                                      ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
+                                      className="ng-binding mdl-color-text--primary"
+                                    >
+                                      Your Message
+                                    </span>
+                                    <span
+                                      ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                      className="ng-scope"
+                                    >
+                                      *
+                                    </span>
+                                  </div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
                                 </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
 
-                              <div ng-if="!field.disabled" className="ng-scope">
                                 <div
-                                  ng-if="field.type==2"
-                                  className="mdl-textfield mdl-js-textfield maximize-width ng-scope is-upgraded"
-                                  style={{ marginTop: "-15px" }}
-                                  data-upgraded=",MaterialTextfield"
+                                  ng-if="!field.disabled"
+                                  className="ng-scope"
                                 >
-                                  <textarea
-                                    className="mdl-textfield__input resize-none ng-pristine ng-untouched ng-valid ng-empty"
-                                    name="field_1"
-                                    ng-class="pref.designpref.signupInputElementClasses?pref.designpref.signupInputElementClasses:''"
-                                    ng-model="formData[field.id]"
-                                    ng-attr-style="{{pref.designpref.signupInputElementStyles?pref.designpref.signupInputElementStyles:''}}"
-                                    rows={3}
-                                    ng-disabled="field_.disabled"
-                                    onChange={(e) => setMsg(e.target.value)}
-                                  />
-                                  
-                                  <span
-                                    ng-show="field.error"
-                                    className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
+                                  <div
+                                    ng-if="field.type==2"
+                                    className="mdl-textfield mdl-js-textfield maximize-width ng-scope is-upgraded"
+                                    style={{ marginTop: "-15px" }}
+                                    data-upgraded=",MaterialTextfield"
+                                  >
+                                    <textarea
+                                      className="mdl-textfield__input resize-none ng-pristine ng-untouched ng-valid ng-empty"
+                                      name="field_1"
+                                      ng-class="pref.designpref.signupInputElementClasses?pref.designpref.signupInputElementClasses:''"
+                                      ng-model="formData[field.id]"
+                                      ng-attr-style="{{pref.designpref.signupInputElementStyles?pref.designpref.signupInputElementStyles:''}}"
+                                      rows={3}
+                                      ng-disabled="field_.disabled"
+                                      onChange={(e) => setMsg(e.target.value)}
+                                    />
+
+                                    <span
+                                      ng-show="field.error"
+                                      className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div
-                              className
-                              style={{ marginTop: "20px" }}
-                              ng-if="!loading && !showSuccessMsg && formfields.length>0 && !pref.showFieldsOnly"
-                            >
-                              <button
-                                ng-if="!stepsEnabled || isFinalStep"
-                                ng-show="!options.submitBtn.ladda"
-                                className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular float-right"
-                                ng-click="formsubmit()"
-                                fdprocessedid="1vt2x"
-                                data-upgraded=",MaterialButton"
-                                onClick={btnSubmit}
+                              <div
+                                className
+                                style={{ marginTop: "20px" }}
+                                ng-if="!loading && !showSuccessMsg && formfields.length>0 && !pref.showFieldsOnly"
                               >
-                                Submit
-                              </button>
-                              {/* <button
+                                <button
+                                  ng-if="!stepsEnabled || isFinalStep"
+                                  ng-show="!options.submitBtn.ladda"
+                                  className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular float-right"
+                                  ng-click="formsubmit()"
+                                  fdprocessedid="1vt2x"
+                                  data-upgraded=",MaterialButton"
+                                  onClick={btnSubmit}
+                                >
+                                  Submit
+                                </button>
+                                {/* <button
                                 ng-if="!stepsEnabled || isFinalStep"
                                 ng-show="options.submitBtn.ladda"
                                 className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular ladda-button ng-scope ng-hide"
@@ -586,8 +604,8 @@ export default function Contact() {
                                 <span className="ladda-label ng-binding" />
                                 <span className="ladda-spinner" />
                               </button> */}
-                            </div>
-                            {/* <div
+                              </div>
+                              {/* <div
                               ng-show="!loading && showSuccessMsg && !formDetails.successMsg"
                               className="margin-tb-10 ng-hide"
                             >
@@ -767,7 +785,7 @@ export default function Contact() {
                                 </div>
                               </div>
                             </div> */}
-                          </div>
+                            </div>
                           ) : (
                             <div className="m-b-20">
                               <div className="ng-scope">
@@ -789,10 +807,7 @@ export default function Contact() {
                                 />
                               </div>
 
-                              <div
-                                ng-if="!field.disabled"
-                                className="ng-scope"
-                              >
+                              <div ng-if="!field.disabled" className="ng-scope">
                                 <div
                                   ng-if="field.type==1"
                                   className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
@@ -807,9 +822,11 @@ export default function Contact() {
                                     ng-model="formData[field.id]"
                                     ng-change="fieldValidation(field)"
                                     fdprocessedid="qu11mq"
-                                    onChange={(e) => setUser_name(e.target.value)}
+                                    onChange={(e) =>
+                                      setUser_name(e.target.value)
+                                    }
                                   />
-                                  
+
                                   <span
                                     ng-show="field.error"
                                     className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
@@ -818,212 +835,227 @@ export default function Contact() {
                                 </div>
                               </div>
                               <div className="m-b-20">
-                              <div className="ng-scope">
                                 <div className="ng-scope">
-                                  <span className="ng-binding mdl-color-text--primary">
-                                    Your Email
-                                  </span>
-                                  <span
-                                    ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
-                                    className="ng-scope"
-                                  >
-                                    *
-                                  </span>
-                                </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
-
-                              <div ng-if="!field.disabled" className="ng-scope">
-                                <div
-                                  ng-if="field.type==1"
-                                  className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
-                                  style={{ marginTop: "-15px" }}
-                                  data-upgraded=",MaterialTextfield"
-                                >
-                                  <input
-                                    className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
-                                    type="textbox"
-                                    name="field_113"
-                                    ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
-                                    ng-model="formData[field.id]"
-                                    ng-change="fieldValidation(field)"
-                                    fdprocessedid="qu11mq"
-                                    onChange={(e) => setUser_email(e.target.value)}
-                                  />
-                                  
-                                  <span
-                                    ng-show="field.error"
-                                    className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              ng-if="!showSuccessMsg"
-                              ng-repeat="field in formfields | orderObjectBy:'order'"
-                              className="m-b-20"
-                              ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
-                              ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
-                            >
-                              <div
-                                ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
-                                className="ng-scope"
-                              >
-                                <div
-                                  ng-if="field.type!=6 || field.metadata.link_type"
-                                  ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
-                                  className="ng-scope"
-                                >
-                                  <span
-                                    ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
-                                    className="ng-binding mdl-color-text--primary"
-                                  >
-                                    Phone No.
-                                  </span>
-                                </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
-
-                              <div ng-if="!field.disabled" className="ng-scope">
-                                <div
-                                  ng-if="field.type==8 && phonenumberLibLoaded"
-                                  className="mdl-textfield mdl-js-textfield maximize-width rel-pos ng-scope is-upgraded"
-                                  style={{
-                                    marginTop: "-15px",
-                                    marginBottom: "-10px",
-                                  }}
-                                  data-upgraded=",MaterialTextfield"
-                                >
-                                  <div
-                                    className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                    style={{
-                                      verticalAlign: "middle",
-                                      width: "90px",
-                                    }}
-                                    data-upgraded=",MaterialTextfield"
-                                  >
-                                    <label className="mdl-color-text--primary upper-label ng-binding">
-                                      Country Code
-                                    </label>
+                                  <div className="ng-scope">
+                                    <span className="ng-binding mdl-color-text--primary">
+                                      Your Email
+                                    </span>
+                                    <span
+                                      ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                      className="ng-scope"
+                                    >
+                                      *
+                                    </span>
                                   </div>
                                   <div
-                                    className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half-textfield maximize-width is-upgraded"
-                                    style={{
-                                      verticalAlign: "middle",
-                                      width: "CALC(100% - 100px)",
-                                      float: "right",
-                                    }}
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
+                                </div>
+
+                                <div
+                                  ng-if="!field.disabled"
+                                  className="ng-scope"
+                                >
+                                  <div
+                                    ng-if="field.type==1"
+                                    className="mdl-textfield mdl-js-textfield maximize-width is-upgraded"
+                                    style={{ marginTop: "-15px" }}
                                     data-upgraded=",MaterialTextfield"
                                   >
                                     <input
                                       className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
-                                      type="text"
-                                      ng-model="formData[field.id].user_phone"
-                                      ng-blur="onPhoneBlur(field)"
-                                      ng-disabled="field.metadata.otp.enabled && field.metadata.otp.sent>0"
-                                      fdprocessedid="83qgk9"
-                                      onChange={(e) => setUser_phone(e.target.value)}
+                                      type="textbox"
+                                      name="field_113"
+                                      ng-disabled="field.disabled || (field.metadata.otp.enabled && field.metadata.otp.sent>0)"
+                                      ng-model="formData[field.id]"
+                                      ng-change="fieldValidation(field)"
+                                      fdprocessedid="qu11mq"
+                                      onChange={(e) =>
+                                        setUser_email(e.target.value)
+                                      }
                                     />
-                                   
-                                  </div>
 
-                                  <div
-                                    ng-show="field.error"
-                                    className="font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
+                                    <span
+                                      ng-show="field.error"
+                                      className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div
-                              ng-if="!showSuccessMsg"
-                              ng-repeat="field in formfields | orderObjectBy:'order'"
-                              className="m-b-20"
-                              ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
-                              ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
-                            >
                               <div
-                                ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
-                                className="ng-scope"
+                                ng-if="!showSuccessMsg"
+                                ng-repeat="field in formfields | orderObjectBy:'order'"
+                                className="m-b-20"
+                                ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
+                                ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
                               >
                                 <div
-                                  ng-if="field.type!=6 || field.metadata.link_type"
-                                  ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
+                                  ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
                                   className="ng-scope"
                                 >
-                                  <span
-                                    ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
-                                    className="ng-binding mdl-color-text--primary"
-                                  >
-                                    Your Message
-                                  </span>
-                                  <span
-                                    ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                  <div
+                                    ng-if="field.type!=6 || field.metadata.link_type"
+                                    ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
                                     className="ng-scope"
                                   >
-                                    *
-                                  </span>
+                                    <span
+                                      ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
+                                      className="ng-binding mdl-color-text--primary"
+                                    >
+                                      Phone No.
+                                    </span>
+                                  </div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
                                 </div>
-                                <div
-                                  ng-if="field.type!=6"
-                                  className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
-                                  bind-html-compile="field.description"
-                                />
-                              </div>
 
-                              <div ng-if="!field.disabled" className="ng-scope">
                                 <div
-                                  ng-if="field.type==2"
-                                  className="mdl-textfield mdl-js-textfield maximize-width ng-scope is-upgraded"
-                                  style={{ marginTop: "-15px" }}
-                                  data-upgraded=",MaterialTextfield"
+                                  ng-if="!field.disabled"
+                                  className="ng-scope"
                                 >
-                                  <textarea
-                                    className="mdl-textfield__input resize-none ng-pristine ng-untouched ng-valid ng-empty"
-                                    name="field_1"
-                                    ng-class="pref.designpref.signupInputElementClasses?pref.designpref.signupInputElementClasses:''"
-                                    ng-model="formData[field.id]"
-                                    ng-attr-style="{{pref.designpref.signupInputElementStyles?pref.designpref.signupInputElementStyles:''}}"
-                                    rows={3}
-                                    ng-disabled="field_.disabled"
-                         
-                                    onChange={(e) => setMsg(e.target.value)}
-                                  />
-                              
-                                  <span
-                                    ng-show="field.error"
-                                    className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
-                                    style={{ visibility: "visible" }}
-                                  />
+                                  <div
+                                    ng-if="field.type==8 && phonenumberLibLoaded"
+                                    className="mdl-textfield mdl-js-textfield maximize-width rel-pos ng-scope is-upgraded"
+                                    style={{
+                                      marginTop: "-15px",
+                                      marginBottom: "-10px",
+                                    }}
+                                    data-upgraded=",MaterialTextfield"
+                                  >
+                                    <div
+                                      className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                      style={{
+                                        verticalAlign: "middle",
+                                        width: "90px",
+                                      }}
+                                      data-upgraded=",MaterialTextfield"
+                                    >
+                                      <label className="mdl-color-text--primary upper-label ng-binding">
+                                        Country Code
+                                      </label>
+                                    </div>
+                                    <div
+                                      className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half-textfield maximize-width is-upgraded"
+                                      style={{
+                                        verticalAlign: "middle",
+                                        width: "CALC(100% - 100px)",
+                                        float: "right",
+                                      }}
+                                      data-upgraded=",MaterialTextfield"
+                                    >
+                                      <input
+                                        className="mdl-textfield__input ng-pristine ng-untouched ng-valid ng-empty"
+                                        type="text"
+                                        ng-model="formData[field.id].user_phone"
+                                        ng-blur="onPhoneBlur(field)"
+                                        ng-disabled="field.metadata.otp.enabled && field.metadata.otp.sent>0"
+                                        fdprocessedid="83qgk9"
+                                        onChange={(e) =>
+                                          setUser_phone(e.target.value)
+                                        }
+                                      />
+                                    </div>
+
+                                    <div
+                                      ng-show="field.error"
+                                      className="font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div
-                              className
-                              style={{ marginTop: "20px" }}
-                              ng-if="!loading && !showSuccessMsg && formfields.length>0 && !pref.showFieldsOnly"
-                            >
-                              <button
-                                ng-if="!stepsEnabled || isFinalStep"
-                                ng-show="!options.submitBtn.ladda"
-                                className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular float-right"
-                                ng-click="formsubmit()"
-                                fdprocessedid="1vt2x"
-                                data-upgraded=",MaterialButton"
-                                onClick={btnSubmit}
+                              <div
+                                ng-if="!showSuccessMsg"
+                                ng-repeat="field in formfields | orderObjectBy:'order'"
+                                className="m-b-20"
+                                ng-show="!(field.disabled && field.disabled==='hidden') && isFieldVisible(field,true)"
+                                ng-attr-style="{{field.metadata.styles.div1 ? field.metadata.styles.div1: ''}}"
                               >
-                                Submit
-                              </button>
-                              {/* <button
+                                <div
+                                  ng-if="!field.metadata.remove_title && field.type!=13 && !(field.disabled && field.disabled==='hidden')"
+                                  className="ng-scope"
+                                >
+                                  <div
+                                    ng-if="field.type!=6 || field.metadata.link_type"
+                                    ng-class="pref.designpref.signupInputElement && 'font-12 mdl-typography--font-light mdl-color-text--primary'"
+                                    className="ng-scope"
+                                  >
+                                    <span
+                                      ng-class="pref.designpref.titleClasses || 'mdl-color-text--primary'"
+                                      className="ng-binding mdl-color-text--primary"
+                                    >
+                                      Your Message
+                                    </span>
+                                    <span
+                                      ng-if="field.is_required==1 && !field.hideCompulsory && !options.hideStarForCompulsory"
+                                      className="ng-scope"
+                                    >
+                                      *
+                                    </span>
+                                  </div>
+                                  <div
+                                    ng-if="field.type!=6"
+                                    className="font-14 mdl-color-text--grey-700 asformfield_description ng-scope"
+                                    bind-html-compile="field.description"
+                                  />
+                                </div>
+
+                                <div
+                                  ng-if="!field.disabled"
+                                  className="ng-scope"
+                                >
+                                  <div
+                                    ng-if="field.type==2"
+                                    className="mdl-textfield mdl-js-textfield maximize-width ng-scope is-upgraded"
+                                    style={{ marginTop: "-15px" }}
+                                    data-upgraded=",MaterialTextfield"
+                                  >
+                                    <textarea
+                                      className="mdl-textfield__input resize-none ng-pristine ng-untouched ng-valid ng-empty"
+                                      name="field_1"
+                                      ng-class="pref.designpref.signupInputElementClasses?pref.designpref.signupInputElementClasses:''"
+                                      ng-model="formData[field.id]"
+                                      ng-attr-style="{{pre  f.designpref.signupInputElementStyles?pref.designpref.signupInputElementStyles:''}}"
+                                      rows={3}
+                                      ng-disabled="field_.disabled"
+                                      onChange={(e) => setMsg(e.target.value)}
+                                    />
+                                    
+                                    <span
+                                      ng-show="field.error"
+                                      className="mdl-textfield__error font-12 mdl-color-text--red-600 ng-binding ng-hide"
+                                      style={{ visibility: "visible" }}
+                                    />
+                                  
+                                  </div>
+                                </div>
+                                <p style={{ color: "red" }}>
+                                      {formErrors.description}
+                                    </p>
+                              </div>
+                              <div
+                                className
+                                style={{ marginTop: "20px" }}
+                                ng-if="!loading && !showSuccessMsg && formfields.length>0 && !pref.showFieldsOnly"
+                              >
+                                <button
+                                  ng-if="!stepsEnabled || isFinalStep"
+                                  ng-show="!options.submitBtn.ladda"
+                                  className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular float-right"
+                                  ng-click="formsubmit()"
+                                  fdprocessedid="1vt2x"
+                                  data-upgraded=",MaterialButton"
+                                  onClick={btnSubmit}
+                                >
+                                  Submit
+                                </button>
+                                {/* <button
                                 ng-if="!stepsEnabled || isFinalStep"
                                 ng-show="options.submitBtn.ladda"
                                 className="mdl-button mdl-js-button mdl-color--primary mdl-color-text--white mdl-typography--font-regular ladda-button ng-scope ng-hide"
@@ -1036,10 +1068,8 @@ export default function Contact() {
                                 <span className="ladda-label ng-binding" />
                                 <span className="ladda-spinner" />
                               </button> */}
+                              </div>
                             </div>
-                            </div>
-                            
-                            
                           )}
                         </div>
                       </div>

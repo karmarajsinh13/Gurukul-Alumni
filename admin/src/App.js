@@ -60,6 +60,7 @@ function App() {
               <Route path="/Gallery" element={<Gallery />} />
               <Route path="/Add_gallery" element={<Add_gallery />} />
               <Route path="/Add_gallery/:id" element={<Add_gallery />} />
+              <Route path="/All_gallery/:id" element={<All_gallery />} />
               <Route path="/All_gallery" element={<All_gallery />} />
               <Route path="/Add_event" element={<Add_event />} />
               <Route path="/Add_event/:id" element={<Add_event />} />

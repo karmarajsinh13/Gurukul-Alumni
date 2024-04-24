@@ -8,11 +8,23 @@ import { useState, useEffect } from "react";
 
 export default function Gallery() {
   const [gallerys, setgallery] = useState([]);
+  const [Totalimages, setTotalimages] = useState([]);
 
   useEffect(() => {
     getgallery();
+    getTotalimages();
   }, []);
-
+  const getTotalimages = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/gallerys");
+      setgallery(res.data);
+  
+      setTotalimages(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getgallery = async () => {
     const res = await axios.get("http://localhost:3000/gurukulalumni/gallerys");
     setgallery(res.data);
@@ -34,7 +46,7 @@ export default function Gallery() {
       <div className="mdl-grid change-size main-family padding-lr-xs-0">
         <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--hide-phone category-adjust">
           <div className="sub-title1 mdl-typography--font-light ng-binding">
-            GALLERY CATEGORIES
+            GALLERY
           </div>
 
           <ul
@@ -51,14 +63,7 @@ export default function Gallery() {
                 All
               </span>
               <span className="mdl-color-text--grey-600 category-count ">
-                (
-                <span
-                  ng-bind="(((gallerysize.categories[1])?1*gallerysize.categories[1]:0)+((gallerysize.categories[2])?1*gallerysize.categories[2]:0)+((gallerysize.categories[4])?1*gallerysize.categories[4]:0))"
-                  className="ng-binding"
-                >
-                  3
-                </span>
-                )
+                ({Totalimages})
               </span>
             </li>
 
@@ -169,142 +174,14 @@ export default function Gallery() {
             infinite-scroll-disabled="load || noData"
             infinite-scroll-distance={1}
           >
-            {/* <div
-              className="mdl-cell mdl-cell--12-col maximize-width-xs ng-scope margin-lr-xs-16"
-              ng-class="{'margin-lr-xs-16': !albumCreate,'margin-lr-xs-0': albumCreate}"
-              ng-if="post_right"
-         
-            >
-              <div className="m-b-20" ng-show="$root.app_data.same_com_log">
-                <div
-                  className="maximize-width"
-                  ng-hide="albumCreate"
-             
-                >
-                  <button
-                    ng-click="post_gallery_popup($event)"
-                    className="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-rippleeffect mdl-typography--font-regular maximize-width create-event-button ng-binding"
-                    fdprocessedid="d8cicq"
-                    data-upgraded=",MaterialButton"
-                  >
-                    <i className="icon-add new-icon mdl-color-text--white font-18" />
-                    Create an album
-                  </button>
-                </div>
-
-                <div
-                  ng-show="albumCreate"
-                  className="mdl-card homepage-shadow-6 main-family maximize-width ng-hide"
-             
-                >
-                  <div className="margin-30 margin-md-24 margin-xs-16">
-                    <div className="margin-bottom-24 margin-bottom-xs-16">
-                      <div className="mdl-color-text--grey-900 font-xs-20 font-24 mdl-typography--font-medium ng-binding">
-                        Create Album
-                      </div>
-                    </div>
-                    <form
-                      name="formAlbum"
-                      action="javascript:void(0)"
-                      className="ng-pristine ng-valid-maxlength ng-valid ng-valid-required"
-                    >
-                      <div
-                        className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label maximize-width margin-bottom-12 margin-bottom-xs-4 is-upgraded"
-                        ng-class="{'is-invalid': firstSubmit && formAlbum.name.$error.required,'margin-bottom-12 margin-bottom-xs-4':!uploadingfiles.length,'margin-bottom-4':uploadingfiles.length}"
-                        data-upgraded=",MaterialTextfield"
-                      >
-                        <input
-                          ng-model="galleryCreateData.name"
-                          className="mdl-textfield__input font-14 mdl-color-text--grey-900 ng-pristine ng-untouched ng-empty ng-valid-maxlength ng-valid ng-valid-required"
-                          type="text"
-                          id="album_name"
-                          name="name"
-                          ng-required="firstSubmit"
-                          maxLength={150}
-                        />
-                        <label
-                          className="mdl-textfield__label ng-binding"
-                          htmlFor="album_name"
-                        >
-                          Album name
-                        </label>
-                      </div>
-                      <div></div>
-                      <div>
-                        <span className="flexbox-inline maximize-width-xs maximize-width-md">
-                          <div
-                            ng-required="firstSubmit"
-                            ng-disabled="uploadingOnGoing"
-                            ngf-select="uploadImages($files)"
-                            multiple
-                            accept="image/*"
-                            className="mdl-typography--font-regular inline-block font-16 border-radius-2 link-detail-background--primary link-detail--white mdl-color-text--primary  border-primary padding-lr-20 padding-lr-xs-16 padding-top-6 padding-bottom-6  link-detail"
-                          >
-                            <i className="icon-add_a_photo1 font-16 upper-icons" />
-                            <span className="font-14 font-xs-12 ng-binding">
-                              Add Photos
-                            </span>
-                          </div>
-                          <div className="inline-block margin-left-24 margin-left-xs-16 ">
-                            <div
-                              className="mdl-typography--font-regular inline-block font-16 border-radius-2 mdl-color-text--accent link-detail-background--accent link-detail--white  border-secondary padding-lr-20 padding-top-6 padding-bottom-6 padding-lr-xs-16 link-detail"
-                              ng-click="addNewVideo($event);"
-                            >
-                              <i className="icon-video_collection font-16 upper-icons" />
-                              <span className="font-14 font-xs-12 ng-binding">
-                                Add Video
-                              </span>
-                            </div>
-                          </div>
-                        </span>
-                        <button
-                          type="submit"
-                          onclick="return false;"
-                          style={{ display: "none" }}
-                        />
-                        <button
-                          type="button"
-                          style={{ float: "right", paddingTop: "0px" }}
-                          className="mdl-button font-14 mdl-js-button maximize-width-xs mdl-typography--font-regular margin-top-md-16 maximize-width-md margin-top-xs-16 mdl-color--grey-300 mdl-color-text--white"
-                          ng-class="{'mdl-color--grey-300 mdl-color-text--white':!galleryCreateData.appImgAr.length || !galleryCreateData.name,'ladda-button mdl-color--primary mdl-color-text--white ladda-button-primary ':!(!galleryCreateData.appImgAr.length || !galleryCreateData.name)}"
-                          ng-click="createGallary();firstSubmit=true"
-                          ladda-button="shareBtnHide"
-                          data-style="zoom-out"
-                          ng-disabled="disableShare || !galleryCreateData.appImgAr.length || !galleryCreateData.name"
-                          disabled="disabled"
-                          data-upgraded=",MaterialButton"
-                        >
-                          <span className="ladda-label ng-binding">
-                            Create Album
-                          </span>
-                          <span className="ladda-spinner" />
-                        </button>
-                        <button
-                          className="mdl-button margin-top-xs-10 margin-top-md-10 maximize-width-md margin-right-xs-0 maximize-width-xs float-right mdl-js-button font-14 mdl-color-text--grey-600 margin-right-12"
-                          ng-click="cancelGalleryCreation()"
-                          data-upgraded=",MaterialButton"
-                        >
-                          <span className="ng-binding">Cancel</span>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            {/* <div
-              ng-show="!load && display.length==0"
-              className="mdl-color--grey-300 mdl-color-text--grey-900 padding-16 maximize-width center-alignment ng-binding ng-hide"
-            >
-              No gallery to display under this category!
-            </div> */}
+            
    {gallerys.map((gallery) => (
             <div
               className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet maximize-width ng-scope"
               ng-repeat="(key,n) in display"
               ng-hide="$root.as_ed.bu.uids.indexOf(2098623)>-1"
             >
+           <Link to={`/Viewgalleryimg/` + gallery.img_id}>
               <div className="margin-lr-8 margin-lr-md-0">
                 <div
                   style={{ marginBottom: "8px" }}
@@ -357,6 +234,7 @@ export default function Gallery() {
                   </div>
                 </div> */}
               </div>
+              </Link>
             </div>
             ))}
 

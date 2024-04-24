@@ -124,19 +124,16 @@ export default function Sidebar() {
 
       <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 fixed-start"
-        // ms-4  my-3
-        id="sidenav-main"
+       
       >
         <div class="sidenav-header">
           <i
             class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-            aria-hidden="true"
-            id="iconSidenav"
+          
           ></i>
           <a
             class="navbar-brand m-0"
-            href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
-            target="_blank"
+          
           >
             <img
               src="https://tse3.mm.bing.net/th?id=OIP.2At97O-LiwWs4MoBmIjEcwHaHc&pid=Api&P=0&h=180"

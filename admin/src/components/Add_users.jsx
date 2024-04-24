@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import DataTable from 'react-data-table-component';
+
 
 export default function Add_users() {
   const [firstname, setFname] = useState("");
@@ -18,7 +18,7 @@ export default function Add_users() {
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const [passing_year, setpassing_year] = useState("");
-
+  const [formErrors, setFormErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const user_id = location.pathname.split("/")[2]
@@ -50,9 +50,22 @@ export default function Add_users() {
     setdob(res.data.dob);
     setgender(res.data.gender);
   };
+  const validate = () => {
+    const error = {};
+
+    if (!username) {
+      error.username = "Please Enter Your User name";
+    }
+  
+     if (!password) {
+       error.password = "Password is required Broooo!!!";
+     }
+    return error;
+  };
   const submitbtn = async (e) => {
     e.preventDefault();
-
+    setFormErrors(validate());
+    if(username && password){
     const formdata = new FormData();
     formdata.append("firstname", firstname);
     formdata.append("lastname", lastname);
@@ -84,6 +97,7 @@ export default function Add_users() {
     alert(res.data);
     console.log(res.data);
     navigate("/Users");
+  }
   };
   return (
     <div
@@ -184,6 +198,7 @@ export default function Add_users() {
                           defaultValue={username}
                           onChange={(e) => setUsername(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.username}</p>
                       </div>
                     </div>
                     {/* <div className="col-md-6">
@@ -309,6 +324,7 @@ export default function Add_users() {
                           defaultValue={password}
                           onChange={(e) => setPassword(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.password}</p>
                       </div>
                     </div>
                     <div className="col-md-4">

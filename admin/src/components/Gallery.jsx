@@ -58,8 +58,11 @@ export default function Gallery() {
                         >
                           IMG
                         </th>
-                        <th className="text-center " style={{ width: "50px" }}>
+                        <th className="text-center " style={{ width: "25px" }}>
                           Gallery
+                        </th>
+                        <th className="text-center " style={{ width: "25px" }}>
+                          Description
                         </th>
                         <th
                           className="text-center sorting"
@@ -90,21 +93,24 @@ export default function Gallery() {
                           <td class="align-middle text-center">
                             {gallery.title}
                           </td>
+                          <td class="align-middle text-center">
+                            {gallery.des}
+                          </td>
                           <td className="text-center">
                             <button
                               className="btn btn-xs btn-primary edit_gallery"
                               type="button"
                             >
-                               <Link to={`/Add_gallery/` + gallery.id}>Edit</Link>
+                               <Link to={`/Add_gallery/` + gallery.img_id}>Edit</Link>
                             </button> &nbsp;&nbsp;
-                            {/* <button
+                            <button
                               className="btn btn-xs btn-info edit_gallery"
                               type="button"
 
                             >
-                              <Link to={`/All_gallery/` + gallery.id}>View All</Link>
+                              <Link to={`/All_gallery/` + gallery.img_id}>View All</Link>
                             </button>
-                            &nbsp;&nbsp; */}
+                            &nbsp;&nbsp;
                             <button
                               href="/Gallery"
                               class="btn btn-xs btn-danger delete_gallery"

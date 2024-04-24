@@ -7,9 +7,11 @@ import axios from "axios";
 export default function Job() {
   const [user_id, setId] = useState(sessionStorage.getItem("user"));
   const [job, setJob] = useState([]);
+  const [Totaljob, setTotaljob] = useState([]);
 
   useEffect(() => {
     getJob();
+    getTotaljob();
   }, []);
   const getJob = async () => {
     const res = await axios.get("http://localhost:3000/gurukulalumni/job");
@@ -17,13 +19,24 @@ export default function Job() {
 
     console.log(res.data);
   };
+  const getTotaljob= async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/job");
+      setJob(res.data);
+  
+      setTotaljob(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="page-strip-change page-strip-change-themed">
         <div className="mdl-grid change-size main-family">
           <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--hide-phone">
             <div className="sub-title1 mdl-typography--font-light ng-binding">
-              Job categories
+              Job
             </div>
             <ul
               ng-if="!tag && !onlyInternship"
@@ -39,7 +52,7 @@ export default function Job() {
                   Job Opportunities
                 </span>
                 <span className="mdl-color-text--grey-600 category-count ng-binding">
-                  1
+                  ({Totaljob})
                 </span>
               </li>
               {/* <div style={{ margin: 0, padding: "15px 0 18px" }}>
@@ -80,7 +93,7 @@ export default function Job() {
                   0
                 </span>
               </li> */}
-              <li
+              {/* <li
                 className="mdl-color--grey-300 font-16 category-list"
                 ng-click="changeTab('appliedbyme')"
                 ng-class="{'active-category': current_tab == 'appliedbyme'}"
@@ -91,7 +104,7 @@ export default function Job() {
                 <span className="mdl-color-text--grey-600 category-count ng-binding">
                   0
                 </span>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div
@@ -318,13 +331,13 @@ export default function Job() {
                           className="link-detail mdl-color-text--grey-900"
                           href="/profile/2098623"
                         >
-                          <span className="ng-binding">SSCCS</span>
+                          <span className="ng-binding">{job.entry_by}</span>
                         </a>
                         <div
                           className="mdl-color-text--grey-600 ng-binding ng-scope"
                           ng-if="job.cas_approved == 1 || job.cas_approved == 2"
                         >
-                          Published On Mar 15, 2024
+                          Published On {job.entry_date}
                         </div>
                       </div>
                     </div>
@@ -349,7 +362,7 @@ export default function Job() {
                           className="ng-binding ng-scope"
                         >
                            {user_id ? (
-                           <Link to="/ViewJob">View Job Post</Link>
+                           <Link  to={`/ViewJob/` + job.job_id}>View Job Post</Link>
                           
                         ) : (
                           <Link to="/Login">View Job Post</Link>

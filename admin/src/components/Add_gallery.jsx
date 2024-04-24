@@ -5,7 +5,9 @@ import { useState, useEffect } from "react";
 
 export default function Add_gallery() {
   const [img, setImg1] = useState("");
-  const [title, settitle]= useState("");
+  const [title, settitle] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+  const [des, setdescription] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const img_id = location.pathname.split("/")[2]
@@ -24,28 +26,47 @@ export default function Add_gallery() {
     console.log(res.data);
     setImg1(res.data.img);
     settitle(res.data.title);
+    setdescription(res.data.des);
+  };
+  const validate = () => {
+    const error = {};
+
+    if (!title) {
+      error.title = "Enter Image Title !!!";
+    }
+    if (!img) {
+      error.img = "Evnter Image !!!";
+    }
+    if (!des) {
+      error.des = "Enter Image Description !!!";
+    }
+    return error;
   };
   const submitbtn = async (e) => {
     e.preventDefault();
-    const formdata = new FormData();
-    formdata.append("img", img);
-    formdata.append("title", title);
-    let res = "";
-    console.log(formdata);
-    if (img_id) {
-      res = await axios.put(
-        "http://localhost:3000/gurukulalumni/gallerys/" + img_id,
-        formdata
-      );
-    } else {
-      res = await axios.post(
-        "http://localhost:3000/gurukulalumni/gallerys",
-        formdata
-      );
+    setFormErrors(validate());
+    if (title && img && des) {
+      const formdata = new FormData();
+      formdata.append("img", img);
+      formdata.append("title", title);
+      formdata.append("des", des);
+      let res = "";
+      console.log(formdata);
+      if (img_id) {
+        res = await axios.put(
+          "http://localhost:3000/gurukulalumni/gallerys/" + img_id,
+          formdata
+        );
+      } else {
+        res = await axios.post(
+          "http://localhost:3000/gurukulalumni/gallerys",
+          formdata
+        );
+      }
+      alert(res.data);
+      console.log(res.data);
+      navigate("/Gallery");
     }
-    alert(res.data);
-    console.log(res.data);
-    navigate("/Gallery");
   };
   return (
     <div>
@@ -80,9 +101,27 @@ export default function Add_gallery() {
                           <input
                             className="form-control"
                             type="text"
-                           defaultValue={title}
+                            defaultValue={title}
                             onChange={(e) => settitle(e.target.value)}
                           />
+                          <p style={{ color: "red" }}>{formErrors.title}</p>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label
+                            htmlFor="example-text-input"
+                            className="form-control-label"
+                          >
+                            Image Description
+                          </label>
+                          <input
+                            className="form-control"
+                            type="text"
+                            defaultValue={des}
+                            onChange={(e) => setdescription(e.target.value)}
+                          />
+                          <p style={{ color: "red" }}>{formErrors.des}</p>
                         </div>
                       </div>
                       {/* <div className="col-md-6">
@@ -116,6 +155,7 @@ export default function Add_gallery() {
                             defaultValue={img}
                             onChange={(e) => setImg1(e.target.files[0])}
                           />
+                          <p style={{ color: "red" }}>{formErrors.img}</p>
                         </div>
                       </div>
                       {/* <div className="col-md-6">

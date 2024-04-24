@@ -52,9 +52,9 @@ export default function Header() {
   const btnSignOut = () => {
     sessionStorage.clear();
     setId("");
+   
     window.location.reload()
     //  navigate("/")
-    //navigate("/Login")
   };
 
   return (

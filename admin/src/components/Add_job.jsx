@@ -51,6 +51,7 @@ export default function Add_job() {
   const [admin_id, setId] = useState(sessionStorage.getItem("admin"));
   const [Admin, setAdmin] = useState([]);
   const [firstname, setFname] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const job_id = location.pathname.split("/")[2]
@@ -58,7 +59,7 @@ export default function Add_job() {
     : "";
   useEffect(() => {
     console.log(job_id);
-    if (job_id, admin_id) { 
+    if ((job_id, admin_id)) {
       getjob();
       getAdmin();
     }
@@ -78,7 +79,7 @@ export default function Add_job() {
       "http://localhost:3000/gurukulalumni/job/" + job_id
     );
     console.log(res.data);
-    
+
     setTitle(res.data.title);
     setdeadline(res.data.deadline);
     setLocation(res.data.locationn);
@@ -87,36 +88,63 @@ export default function Add_job() {
     setStatus(res.data.status);
     setEB(res.data.entry_by);
   };
-  const submitbtn = async (e) => {
-    e.preventDefault();
+  const validate = () => {
+    const error = {};
 
-    const data = {
-      title,
-      deadline,
-      locationn,
-      salary,
-      entry_by: firstname,
-      description,
-      status,
-    };
-    //   const formdata = new FormData();
-    //   for (let key in data) {
-    //     formdata.append(key, data[key]);
-    //   }
-    let res = "";
-
-    if (job_id) {
-      res = await axios.put(
-        "http://localhost:3000/gurukulalumni/job/" +job_id,
-        data
-      );
-    } else {
-      res = await axios.post("http://localhost:3000/gurukulalumni/job", data);
+    if (!title) {
+      error.title = "Please Enter Job name";
     }
 
-    alert(res.data);
-    console.log(res.data);
-    navigate("/Job");
+    if (!description) {
+      error.description = "Please Enter Job Description";
+    }
+    if (!salary) {
+      error.salary = "Please Enter Salary Or About Salary";
+    }
+    if (!deadline) {
+      error.deadline = "Please Add Deadline Date";
+    }
+
+    if (!locationn) {
+      error.locationn = "Event Location is required!!!";
+    }
+    if (!status) {
+      error.status = "Please Enter Job Is open or closed";
+    }
+    return error;
+  };
+  const submitbtn = async (e) => {
+    e.preventDefault();
+    setFormErrors(validate());
+    if (title && description && deadline && locationn && status && salary) {
+      const data = {
+        title,
+        deadline,
+        locationn,
+        salary,
+        entry_by: firstname,
+        description,
+        status,
+      };
+      //   const formdata = new FormData();
+      //   for (let key in data) {
+      //     formdata.append(key, data[key]);
+      //   }
+      let res = "";
+
+      if (job_id) {
+        res = await axios.put(
+          "http://localhost:3000/gurukulalumni/job/" + job_id,
+          data
+        );
+      } else {
+        res = await axios.post("http://localhost:3000/gurukulalumni/job", data);
+      }
+
+      alert(res.data);
+      console.log(res.data);
+      navigate("/Job");
+    }
   };
   return (
     <div
@@ -153,6 +181,7 @@ export default function Add_job() {
                           defaultValue={title}
                           onChange={(e) => setTitle(e.target.value)}
                         />
+                           <p style={{ color: "red" }}>{formErrors.title}</p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -169,6 +198,7 @@ export default function Add_job() {
                           defaultValue={deadline}
                           onChange={(e) => setdeadline(e.target.value)}
                         />
+                           <p style={{ color: "red" }}>{formErrors.deadline}</p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -185,6 +215,7 @@ export default function Add_job() {
                           defaultValue={salary}
                           onChange={(e) => setSalary(e.target.value)}
                         />
+                           <p style={{ color: "red" }}>{formErrors.salary}</p>
                       </div>
                     </div>
                     <div className="col-md-12">
@@ -201,6 +232,7 @@ export default function Add_job() {
                           defaultValue={locationn}
                           onChange={(e) => setLocation(e.target.value)}
                         />
+                           <p style={{ color: "red" }}>{formErrors.locationn}</p>
                       </div>
                     </div>
 
@@ -220,6 +252,7 @@ export default function Add_job() {
                           onChange={(e) => setDesc(e)}
                           rows={10}
                         ></ReactQuill>
+                           <p style={{ color: "red" }}>{formErrors.description}</p>
                       </div>
                     </div>
 
@@ -248,6 +281,7 @@ export default function Add_job() {
                           <option value="0">Closed</option>
                           <option value="1">Open</option>
                         </select>
+                        <p style={{ color: "red" }}>{formErrors.status}</p>
                       </div>
                     </div>
                     <div

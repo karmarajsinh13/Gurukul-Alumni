@@ -84,31 +84,34 @@ export default function Viewjob() {
                       <br />
                       <div class="col">
                         <div class="d-flex justify-content-center">
+
+                        <div class="d-grid text-center">
+                            <span class="text-lg font-weight-bolder">
+                              {job.entry_date}
+                            </span>
+                            <span class="text-sm opacity-8">Entry Date</span>
+                          </div>&nbsp;&nbsp;&nbsp;&nbsp;
                           <div class="d-grid text-center">
                             <span class="text-lg font-weight-bolder">
                               {job.deadline}
                             </span>
                             <span class="text-sm opacity-8">Deadline</span>
-                          </div>
-                          <div class="d-grid text-center mx-4">
-                            <span class="text-lg font-weight-bolder">
-                              {job.salary}
-                            </span>
-                            <span class="text-sm opacity-8">Salary</span>
-                          </div>
-                          <div class="d-grid text-center">
-                            <span class="text-lg font-weight-bolder">
-                              {job.entry_date}
-                            </span>
-                            <span class="text-sm opacity-8">Entry Date</span>
-                          </div>
+                          </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                          
+                          
                           <div class="d-grid text-center">
                             <span class="text-lg font-weight-bolder">
                               {job.entry_by}
                             </span>
                             <span class="text-sm opacity-8">Created By</span>
                           </div>
-                        </div>
+                        </div><br/>
+                        <div class="d-grid text-center mx-4">
+                            <span class="text-lg font-weight-bolder">
+                              {job.salary}
+                            </span>
+                            <span class="text-sm opacity-8">Salary</span>
+                          </div>
                       </div>
                     </div>
                     <div class="text-center mt-4">
@@ -117,11 +120,11 @@ export default function Viewjob() {
                         : - {job.locationn}
                       </div>
                       <br />
-                      <h5>Description</h5>
+                      <h5>Description:-</h5>
                       <br />
                       <div className="col-6" style={{marginLeft : "280px"}}>
                         <i class="ni education_hat mr-2 " ></i>
-                        <div contentEditable='true' dangerouslySetInnerHTML={{ __html: job.description }} >
+                        <div contentEditable='false' dangerouslySetInnerHTML={{ __html: job.description }} >
                         </div>
                        
                        

@@ -1,8 +1,20 @@
 import { db } from "../db.js";
 
 export const getjobs = (req, res) => {
-  const query1 = "SELECT * FROM job";
+  const query1 = 'SELECT *,DATE_FORMAT(deadline, "%d-%m-%y") AS deadline, DATE_FORMAT(entry_date, "%d-%m-%y") AS entry_date  FROM job';
   db.query(query1, (err, data) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.json(data);
+    }
+  });
+  
+};
+export const Totaljob = (req, res) => {
+  const query5 = "SELECT count(*) FROM job";
+  
+  db.query(query5, (err, data) => {
     if (err) {
       return res.json(err);
     } else {
@@ -12,7 +24,7 @@ export const getjobs = (req, res) => {
 };
 
 export const getjob = (req, res) => {
-  const query = `select *,DATE_FORMAT(deadline, "%y-%m-%d") AS deadline from job where job_id=?`;
+  const query = `select *,DATE_FORMAT(deadline, "%d-%m-%y") AS deadline, DATE_FORMAT(entry_date, "%d-%m-%y") AS entry_date from job where job_id=?`;
 
   db.query(query, [req.params.id], (err, data) => {
     if (err) return res.json(err);

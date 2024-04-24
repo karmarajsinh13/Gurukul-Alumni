@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Viewevent() {
   const [event, setEvent] = useState([]);
   const [ename, setName] = useState("");
+  const [Totalinvite, setTotalinvite] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const event_id = location.pathname.split("/")[2]
@@ -15,8 +16,18 @@ export default function Viewevent() {
   useEffect(() => {
     if (event_id) {
       getEvent();
+      getTotalinvite();
     }
   }, []);
+  const getTotalinvite = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/gurukulalumni/totalregister/" + event_id);
+      setTotalinvite(res.data.length);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getEvent = async () => {
     const res = await axios.get(
@@ -98,6 +109,12 @@ export default function Viewevent() {
                         <br />
                         <br />
                         <div class="col">
+                        <div class="d-grid text-center">
+                              <span class="text-lg font-weight-bolder">
+                                {Totalinvite}
+                              </span>
+                              <span class="text-sm opacity-8">Total Invitations</span>
+                            </div><br />
                           <div class="d-flex justify-content-center">
                             <div class="d-grid text-center">
                               <span class="text-lg font-weight-bolder">

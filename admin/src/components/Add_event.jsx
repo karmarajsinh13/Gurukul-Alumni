@@ -49,6 +49,7 @@ export default function Add_event() {
   const [description, setDesc] = useState("");
   const [image, setImg] = useState("");
   const [status, setStatus] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const event_id = location.pathname.split("/")[2]
@@ -74,9 +75,44 @@ export default function Add_event() {
     setImg(res.data.image);
     setStatus(res.data.status);
   };
+  const validate = () => {
+    const error = {};
+
+    if (!ename) {
+      error.ename = "Please Enter Event name";
+    }
+  
+     if (!date) {
+       error.date = "Event Date is required!!!";
+     }
+     if (!image) {
+      error.image = "Please Upload Event Image/Thumbnail";
+    }
+  
+     if (!locationn) {
+       error.locationn = "Event Location is required!!!";
+     }
+     if (!description) {
+      error.description = "Please Enter Event Description";
+    }
+  
+     if (!start_time) {
+       error.start_time = "Event start_time is required!!!";
+     }
+     if (!end_time) {
+      error.end_time = "Please Enter Event end_time";
+    }
+  
+     if (!status) {
+       error.status = "Event Is Open or Closed ?";
+     }
+    return error;
+  };
+
   const submitbtn = async (e) => {
     e.preventDefault();
-
+    setFormErrors(validate());
+    if(ename && date && locationn && start_time && end_time && description && image && status){
     const formdata = new FormData();
     formdata.append("ename", ename);
     formdata.append("date", date);
@@ -102,6 +138,7 @@ export default function Add_event() {
     alert(res.data);
     console.log(res.data);
     navigate("/Event");
+  }
   };
   return (
     <div
@@ -138,6 +175,7 @@ export default function Add_event() {
                           defaultValue={ename}
                           onChange={(e) => setName(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.ename}</p>
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -154,6 +192,7 @@ export default function Add_event() {
                           defaultValue={date}
                           onChange={(e) => setDate(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.date}</p>
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -170,6 +209,7 @@ export default function Add_event() {
                           defaultValue={locationn}
                           onChange={(e) => setLocation(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.locationn}</p>
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -186,6 +226,7 @@ export default function Add_event() {
                           defaultValue={image}
                           onChange={(e) => setImg(e.target.files[0])}
                         />
+                         <p style={{ color: "red" }}>{formErrors.image}</p>
                       </div>
                     </div>
                     <div className="col-md-12" >
@@ -205,6 +246,7 @@ export default function Add_event() {
                           rows={10}
                           
                         ></ReactQuill>
+                         <p style={{ color: "red" }}>{formErrors.description}</p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -221,6 +263,7 @@ export default function Add_event() {
                           defaultValue={start_time}
                           onChange={(e) => setStime(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.start_time}</p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -237,6 +280,7 @@ export default function Add_event() {
                           defaultValue={end_time}
                           onChange={(e) => setEtime(e.target.value)}
                         />
+                         <p style={{ color: "red" }}>{formErrors.end_time}</p>
                       </div>
                     </div>
 
@@ -258,6 +302,7 @@ export default function Add_event() {
                           <option value="0">Inactive</option>
                           <option value="1">Active</option>
                         </select>
+                        <p style={{ color: "red" }}>{formErrors.status}</p>
                       </div>
                     </div>
                     <div

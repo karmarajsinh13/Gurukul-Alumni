@@ -20,6 +20,7 @@ export default function Editprofile() {
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const [passing_year, setpassing_year] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     if (user_id) fatchUserName();
@@ -49,40 +50,56 @@ export default function Editprofile() {
     setdob(res.data.dob);
     setgender(res.data.gender);
   };
+  const validate = () => {
+    const error = {};
+
+    if (!username) {
+      error.username = "Please Enter Your First name";
+    }
+    // if (!email) {
+    //   error.email = "Please Enter your email ";
+    // }
+    // if (!password) {
+    //   error.password = "Password is required Broooo!!!";
+    // }
+    return error;
+  };
   const submitbtn = async (e) => {
     e.preventDefault();
-
-    const formdata = new FormData();
-    formdata.append("firstname", firstname);
-    formdata.append("lastname", lastname);
-    formdata.append("username", username);
-    formdata.append("password", password);
-    formdata.append("status", status);
-    formdata.append("photo", photo);
-    formdata.append("address", address);
-    formdata.append("city", city);
-    formdata.append("state", state);
-    formdata.append("email", email);
-    formdata.append("phone", phone);
-    formdata.append("passing_year", passing_year);
-    formdata.append("dob", dob);
-    formdata.append("gender", gender);
-    let res = "";
-    console.log(formdata);
-    if (user_id) {
-      res = await axios.put(
-        "http://localhost:3000/gurukulalumni/user/" + user_id,
-        formdata
-      );
-    } else {
-      res = await axios.post(
-        "http://localhost:3000/gurukulalumni/user",
-        formdata
-      );
+    setFormErrors(validate());
+    if (username) {
+      const formdata = new FormData();
+      formdata.append("firstname", firstname);
+      formdata.append("lastname", lastname);
+      formdata.append("username", username);
+      formdata.append("password", password);
+      formdata.append("status", status);
+      formdata.append("photo", photo);
+      formdata.append("address", address);
+      formdata.append("city", city);
+      formdata.append("state", state);
+      formdata.append("email", email);
+      formdata.append("phone", phone);
+      formdata.append("passing_year", passing_year);
+      formdata.append("dob", dob);
+      formdata.append("gender", gender);
+      let res = "";
+      console.log(formdata);
+      if (user_id) {
+        res = await axios.put(
+          "http://localhost:3000/gurukulalumni/user/" + user_id,
+          formdata
+        );
+      } else {
+        res = await axios.post(
+          "http://localhost:3000/gurukulalumni/user",
+          formdata
+        );
+      }
+      alert(res.data);
+      console.log(res.data);
+      navigate("/Profile");
     }
-    alert(res.data);
-    console.log(res.data);
-    navigate("/Profile");
   };
   const fatchUserName = async () => {
     try {
@@ -98,7 +115,7 @@ export default function Editprofile() {
     navigate("/");
     window.location.reload();
 
-    //navigate("/Login")
+    navigate("/Login");
   };
   const Cancle = () => {
     navigate("/Profile");
@@ -272,11 +289,9 @@ export default function Editprofile() {
                                             setFname(e.target.value)
                                           }
                                         />
+
                                         <label className="mdl-textfield__label ng-binding">
                                           First Name
-                                          <span className="settings__asterisk">
-                                            *
-                                          </span>
                                         </label>
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
@@ -299,9 +314,6 @@ export default function Editprofile() {
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Last Name
-                                          <span className="ng-hide settings__asterisk">
-                                            *
-                                          </span>
                                         </label>
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
@@ -328,9 +340,6 @@ export default function Editprofile() {
 
                                           <label className="mdl-textfield__label ng-binding">
                                             Date of Birth
-                                            <span className="ng-scope settings__asterisk">
-                                              *
-                                            </span>
                                           </label>
                                           <span className="link-detail comment-share mdl-color-text--grey-900 ng-scope">
                                             <i className="icon-clear" />
@@ -374,9 +383,6 @@ export default function Editprofile() {
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           Email
-                                          <span className="settings__asterisk">
-                                            *
-                                          </span>
                                         </label>
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
@@ -396,6 +402,9 @@ export default function Editprofile() {
                                             setUsername(e.target.value)
                                           }
                                         />
+                                        <p style={{ color: "red" }}>
+                                          {formErrors.username}
+                                        </p>
                                         <label className="mdl-textfield__label ng-binding">
                                           Username
                                           <span className="settings__asterisk">
@@ -405,6 +414,37 @@ export default function Editprofile() {
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
                                         </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      id="Passing Year"
+                                      className="ng-scope mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                                    >
+                                      <div className="select-dropdown-div settings__label">
+                                        <div className="upper-label ng-binding">
+                                          Passing Year
+                                        </div>
+                                        <select
+                                          name="status"
+                                          className="select-dropdown ng-pristine ng-untouched ng-valid ng-not-empty"
+                                          style={{ height: "27px" }}
+                                          defaultValue={passing_year}
+                                          onChange={(e) =>
+                                            setpassing_year(e.target.value)
+                                          }
+                                        >
+                                          <option>Year</option>
+                                          <option value="2015">2015</option>
+                                          <option value="2016">2016</option>
+                                          <option value="2017">2017</option>
+                                          <option value="2018">2018</option>
+                                          <option value="2019">2019</option>
+                                          <option value="2020">2020</option>
+                                          <option value="2021">2021</option>
+                                          <option value="2022">2022</option>
+                                          <option value="2023">2023</option>
+                                          <option value="2024">2024</option>
+                                        </select>
                                       </div>
                                     </div>
                                     <div
@@ -447,9 +487,6 @@ export default function Editprofile() {
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           City
-                                          <span className="settings__asterisk">
-                                            *
-                                          </span>
                                         </label>
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
@@ -471,9 +508,6 @@ export default function Editprofile() {
                                         />
                                         <label className="mdl-textfield__label ng-binding">
                                           State
-                                          <span className="settings__asterisk">
-                                            *
-                                          </span>
                                         </label>
                                         <span className="font-12 mdl-color-text--red-600 margin-top-4 abs-pos ng-binding ng-hide">
                                           <i className="icon-error margin-right-6" />
@@ -482,7 +516,7 @@ export default function Editprofile() {
                                     </div>
                                     <div
                                       id="first_name"
-                                      className="ng-scope mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                                      className="ng-scope mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--4-col-phone"
                                     >
                                       <div className="mdl-textfield mdl-js-textfield maximize-width main-family mdl-textfield--floating-label settings__label is-dirty is-upgraded">
                                         <input
@@ -504,20 +538,9 @@ export default function Editprofile() {
 
                                     <input
                                       type="hidden"
-                                      defaultValue={address}
-                                    ></input>
-                                    <input
-                                      type="hidden"
-                                      defaultValue={passing_year}
-                                    ></input>
-                                    <input
-                                      type="hidden"
                                       defaultValue={password}
                                     ></input>
-                                    <input
-                                      type="hidden"
-                                      defaultValue={state}
-                                    ></input>
+
                                     <div className="maximize-width padding-top-8 settings_footer settings_header_footer_common">
                                       <div className="flexbox flex-dir-row justify-content-end">
                                         <button
