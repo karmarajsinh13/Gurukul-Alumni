@@ -278,6 +278,14 @@ export default function Footer() {
             style={{ padding: "0px" }}
           >
             <div className="center-alignment mdl-cell mdl-cell--12-col mini-footer-poweredby">
+              {/* <img
+                src={gurukullogo}
+                style={{
+                  height: "30px",
+            
+                  marginBottom: "10px",
+                }}
+              /> */}
               <div
                 className="mdl-mega-footer__heading ng-binding"
                 style={{
@@ -287,14 +295,6 @@ export default function Footer() {
                 }}
               >
                 Powered by K A R M A Production &nbsp;
-                <img
-                  src={gurukullogo}
-                  style={{
-                    height: "30px",
-                    marginLeft: "700px",
-                    marginBottom: "10px",
-                  }}
-                />
               </div>
             </div>
           </footer>

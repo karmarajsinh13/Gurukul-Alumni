@@ -24,6 +24,7 @@ import Editprofile from "./Components/Editprofile";
 import Editprofileacc from "./Components/Editprofileacc";
 import All_alumni from "./Components/All_alumni";
 import Viewgalleryimg from "./Components/Viewgalleryimg";
+import Viewmorefindalumni from "./Components/Viewmorefindalumni";
 
 const Layout = () => {
   return (
@@ -66,6 +67,7 @@ function App() {
               <Route path="/ViewGallery" element={<ViewGallery />} />
               <Route path="/ViewGalleryimg" element={<Viewgalleryimg />} />
               <Route path="/ViewGalleryimg/:id" element={<Viewgalleryimg />} />
+              <Route path="/Viewmorefindalumni" element={<Viewmorefindalumni />} />
             </Routes>
             <Footer></Footer>
           </>

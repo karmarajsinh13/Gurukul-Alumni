@@ -90,7 +90,7 @@ export default function Contact() {
   return (
     <div>
       <main>
-        <button
+        {/* <button
           ng-show="info.show.aboutDesc || info.show.messages"
           className="mdl-button mdl-js-button mdl-button--fab mdl-js-rippleeffect mdl-button--colored navigation-button mdl-cell--hide-tablet mdl-cell--hide-phone animated fadeInUpBig"
           style={{ height: "40px", width: "40px", minWidth: "20px" }}
@@ -103,7 +103,7 @@ export default function Contact() {
             ng-show="!changeArrow"
           />
           <i className="icon-keyboard_arrow_up" ng-show="changeArrow" />
-        </button>
+        </button> */}
 
         <div
           className="about-strip-change autoscroll-class mdl-color--primary-dark"
@@ -166,7 +166,7 @@ export default function Contact() {
                       className="font-16 mdl-typography--font-light mdl-color-text--grey-600 link-detail ng-binding ng-scope"
                       ng-repeat="phone in contact_details.phone.split(',')"
                     >
-                      +91 9999999999
+                      +91 7265992371
                     </a>
                   </div>
                 </div>

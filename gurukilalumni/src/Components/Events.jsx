@@ -81,7 +81,7 @@ export default function Events() {
     <div className="page-strip-change page-strip-change-themed mdl-color--grey-100 mdl-color--grey-100-themed">
       <div className="mdl-grid change-size main-family">
         <div className="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--hide-phone category-adjust">
-          <div className="mdl-color--grey-300 margin-bottom-24">
+          {/* <div className="mdl-color--grey-300 margin-bottom-24">
             <input
               className="mdl-typography--font-light search-input-box ng-pristine ng-untouched ng-valid ng-empty"
               type="text"
@@ -99,7 +99,7 @@ export default function Events() {
                 style={{ verticalAlign: "middle" }}
               />
             </span>
-          </div>
+          </div> */}
           <div className="sub-title1 mdl-typography--font-light ng-binding">
             EVENT CATEGORIES
           </div>
@@ -156,7 +156,7 @@ export default function Events() {
               className="ng-hide"
             ></div>
 
-            <li
+            {/* <li
               ng-if="$root.app_data.same_com_log"
               className="mdl-color--grey-300 font-16 category-list ng-scope"
               ng-click="eventsFetch('attended', 1)"
@@ -168,7 +168,7 @@ export default function Events() {
               <span className="mdl-color-text--grey-600 category-count ng-binding">
                 (0)
               </span>
-            </li>
+            </li> */}
           </ul>
         </div>
 

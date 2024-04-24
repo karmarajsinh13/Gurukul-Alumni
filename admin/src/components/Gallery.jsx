@@ -108,7 +108,7 @@ export default function Gallery() {
                               type="button"
 
                             >
-                              <Link to={`/All_gallery/` + gallery.img_id}>View All</Link>
+                              <Link to={`/All_gallery/` + gallery.img_id}>View</Link>
                             </button>
                             &nbsp;&nbsp;
                             <button

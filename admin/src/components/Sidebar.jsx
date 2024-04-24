@@ -7,7 +7,7 @@ import {
   AiOutlineProfile,
 } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
-import { RiGalleryLine } from "react-icons/ri";
+import { RiGalleryLine, RiUser2Fill, RiUser3Fill, RiUser3Line } from "react-icons/ri";
 import {
   PiBuildings,
   PiContactlessPaymentBold,
@@ -81,7 +81,7 @@ export default function Sidebar() {
     {
       path: "/Users",
       name: "Users",
-      icon: <CiUser size={20} color="#FB8340" />,
+      icon: <RiUser3Line size={20} color="#FB8340" />,
     },
     {
       path: "/Gallery",

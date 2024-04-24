@@ -8,6 +8,7 @@ import {
 } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function All_alumni() {
   const [user, setUser] = useState([]);
@@ -177,16 +178,16 @@ export default function All_alumni() {
                             className="abs-pos"
                             style={{ right: "4px", top: "-24px" }}
                           >
-                            <button
+                            {/* <button
                               className="mdl-button mdl-js-button mdl-button--fab share-social mdl-color--white mdl-color-text--accent mdl-shadow--2dp font-16 float-right"
                               ng-click="messageBtnClick(profile.basic_info.name,profile.basic_info.uui,profile.basic_info.uid,$event)"
                               ng-show="profile.notMe"
                               title="Send Message to 21st century drpatel7171"
                               data-upgraded=",MaterialButton"
                             >
-                              {/* <i className="icon-chat1 new-icon margin-auto font-18" /> */}
+                  
                               <RiMessage2Fill className="new-icon margin-auto font-18" />
-                            </button>
+                            </button> */}
                           </div>
                           <div className="margin-bottom-4 mdl-color-text--primary-dark mdl-typography--font-medium cursor-pointer font-16">
                             <a
@@ -222,10 +223,11 @@ export default function All_alumni() {
                           </div>
                           <div className="flex-grow-3" />
                         </div>
-                        <div
+                        {/* <div
                           ng-show="$root.app_data.same_com_log && profile.basic_info.is_lost_user!=1 && profile.notMe"
                           className="top-border"
                         >
+                          <Link to="/Viewmorefindalumni">
                           <div className="mdl-button maximize-width mdl-typography--font-semibold ng-binding">
                             <button
                               className="mdl-button maximize-width mdl-typography--font-semibold ng-binding"
@@ -236,7 +238,8 @@ export default function All_alumni() {
                               <i className="margin-left-4 icon-keyboard_arrow_right font-16 upper-icons" />
                             </button>
                           </div>
-                        </div>
+                          </Link>
+                        </div> */}
                       </div>
                     </div>
                   ))}
