@@ -1,6 +1,12 @@
 import React from "react";
 import gurukullogo from "../gurukullogo.png";
 import { Link } from "react-router-dom";
+import {
+  RiFacebookBoxFill,
+  RiInstagramFill,
+  RiTwitterFill,
+  RiYoutubeFill,
+} from "react-icons/ri";
 
 export default function Footer() {
   return (
@@ -113,153 +119,94 @@ export default function Footer() {
                 style={{ marginBottom: "20px" }}
               >
                 <a
-                  ng-repeat="(data_index, data) in ::moduleData.IconRepeatingData | orderBy:'order'"
-                  ng-if="data.displayCondition"
-                  ng-href="https://www.facebook.com/Gyanmajari-Vidyapith-109904388452507"
-                  target="_blank"
                   className="margin-right-4 share-social flexbox-inline align-items-center justify-content-center mdl-button mdl-js-button mdl-button--fab mdl-color--grey-300 footer-small-button font-16 "
-                  ng-attr-style="{{ (data.iconParentDivStyles) ? data.iconParentDivStyles : ''}} {{ (metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles) ? metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles : ''}}"
-                  href="https://www.facebook.com/Gyanmajari-Vidyapith-109904388452507"
-                  data-upgraded=",MaterialButton"
+                  href="https://www.facebook.com/"
                 >
-                  <i
-                    ng-if="!data.iconImg"
-                    className="icon-facebook"
-                    ng-attr-style="{{ (data.iconStyles) ? data.iconStyles : ''}}"
-                  />
+                  <RiFacebookBoxFill className="icon-facebook" />
                 </a>
                 <a
-                  ng-repeat="(data_index, data) in ::moduleData.IconRepeatingData | orderBy:'order'"
-                  ng-if="data.displayCondition"
-                  ng-href="https://twitter.com/Gyanmanjaribhav"
-                  target="_blank"
                   className="margin-right-4 share-social flexbox-inline align-items-center justify-content-center mdl-button mdl-js-button mdl-button--fab mdl-color--grey-300 footer-small-button font-16 "
-                  ng-attr-style="{{ (data.iconParentDivStyles) ? data.iconParentDivStyles : ''}} {{ (metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles) ? metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles : ''}}"
-                  href="https://twitter.com/Gyanmanjaribhav"
-                  data-upgraded=",MaterialButton"
+                  href="https://twitter.com/"
                 >
-                  <i
-                    ng-if="!data.iconImg"
-                    className="icon-x"
-                    ng-attr-style="{{ (data.iconStyles) ? data.iconStyles : ''}}"
-                  />
+                  <RiTwitterFill className="icon-x" />
                 </a>
+
                 <a
-                  ng-repeat="(data_index, data) in ::moduleData.IconRepeatingData | orderBy:'order'"
-                  ng-if="data.displayCondition"
-                  ng-href="https://www.linkedin.com/company/gyanmanjari-vidyapith/"
-                  target="_blank"
                   className="margin-right-4 share-social flexbox-inline align-items-center justify-content-center mdl-button mdl-js-button mdl-button--fab mdl-color--grey-300 footer-small-button font-16  "
-                  ng-attr-style="{{ (data.iconParentDivStyles) ? data.iconParentDivStyles : ''}} {{ (metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles) ? metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles : ''}}"
-                  href="https://www.linkedin.com/company/gyanmanjari-vidyapith/"
-                  data-upgraded=",MaterialButton"
+                  href="https://www.youtube.com/"
                 >
-                  <i
-                    ng-if="!data.iconImg"
-                    className="icon-linkedin"
-                    ng-attr-style="{{ (data.iconStyles) ? data.iconStyles : ''}}"
-                  />
+                  <RiYoutubeFill className="icon-User_Profile_Play" />
                 </a>
                 <a
-                  ng-repeat="(data_index, data) in ::moduleData.IconRepeatingData | orderBy:'order'"
-                  ng-if="data.displayCondition"
-                  ng-href="https://www.youtube.com/channel/UCPYdAnPygpfnQcbP6Yx24wg"
-                  target="_blank"
-                  className="margin-right-4 share-social flexbox-inline align-items-center justify-content-center mdl-button mdl-js-button mdl-button--fab mdl-color--grey-300 footer-small-button font-16  "
-                  ng-attr-style="{{ (data.iconParentDivStyles) ? data.iconParentDivStyles : ''}} {{ (metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles) ? metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles : ''}}"
-                  href="https://www.youtube.com/channel/UCPYdAnPygpfnQcbP6Yx24wg"
-                  data-upgraded=",MaterialButton"
-                >
-                  <i
-                    ng-if="!data.iconImg"
-                    className="icon-User_Profile_Play"
-                    ng-attr-style="{{ (data.iconStyles) ? data.iconStyles : ''}}"
-                  />
-                </a>
-                <a
-                  ng-repeat="(data_index, data) in ::moduleData.IconRepeatingData | orderBy:'order'"
-                  ng-if="data.displayCondition"
-                  ng-href="https://www.instagram.com/gca2018bvn/"
-                  target="_blank"
                   className="margin-right-4 share-social flexbox-inline align-items-center justify-content-center mdl-button mdl-js-button mdl-button--fab mdl-color--grey-300 footer-small-button font-16 "
-                  ng-attr-style="{{ (data.iconParentDivStyles) ? data.iconParentDivStyles : ''}} {{ (metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles) ? metadata_outer_footer_design.tConfiguration.iconParentDivGeneralStyles : ''}}"
-                  href="https://www.instagram.com/gca2018bvn/"
-                  data-upgraded=",MaterialButton"
+                  href="https://www.instagram.com/karmarajsinh_13/"
                 >
-                  <i
-                    ng-if="!data.iconImg"
-                    className="icon-instagram"
-                    ng-attr-style="{{ (data.iconStyles) ? data.iconStyles : ''}}"
-                  />
+                  <RiInstagramFill className="icon-instagram" />
                 </a>
               </div>
               <div
-                ng-if="!$root.isCordova"
+               
                 className="center-alignment"
-                ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkParentDivStyles) ? metadata_outer_footer_design.tConfiguration.linkParentDivStyles : ''}}"
-              >
+               >
                 <ul
                   className="mdl-mega-footer__link-list"
-                  ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkContainerStyles) ? metadata_outer_footer_design.tConfiguration.linkContainerStyles : ''}}"
-                  style={{ marginBottom: "10px" }}
+                 style={{ marginBottom: "10px" }}
                 >
-                   <Link to="/">
-                  <li
-                    ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
-                    className="inline-block font-16 mdl-color-text--grey-300 footer-font "
-                    ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
-                    ng-if="tab.displayCondition"
-                  >
-                    <div
-                      ng-click="card_clicked(tab.button)"
-                      className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
-                      ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkGeneralStyles) ? metadata_outer_footer_design.tConfiguration.linkGeneralStyles : ''}} {{ (data.linkStyles) ? data.linkStyles : ''}}"
+                  <Link to="/">
+                    <li
+                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
+                      
                     >
-                      Home
-                    </div>
-                  </li>
+                      <div
+                       
+                        className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
+                        >
+                        Home
+                      </div>
+                    </li>
                   </Link>
                   <Link to="/About">
-                  <li
-                    ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
-                    className="inline-block font-16 mdl-color-text--grey-300 footer-font "
-                    ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
-                    ng-if="tab.displayCondition"
-                    style={{
-                      marginLeft: "10px",
-                      borderLeft: "1px solid #999999",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    <div
-                      ng-click="card_clicked(tab.button)"
-                      className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
-                      ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkGeneralStyles) ? metadata_outer_footer_design.tConfiguration.linkGeneralStyles : ''}} {{ (data.linkStyles) ? data.linkStyles : ''}}"
+                    <li
+                      ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
+                      className="inline-block font-16 mdl-color-text--grey-300 footer-font "
+                      ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
+                      ng-if="tab.displayCondition"
+                      style={{
+                        marginLeft: "10px",
+                        borderLeft: "1px solid #999999",
+                        paddingLeft: "10px",
+                      }}
                     >
-                      About
-                    </div>
-                  </li>
+                      <div
+                        ng-click="card_clicked(tab.button)"
+                        className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
+                        ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkGeneralStyles) ? metadata_outer_footer_design.tConfiguration.linkGeneralStyles : ''}} {{ (data.linkStyles) ? data.linkStyles : ''}}"
+                      >
+                        About
+                      </div>
+                    </li>
                   </Link>
                   <Link to="/Contact">
-                  <li
-                    ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
-                    className="inline-block font-16 mdl-color-text--grey-300 footer-font "
-                    ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
-                    ng-if="tab.displayCondition"
-                    style={{
-                      marginLeft: "10px",
-                      borderLeft: "1px solid #999999",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    <div
-                      ng-click="card_clicked(tab.button)"
-                      className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
-                      ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkGeneralStyles) ? metadata_outer_footer_design.tConfiguration.linkGeneralStyles : ''}} {{ (data.linkStyles) ? data.linkStyles : ''}}"
+                    <li
+                      ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
+                      className="inline-block font-16 mdl-color-text--grey-300 footer-font "
+                      ng-attr-style="{{ tab.order > 1  ? metadata_outer_footer_design.tConfiguration.linkParentGeneralStyles : ''}}"
+                      ng-if="tab.displayCondition"
+                      style={{
+                        marginLeft: "10px",
+                        borderLeft: "1px solid #999999",
+                        paddingLeft: "10px",
+                      }}
                     >
-                      Contact
-                    </div>
-                  </li></Link>
+                      <div
+                        ng-click="card_clicked(tab.button)"
+                        className="mdl-typography--font-regular mdl-typography--text-uppercase cursor-pointer "
+                        ng-attr-style="{{ (metadata_outer_footer_design.tConfiguration.linkGeneralStyles) ? metadata_outer_footer_design.tConfiguration.linkGeneralStyles : ''}} {{ (data.linkStyles) ? data.linkStyles : ''}}"
+                      >
+                        Contact
+                      </div>
+                    </li>
+                  </Link>
                   {/* <li
                     ng-repeat="(data_index,tab) in ::moduleData.LinkRepeatingData | orderBy:'order'"
                     className="inline-block font-16 mdl-color-text--grey-300 footer-font "
@@ -342,9 +289,12 @@ export default function Footer() {
                 Powered by K A R M A Production &nbsp;
                 <img
                   src={gurukullogo}
-                  style={{ height: "30px" , marginLeft:"700px" , marginBottom:"10px" }}
+                  style={{
+                    height: "30px",
+                    marginLeft: "700px",
+                    marginBottom: "10px",
+                  }}
                 />
-               
               </div>
             </div>
           </footer>

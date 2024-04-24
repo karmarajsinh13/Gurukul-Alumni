@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 export const Totalinvite = (req, res) => {
-  const query1 = "SELECT sum(invite) FROM event_participate  where event_id=?";
+  const query1 = "SELECT sum(invite) FROM event_participate  where event_id=3";
 
   db.query(query1, [req.params.id], (err, data) => {
     if (err) return res.json(err);

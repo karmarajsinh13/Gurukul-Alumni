@@ -21,8 +21,9 @@ export default function Viewevent() {
   }, []);
   const getTotalinvite = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/gurukulalumni/totalregister/" + event_id);
+      const res = await axios.get("http://localhost:3000/gurukulalumni/totalregister" );
       setTotalinvite(res.data.length);
+      console.log(res.data.length);
       console.log(res.data);
     } catch (error) {
       console.log(error);
